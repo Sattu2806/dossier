@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0b0d10;
+  --panel: #12151a;
+  --panel-2: #171b22;
+  --line: #232932;
+  --text: #e7ecf3;
+  --muted: #8b95a5;
+  --accent: #6ee7b7;
+  --accent-dim: #2b7a62;
+  --warn: #fbbf24;
+  --bad: #f87171;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The report is the product: give it real typographic care rather than
+   letting Tailwind's resets flatten headings and lists. */
+.report {
+  line-height: 1.7;
+}
+.report h1 {
+  font-size: 1.6rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+.report h2 {
+  font-size: 1.05rem;
+  font-weight: 620;
+  letter-spacing: -0.01em;
+  margin: 1.9rem 0 0.6rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--line);
+}
+.report p {
+  margin-bottom: 1rem;
+  color: #d3dae5;
+}
+.report ul,
+.report ol {
+  margin: 0 0 1rem 1.15rem;
+  list-style: disc;
+  color: #d3dae5;
+}
+.report li {
+  margin-bottom: 0.35rem;
+}
+.report strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.report em {
+  color: var(--muted);
+}
+.report code {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.85em;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+.report a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-dim);
+  word-break: break-word;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.82);
+  }
+}
+.pulse {
+  animation: pulse-dot 1.15s ease-in-out infinite;
+}
+
+::selection {
+  background: var(--accent-dim);
+  color: #fff;
+}
