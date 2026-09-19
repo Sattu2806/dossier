@@ -20,7 +20,7 @@ services:
   api:
     build: .
     ports:
-      - "8500:8500"
+      - "${API_PORT:-8500}:8500"
     environment:
       # Only the database URL changes between SQLite and Postgres — the point
       # of using SQLAlchemy Core behind one module.
@@ -38,6 +38,20 @@ services:
       - dossier-data:/data
     depends_on:
       db:
+        condition: service_healthy
+
+  web:
+    build: ./web
+    ports:
+      # 3700 on the host because 3000 is the default for every other Next.js
+      # app you might have running; the container still listens on 3000.
+      - "${WEB_PORT:-3700}:3000"
+    environment:
+      # Service name, not localhost: inside the compose network the API is
+      # reachable by name, and it needs no published port for this to work.
+      DOSSIER_API_URL: http://api:8500
+    depends_on:
+      api:
         condition: service_healthy
 
 volumes:

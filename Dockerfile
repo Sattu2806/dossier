@@ -15,6 +15,9 @@ COPY pyproject.toml uv.lock ./
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-install-project --no-dev --extra postgres
 
+# README.md is required: pyproject declares `readme = "README.md"`, so the
+# build backend reads it when installing the project itself.
+COPY README.md ./
 COPY src/ ./src/
 COPY evals/topics.json ./evals/topics.json
 RUN --mount=type=cache,target=/root/.cache/uv \
