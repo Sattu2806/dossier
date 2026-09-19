@@ -98,6 +98,19 @@ class ResearchRequest(BaseModel):
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     db.init(app.state.db)
+
+    # Seed the first user from secrets, for hosts with no shell.
+    email = os.getenv("DOSSIER_BOOTSTRAP_EMAIL")
+    key = os.getenv("DOSSIER_BOOTSTRAP_KEY")
+    if email and key:
+        created = db.ensure_user(
+            app.state.db,
+            email,
+            key,
+            daily_token_limit=int(os.getenv("DOSSIER_BOOTSTRAP_TOKEN_LIMIT", str(db.DAILY_TOKEN_LIMIT))),
+        )
+        logger.info("bootstrap user %s: %s", email, "created" if created else "already present")
+
     yield
 
 

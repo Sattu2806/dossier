@@ -162,3 +162,57 @@ def test_usage_is_recorded_against_the_user(client, database, auth):
     db.finish_run(database, run_id, tokens=1234)
 
     assert client.get("/api/me", headers=auth).json()["tokens_used_today"] == 1234
+
+
+# --- bootstrapping a user without a shell -------------------------------------
+
+
+def test_a_user_can_be_seeded_from_secrets(monkeypatch, database):
+    monkeypatch.setenv("DOSSIER_BOOTSTRAP_EMAIL", "demo@dossier.app")
+    monkeypatch.setenv("DOSSIER_BOOTSTRAP_KEY", "dsr_seeded_key")
+    monkeypatch.setenv("DOSSIER_BOOTSTRAP_TOKEN_LIMIT", "100000")
+
+    app = api.create_app(database=database, graph=build_graph(**fakes.FAKE_NODES))
+    with TestClient(app) as client:
+        body = client.get("/api/me", headers={"Authorization": "Bearer dsr_seeded_key"}).json()
+
+    assert body["email"] == "demo@dossier.app"
+    assert body["daily_token_limit"] == 100000
+
+
+def test_seeding_twice_is_harmless(database):
+    assert db.ensure_user(database, "demo@dossier.app", "dsr_k") is True
+    assert db.ensure_user(database, "demo@dossier.app", "dsr_k") is False  # restart, same key
+    assert db.user_for_key(database, "dsr_k")["email"] == "demo@dossier.app"
+
+
+def test_rotating_the_bootstrap_key_replaces_it(database):
+    db.ensure_user(database, "demo@dossier.app", "dsr_old")
+    db.ensure_user(database, "demo@dossier.app", "dsr_new")
+
+    assert db.user_for_key(database, "dsr_old") is None
+    assert db.user_for_key(database, "dsr_new")["email"] == "demo@dossier.app"
+
+
+def test_usage_is_counted_from_utc_midnight_not_local(database):
+    from datetime import UTC, datetime, timedelta
+
+    user_id, key = db.create_user(database, "tz@example.com")
+    db.start_run(database, "run-old", user_id, "yesterday's topic")
+    db.start_run(database, "run-new", user_id, "today's topic")
+
+    # One run from 30 hours ago, one from an hour ago. Only the recent one
+    # counts, whatever the server's local timezone happens to be.
+    with database.begin() as connection:
+        connection.execute(
+            db.runs.update()
+            .where(db.runs.c.id == "run-old")
+            .values(created_at=datetime.now(UTC) - timedelta(hours=30), tokens=5000)
+        )
+        connection.execute(
+            db.runs.update()
+            .where(db.runs.c.id == "run-new")
+            .values(created_at=datetime.now(UTC) - timedelta(hours=1), tokens=700)
+        )
+
+    assert db.tokens_used_today(database, user_id) == 700

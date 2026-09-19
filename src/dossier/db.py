@@ -10,7 +10,7 @@ import hashlib
 import json
 import os
 import secrets
-from datetime import UTC, date, datetime
+from datetime import UTC, datetime
 from pathlib import Path
 
 from sqlalchemy import (
@@ -98,6 +98,33 @@ def create_user(db, email: str, *, daily_token_limit: int = DAILY_TOKEN_LIMIT) -
     return int(result.inserted_primary_key[0]), api_key
 
 
+def ensure_user(db, email: str, api_key: str, *, daily_token_limit: int = DAILY_TOKEN_LIMIT) -> bool:
+    """Create a user with a known key if they do not already exist.
+
+    Free hosts (Hugging Face Spaces, Render free) give you no shell, so
+    `dossier user` cannot be run after deploying. This lets the first user be
+    seeded from a secret at startup instead. Idempotent: restarting a container
+    must not fail, and must not rotate a working key.
+    """
+    if user_for_key(db, api_key):
+        return False
+    with db.begin() as connection:
+        existing = connection.execute(select(users.c.id).where(users.c.email == email)).first()
+        if existing:
+            # Same person, new key: replace the hash rather than refusing to start.
+            connection.execute(users.update().where(users.c.email == email).values(api_key_hash=hash_key(api_key)))
+            return False
+        connection.execute(
+            users.insert().values(
+                email=email,
+                api_key_hash=hash_key(api_key),
+                daily_token_limit=daily_token_limit,
+                created_at=datetime.now(UTC),
+            )
+        )
+    return True
+
+
 def user_for_key(db, api_key: str) -> dict | None:
     with db.connect() as connection:
         row = connection.execute(select(users).where(users.c.api_key_hash == hash_key(api_key))).mappings().first()
@@ -105,7 +132,15 @@ def user_for_key(db, api_key: str) -> dict | None:
 
 
 def tokens_used_today(db, user_id: int) -> int:
-    start = datetime.combine(date.today(), datetime.min.time())
+    """Usage since UTC midnight.
+
+    Deliberately UTC and not local time: `created_at` is stored in UTC, so a
+    local-midnight boundary makes the two disagree for as many hours as you
+    are offset from UTC. Found by tests failing at 01:30 IST, when local
+    "today" had started but UTC was still on yesterday — every run vanished
+    from the count and the daily budget silently reset.
+    """
+    start = datetime.now(UTC).replace(hour=0, minute=0, second=0, microsecond=0)
     with db.connect() as connection:
         total = connection.execute(
             select(func.coalesce(func.sum(runs.c.tokens), 0)).where(
