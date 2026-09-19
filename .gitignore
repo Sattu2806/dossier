@@ -1,0 +1,24 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# secrets
+.env
+
+# personal experiments (not part of the app)
+playground/
+
+# local state: vector index, sqlite database
+data/
+
+# tool caches
+.pytest_cache/
+.ruff_cache/
+.DS_Store
