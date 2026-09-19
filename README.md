@@ -150,11 +150,16 @@ uv run dossier mcp
 
 Tools: `search_web`, `search_documents`, `document_library`, `research`.
 
-### Docker
+### Docker and deployment
 
 ```bash
 docker compose up --build     # API on Postgres instead of SQLite
 ```
+
+Deployment notes are in [docs/DEPLOY.md](docs/DEPLOY.md). The short version:
+the API runs the graph *after* returning `202` and keeps its vector index on
+disk, so it needs a long-lived container with a volume — not a serverless
+function. The web app has no such constraint.
 
 Evals:
 

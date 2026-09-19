@@ -276,7 +276,14 @@ async def _execute(app: FastAPI, run_id: str, topic: str, user: dict) -> None:
 app = None  # built by serve(), so importing this module never touches a database
 
 
+def port() -> int:
+    """PORT is injected by most hosts (Railway, Render, Heroku, Cloud Run) and
+    must win: binding to the wrong port is the classic "deploy succeeds, health
+    check fails" afternoon."""
+    return int(os.getenv("PORT") or os.getenv("DOSSIER_PORT", "8500"))
+
+
 def serve() -> None:
     import uvicorn
 
-    uvicorn.run(create_app(), host=os.getenv("DOSSIER_HOST", "127.0.0.1"), port=int(os.getenv("DOSSIER_PORT", "8500")))
+    uvicorn.run(create_app(), host=os.getenv("DOSSIER_HOST", "127.0.0.1"), port=port())

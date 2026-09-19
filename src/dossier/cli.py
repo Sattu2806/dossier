@@ -80,7 +80,7 @@ def main() -> None:
     commands.add_parser("mcp", help="serve the research tools over MCP (stdio)")
 
     serve_cmd = commands.add_parser("serve", help="run the HTTP API")
-    serve_cmd.add_argument("--port", type=int, default=int(os.getenv("DOSSIER_PORT", "8500")))
+    serve_cmd.add_argument("--port", type=int, help="defaults to $PORT, then $DOSSIER_PORT, then 8500")
 
     user_cmd = commands.add_parser("user", help="create an API user")
     user_cmd.add_argument("email")
@@ -113,9 +113,9 @@ def main() -> None:
     elif args.command == "serve":
         import uvicorn
 
-        from dossier.api import create_app
+        from dossier.api import create_app, port
 
-        uvicorn.run(create_app(), host=os.getenv("DOSSIER_HOST", "127.0.0.1"), port=args.port)
+        uvicorn.run(create_app(), host=os.getenv("DOSSIER_HOST", "127.0.0.1"), port=args.port or port())
     elif args.command == "user":
         create_api_user(args.email, args.daily_token_limit)
 
