@@ -20,7 +20,75 @@ long-lived container.
 
 The **web app** has no such constraints and could live anywhere.
 
-## Recommended: Railway, one project, three services
+## Free: Hugging Face Spaces + Neon + Vercel
+
+No card, three signups, ~20 minutes. This is the cheapest arrangement that
+still satisfies the two constraints above.
+
+| piece | host | why it fits |
+|---|---|---|
+| API | Hugging Face Space (Docker) | free CPU Basic is 2 vCPU / 16 GB RAM, runs any Dockerfile, supports secrets, and only pauses after **48 hours** idle |
+| Postgres | Neon free | the Space's disk is wiped on rebuild, so runs and users must live elsewhere |
+| Web | Vercel free | its natural home |
+
+What you give up: uploaded documents do not survive a Space rebuild (no
+persistent volume on the free tier), and the Space pauses after two idle days,
+taking ~30s to wake.
+
+### 1. Neon — the database
+
+Sign up at [neon.tech](https://neon.tech) with GitHub, create a project, copy
+the connection string, and **change the scheme** from `postgresql://` to
+`postgresql+psycopg://`. SQLAlchemy needs the driver named; this is the single
+most common way this deploy fails.
+
+### 2. The Space — the API
+
+Create a **Docker** Space at [huggingface.co/new-space](https://huggingface.co/new-space)
+(name it `dossier`, hardware CPU basic — free). Then push the two files from
+`deploy/huggingface/` into it:
+
+```bash
+git clone https://huggingface.co/spaces/<your-hf-user>/dossier /tmp/dossier-space
+cp deploy/huggingface/{Dockerfile,README.md} /tmp/dossier-space/
+cd /tmp/dossier-space && git add -A && git commit -m "Deploy dossier API" && git push
+```
+
+That Dockerfile installs the package from GitHub, so the Space repo stays two
+files and every rebuild picks up your latest `main`.
+
+Then set these under **Settings → Variables and secrets**:
+
+| secret | value |
+|---|---|
+| `GEMINI_API_KEY` | your key |
+| `TAVILY_API_KEY` | your key |
+| `DOSSIER_DATABASE_URL` | the Neon string, with `postgresql+psycopg://` |
+| `DOSSIER_BOOTSTRAP_EMAIL` | `demo@dossier.app` |
+| `DOSSIER_BOOTSTRAP_KEY` | invent one, e.g. `dsr_` plus random text |
+| `DOSSIER_BOOTSTRAP_TOKEN_LIMIT` | `100000` |
+
+A Space has **no shell**, so `dossier user` cannot be run there. The bootstrap
+pair seeds that first user at startup instead — idempotent, so restarts are
+safe and re-deploys do not rotate a working key.
+
+Check it: `curl https://<your-hf-user>-dossier.hf.space/health`
+
+### 3. Vercel — the web app
+
+Import the GitHub repo at [vercel.com/new](https://vercel.com/new), set **Root
+Directory** to `web`, and add one environment variable:
+
+`DOSSIER_API_URL = https://<your-hf-user>-dossier.hf.space`
+
+Open the deployed site and paste the bootstrap key into the connect screen.
+
+One caveat: the SSE proxy route holds a connection open for the length of a
+run, and Hobby functions cap at 60s. A three-draft run can be cut — it
+degrades rather than breaks, because `EventSource` reconnects and
+`RunChannel` replays the events that were missed.
+
+## Paid, if the free tier chafes: Railway, one project, three services
 
 Railway is the least ceremony for this shape: managed Postgres, volumes and
 Dockerfile builds in one project, with private networking between services and

@@ -113,8 +113,9 @@ def main() -> None:
     elif args.command == "serve":
         import uvicorn
 
-        from dossier.api import create_app, port
+        from dossier.api import configure_logging, create_app, port
 
+        configure_logging()
         uvicorn.run(create_app(), host=os.getenv("DOSSIER_HOST", "127.0.0.1"), port=args.port or port())
     elif args.command == "user":
         create_api_user(args.email, args.daily_token_limit)

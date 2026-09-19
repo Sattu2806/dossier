@@ -296,7 +296,19 @@ def port() -> int:
     return int(os.getenv("PORT") or os.getenv("DOSSIER_PORT", "8500"))
 
 
+def configure_logging() -> None:
+    """Without this, our logger.info calls go nowhere: nothing configures the
+    root logger, so only WARNING and above reach stderr via the last-resort
+    handler. On a hosted box the logs are all you get, and "which searches
+    failed, what the critic scored" is exactly what you need at 2am."""
+    logging.basicConfig(
+        level=os.getenv("DOSSIER_LOG_LEVEL", "INFO").upper(),
+        format="%(asctime)s %(levelname)-7s %(name)s: %(message)s",
+    )
+
+
 def serve() -> None:
     import uvicorn
 
+    configure_logging()
     uvicorn.run(create_app(), host=os.getenv("DOSSIER_HOST", "127.0.0.1"), port=port())
