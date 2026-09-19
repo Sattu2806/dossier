@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      topics:
+        description: How many eval topics to run
+        default: "10"
+  schedule:
+    - cron: "0 3 * * *"  # nightly: catches drift from model updates, not just our own changes
+
+jobs:
+  test:
+    # The whole suite runs on fakes: no API keys, no network, no cost. That is
+    # the property that makes CI on every push possible at all.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv sync --locked
+      - name: Lint
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+      - name: Tests
+        run: uv run pytest -q
+      - name: Smoke-test the pipeline with no keys
+        run: uv run dossier run --offline "solid-state batteries"
+
+  evals:
+    # Evals cost money and need keys, so they do not run on every push.
+    # Nightly, or on demand, with the results kept as an artifact so a
+    # regression in scores is visible in the run history.
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv sync --locked
+      - name: Run the eval set
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          LANGSMITH_TRACING: "true"
+          LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
+          LANGSMITH_PROJECT: dossier-ci
+        run: uv run dossier eval --limit ${{ inputs.topics || 10 }}
+      - name: Check the quality floor
+        run: |
+          uv run python - <<'PY'
+          import json, sys
+          from pathlib import Path
+          summary = json.loads(Path("evals/results/summary.json").read_text())
+          print(json.dumps(summary, indent=2))
+          floors = {"judge_groundedness": 4.0, "judge_completeness": 4.0, "judge_usefulness": 3.5}
+          failures = [
+              f"{metric}: {summary[metric]} < {floor}"
+              for metric, floor in floors.items()
+              if summary.get(metric) is not None and summary[metric] < floor
+          ]
+          if summary["failed_runs"]:
+              failures.append(f"{summary['failed_runs']} runs failed outright")
+          if failures:
+              sys.exit("Quality regression:\n  " + "\n  ".join(failures))
+          print("Quality floor met.")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eval-results
+          path: evals/results/
+

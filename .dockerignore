@@ -1,0 +1,15 @@
+.venv/
+.git/
+.github/
+data/
+evals/results*/
+playground/
+web/node_modules/
+web/.next/
+docs/
+tests/
+**/__pycache__/
+*.pyc
+.env
+.pytest_cache/
+.ruff_cache/
