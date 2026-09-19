@@ -1,0 +1,7 @@
+topic,category,revision_count,critique_passed,word_count,sources_cited,citations_invented,notes_missing,duration_s,error,groundedness,completeness,coherence,usefulness
+solid-state batteries,mainstream-tech,2,True,846,12,0,4,21.2,,5,5,5,5
+Rust vs Go for backend services,comparison,1,True,596,9,0,4,10.8,,5,5,5,5
+CRISPR base editing safety in human trials,science,1,True,719,9,0,4,13.9,,5,5,5,5
+unit economics of vertical SaaS companies,business,1,True,592,10,0,4,12.2,,5,3,5,4
+the collapse of the Bretton Woods system,history,3,False,665,9,0,4,32.0,,5,2,5,3
+artificial intelligence,too-broad,1,True,612,9,0,4,10.5,,5,5,5,5

@@ -1,0 +1,169 @@
+{
+  "topic": "unit economics of vertical SaaS companies",
+  "error": null,
+  "duration_s": 12.2,
+  "sub_questions": [
+    "What are the typical customer acquisition cost (CAC) and lifetime value (LTV) benchmarks for vertical SaaS companies?",
+    "How do embedded fintech and payment monetization strategies impact the revenue per user for vertical SaaS businesses?",
+    "What are the primary churn drivers and retention strategies unique to vertical SaaS software models?",
+    "How do gross margins for vertical SaaS companies compare to traditional horizontal SaaS business models?"
+  ],
+  "notes_ok": 12,
+  "notes_missing": 4,
+  "sources_available": 12,
+  "sources_cited": 10,
+  "citations_invented": 0,
+  "word_count": 592,
+  "revision_count": 1,
+  "critique_passed": true,
+  "critique_scores": {
+    "groundedness": 5,
+    "completeness": 5,
+    "coherence": 5
+  },
+  "report": "# Unit Economics of Vertical SaaS Companies\n\nVertical SaaS companies exhibit distinct unit economic profiles, characterized by higher LTV:CAC ratios, specialized embedded fintech monetization streams, and superior sales efficiency compared to horizontal peers. This report breaks down the financial and operational benchmarks defining vertical SaaS performance.\n\n## CAC and LTV Benchmarks\n\nThe median LTV:CAC ratio for vertical SaaS sits at 5.6x, outperforming horizontal SaaS which averages 4.1x [3]. While vertical software takes roughly 18 months to recover its acquisition cost (four months longer than the 14-month horizontal average), it ultimately returns 37% more across the customer's lifetime [3]. Top-quartile vertical SaaS operators achieve even higher multiples, reaching 7.8x [3]. Across the broader B2B SaaS landscape, the average customer acquisition cost (CAC) baseline is approximately $702, though costs vary considerably by specific industry vertical [1]. \n\n## Embedded Fintech and Payment Monetization\n\nEmbedding financial products allows vertical SaaS companies to multiply their revenue per user by 2x to 5x [4]. By integrating payment processing (which typically adds 10 to 30 basis points per transaction) and embedded lending (yielding net interest margins of 5% to 10%), providers unlock usage-based revenue streams that can match or even exceed core subscription software revenue [4][5][6]. Furthermore, fintech features help hold or reduce CAC while driving product stickiness that lowers churn and expands average contract values and lifetime value [5][6].\n\n## Churn Drivers and Retention Strategies\n\nThe overall average monthly churn rate across SaaS verticals sits at 3.5%, which compounds to roughly 35% annually [8]. Involuntary churn\u2014caused by failed payments rather than intentional cancellations\u2014accounts for 26% of all SaaS churn, representing a primary addressable reduction target [8]. Structuring pricing models can also mitigate attrition; usage-based pricing reduces churn down to 2.1% monthly compared to 3.9% for single flat-rate models [8]. Retention strategies rely on proactive customer success tracking, which monitors early warning signals such as decreased usage or login frequency to intervene before customers churn [9]. \n\n## Gross Margins and Financial Profiles Compared to Horizontal SaaS\n\nVertical SaaS companies demonstrate higher financial efficiency and profitability than horizontal competitors [11]. The median Sales & Marketing to revenue ratio is 19% for vertical SaaS compared to 41% for horizontal SaaS, while median EBITDA margins reach 13% against 0.8% for horizontal models [11]. Overall, vertical SaaS companies trade at a 67% premium in revenue multiples, averaging 8.2x revenue compared to 4.9x for horizontal platforms [10]. This higher sales efficiency stems from focused industry targeting, customized R&D use cases, and specialized \"Land and Expand\" go-to-market motions [11][12].\n\n## Conclusion\n\nVertical SaaS unit economics are defined by durable customer relationships, elevated lifetime values relative to acquisition costs, and powerful revenue expansion via embedded fintech. Supported by lower relative sales and marketing expenditures, these specialized business models yield superior financial efficiency and profitability compared to generalized horizontal software counterparts [11][12].\n\n## Sources\n[1] 38 Customer Acquisition Cost Statistics for B2B SaaS in 2026 \u2014 https://www.gtm8020.com/blog/customer-acquisition-cost-statistics\n[3] LTV:CAC Ratio: 2026 SaaS Benchmarks & Formula \u2014 https://www.scalexp.com/saas-metrics-library/ltv-and-cac\n[4] Embedded Finance in SaaS: Payments, Lending & Banking \u2014 https://www.saasmag.com/embedded-finance-saas-payments-lending-banking\n[5] The Vertical SaaS Fintech Playbook \u2014 Fractal Software \u2014 https://www.fractalsoftware.com/perspectives/the-vertical-saas-fintech-playbook\n[6] Beyond the Transaction: An Embedded Fintech Strategy ... \u2014 https://embedded.gusto.com/blog/embedded-fintech-strategy-revenue-churn\n[8] Average Churn Rate by Industry SaaS: 2026 Report | Focus Digital \u2014 https://focus-digital.co/average-churn-rate-by-industry-saas\n[9] SaaS Customer Retention: Strategies for Long-Term Success \u2014 https://www.june.so/blog/saas-customer-retention\n[10] Vertical SaaS Outperforms Horizontal in Revenue Multiples | Khaled Azar posted on the topic | LinkedIn \u2014 https://www.linkedin.com/posts/khaledazar_saas-verticalsaas-valuation-activity-7401645805369233408-D91R\n[11] Vertical Vs Horizontal SaaS: Which Is The Best Choice? \u2014 https://news.crunchbase.com/venture/vertical-vs-horizontal-saas-which-is-the-best-choice\n[12] SaaS Business Models | Horizontal vs Vertical \"Industry- ... \u2014 https://flgpartners.com/saas-industry-centric-business-models-horizontal-vertical",
+  "first_draft": "# Unit Economics of Vertical SaaS Companies\n\nVertical SaaS companies exhibit distinct unit economic profiles, characterized by higher LTV:CAC ratios, specialized embedded fintech monetization streams, and superior sales efficiency compared to horizontal peers. This report breaks down the financial and operational benchmarks defining vertical SaaS performance.\n\n## CAC and LTV Benchmarks\n\nThe median LTV:CAC ratio for vertical SaaS sits at 5.6x, outperforming horizontal SaaS which averages 4.1x [3]. While vertical software takes roughly 18 months to recover its acquisition cost (four months longer than the 14-month horizontal average), it ultimately returns 37% more across the customer's lifetime [3]. Top-quartile vertical SaaS operators achieve even higher multiples, reaching 7.8x [3]. Across the broader B2B SaaS landscape, the average customer acquisition cost (CAC) baseline is approximately $702, though costs vary considerably by specific industry vertical [1]. \n\n## Embedded Fintech and Payment Monetization\n\nEmbedding financial products allows vertical SaaS companies to multiply their revenue per user by 2x to 5x [4]. By integrating payment processing (which typically adds 10 to 30 basis points per transaction) and embedded lending (yielding net interest margins of 5% to 10%), providers unlock usage-based revenue streams that can match or even exceed core subscription software revenue [4][5][6]. Furthermore, fintech features help hold or reduce CAC while driving product stickiness that lowers churn and expands average contract values and lifetime value [5][6].\n\n## Churn Drivers and Retention Strategies\n\nThe overall average monthly churn rate across SaaS verticals sits at 3.5%, which compounds to roughly 35% annually [8]. Involuntary churn\u2014caused by failed payments rather than intentional cancellations\u2014accounts for 26% of all SaaS churn, representing a primary addressable reduction target [8]. Structuring pricing models can also mitigate attrition; usage-based pricing reduces churn down to 2.1% monthly compared to 3.9% for single flat-rate models [8]. Retention strategies rely on proactive customer success tracking, which monitors early warning signals such as decreased usage or login frequency to intervene before customers churn [9]. \n\n## Gross Margins and Financial Profiles Compared to Horizontal SaaS\n\nVertical SaaS companies demonstrate higher financial efficiency and profitability than horizontal competitors [11]. The median Sales & Marketing to revenue ratio is 19% for vertical SaaS compared to 41% for horizontal SaaS, while median EBITDA margins reach 13% against 0.8% for horizontal models [11]. Overall, vertical SaaS companies trade at a 67% premium in revenue multiples, averaging 8.2x revenue compared to 4.9x for horizontal platforms [10]. This higher sales efficiency stems from focused industry targeting, customized R&D use cases, and specialized \"Land and Expand\" go-to-market motions [11][12].\n\n## Conclusion\n\nVertical SaaS unit economics are defined by durable customer relationships, elevated lifetime values relative to acquisition costs, and powerful revenue expansion via embedded fintech. Supported by lower relative sales and marketing expenditures, these specialized business models yield superior financial efficiency and profitability compared to generalized horizontal software counterparts [11][12].",
+  "research_notes": [
+    {
+      "sub_question": "What are the typical customer acquisition cost (CAC) and lifetime value (LTV) benchmarks for vertical SaaS companies?",
+      "origin": "web",
+      "status": "ok",
+      "title": "38 Customer Acquisition Cost Statistics for B2B SaaS in 2026",
+      "source_url": "https://www.gtm8020.com/blog/customer-acquisition-cost-statistics",
+      "content": "A good CAC depends on your LTV:CAC ratio, which should ideally fall between 3:1 and 4:1. The average B2B SaaS CAC is approximately $702, though this varies significantly by vertical\u2014from $299 for eCommerce SaaS to $1,461 for Fintech SaaS at the SMB level. More important than the absolute number is your efficiency ratio: top-quartile companies spend approximately $1.00 to acquire $1 of new ARR, while underperformers spend $2.82 or more. [...] ## Understanding B2B SaaS Customer Acquisition Cost Benchmarks\n\n### 1. The average B2B SaaS customer acquisition cost is $702\n\nThe baseline CAC for B2B SaaS companies averages $702 per customer, though this figure varies dramatically based on company stage, target market, and vertical. Understanding where your CAC falls relative to industry benchmarks is the first step toward optimization.\n\n### 2. B2B SaaS companies averaged $1,200 per customer in acquisition costs in 2025 [...] CAC varies dramatically by vertical. Fintech SaaS faces the highest co"
+    },
+    {
+      "sub_question": "What are the typical customer acquisition cost (CAC) and lifetime value (LTV) benchmarks for vertical SaaS companies?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Customer Lifetime Value Benchmarks 2026: Industry Data",
+      "source_url": "https://www.digitalapplied.com/blog/customer-lifetime-value-benchmarks-2026-industry-data",
+      "content": "The honest framing: LTV:CAC is a stage-conditional and structure-conditional ratio, not a universal target. The 2026 best-in-class operators we tracked report ratios ranging from 2.4x (high-NRR PLG) to 8.7x (bootstrapped vertical SaaS). Reporting the ratio without specifying NRR, payback, and funding posture is a category error.\n\n## AI Agent Retention: 2026 to 2027 Outlook [...] ## What Counts as \"Good\" LTV in 2026\n\nThe honest answer is that \"good\" LTV is meaningless without three modifiers: business model, customer segment, and product category. A $5,000 LTV is excellent for SMB ecommerce apparel and catastrophic for mid-market vertical SaaS. The distribution shape matters more than the median.\n\n3.4x\n\nMedian LTV:CAC (50th)\n\nCross-industry median, 2026 cohort\n\n5.6x\n\nTop-Quartile LTV:CAC\n\nOperators with 120%+ NRR\n\n1.9x\n\nBottom-Quartile LTV:CAC"
+    },
+    {
+      "sub_question": "What are the typical customer acquisition cost (CAC) and lifetime value (LTV) benchmarks for vertical SaaS companies?",
+      "origin": "web",
+      "status": "ok",
+      "title": "LTV:CAC Ratio: 2026 SaaS Benchmarks & Formula",
+      "source_url": "https://www.scalexp.com/saas-metrics-library/ltv-and-cac",
+      "content": "| Measure | Horizontal SaaS | Vertical SaaS |\n --- \n| LTV:CAC ratio | 4.1x | 5.6x |\n| CAC payback | 14 months | 18 months |\n\nVertical software takes four months longer to recover its acquisition cost, and still returns 37% more across the customer's life. The two metrics disagree because they measure different things: payback measures speed, LTV:CAC measures durability. If you optimise only for payback you will systematically favour the customers who leave soonest. [...] The 3:1 guideline is a floor, not a target. The current median is 4.1x and the top quartile reaches 7.8x \u2014 and the ratio splits sharply depending on whether the product serves one industry or many. A second study of 939 companies puts the median slightly lower at 3.2x, which is a useful reminder that the exact figure moves with how lifetime value is defined.\n\n4.1x\n\nMedian LTV:CAC\n\n7.8x\n\nTop quartile\n\n5.6x\n\nVertical SaaS, against 4.1x horizontal\n\n16 mo\n\nCAC payback, down from 18 [...] ### Where the ratio sits, and how f"
+    },
+    {
+      "sub_question": "What are the typical customer acquisition cost (CAC) and lifetime value (LTV) benchmarks for vertical SaaS companies?",
+      "origin": "docs",
+      "status": "no_results",
+      "title": "",
+      "source_url": "",
+      "content": "No search results found."
+    },
+    {
+      "sub_question": "How do embedded fintech and payment monetization strategies impact the revenue per user for vertical SaaS businesses?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Embedded Finance in SaaS: Payments, Lending & Banking",
+      "source_url": "https://www.saasmag.com/embedded-finance-saas-payments-lending-banking",
+      "content": "Revenue impact varies by integration depth and vertical. Andreessen Horowitz estimates that SaaS companies embedding financial products can increase revenue per user by 2-5x. BCG and Adyen peg the total addressable market at $185 billion, with less than 20% currently captured. In practice, payments integrations add 10-30 basis points per transaction, while embedded lending offers net interest margins of 5-10%. Toast\u2019s payments revenue ($4.1 billion) now exceeds its subscription revenue by [...] The next phase of embedded finance in SaaS will be shaped by AI-driven personalization. Platforms with deep operational data can use machine learning to offer dynamically priced insurance, real-time credit line adjustments, and predictive cash flow tools that traditional financial institutions cannot match. Fintech Futures reports that 2026 marks a structural market shift where platform players in non-financial verticals are embedding tailored, industry-specific banking services, from merchant"
+    },
+    {
+      "sub_question": "How do embedded fintech and payment monetization strategies impact the revenue per user for vertical SaaS businesses?",
+      "origin": "web",
+      "status": "ok",
+      "title": "The Vertical SaaS Fintech Playbook \u2014 Fractal Software",
+      "source_url": "https://www.fractalsoftware.com/perspectives/the-vertical-saas-fintech-playbook",
+      "content": "Embedded fintech increases the lifetime value of customers by enabling vertical SaaS providers to tap into new revenue streams (e.g., a percentage of all payments made to their customers) and improving the stickiness of the core workflow product to reduce churn.\n\n### 3. New markets [...] the referred its customers to LendingClub for business loans and earned a commission on each referral. Today, however, Mindbody offers short term cash loans to its customers underwritten by future payments processed on its own platform. As we\u2019ll see throughout this guide, the embedded fintech model can be a serious revenue driver for vertical SaaS companies of any size and in some cases may actually outstrip the revenue from their core workflow software. [...] Core workflow SaaS is typically only a portion of a customer\u2019s software spend. Embedded fintech products allow vertical SaaS companies to capture revenue from payments, payroll, and other business functions that would otherwise go to third-party "
+    },
+    {
+      "sub_question": "How do embedded fintech and payment monetization strategies impact the revenue per user for vertical SaaS businesses?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Beyond the Transaction: An Embedded Fintech Strategy ...",
+      "source_url": "https://embedded.gusto.com/blog/embedded-fintech-strategy-revenue-churn",
+      "content": "Embedded fintech catalyzes a powerful revenue multiplier, creating new monetization opportunities beyond subscription fees in the form of usage-based financial services. This transformation supercharges key metrics like Average Revenue Per User (ARPU) and Lifetime Value (LTV), creating a far more scalable and profitable business model than traditional SaaS or traditional financial services alone. [...] Well-known investors from A16Z, Matrix, Tidemark, and Redstone/ Defy have identified similar patterns among their best investments. Digital platforms use payment products and embedded fintech solutions to expand their addressable markets, drive product stickiness, and expand their average contract values. \n\n\u201cFintech holds, or even lowers, the cost of customer acquisition (CAC), while increasing the lifetime value (LTV) in vertical SaaS.\u201d \u2014Angela Strange, A16Z, Fintech Scales Vertical SaaS [...] Analysts expect transactions via embedded fintech products to exceed $7 trillion by the end of"
+    },
+    {
+      "sub_question": "How do embedded fintech and payment monetization strategies impact the revenue per user for vertical SaaS businesses?",
+      "origin": "docs",
+      "status": "no_results",
+      "title": "",
+      "source_url": "",
+      "content": "No search results found."
+    },
+    {
+      "sub_question": "What are the primary churn drivers and retention strategies unique to vertical SaaS software models?",
+      "origin": "web",
+      "status": "ok",
+      "title": "SaaS Churn: Challenges and Solutions",
+      "source_url": "https://blog.revpartners.io/en/revops-articles/churn-saas-challenges-solutions",
+      "content": "## How can SaaS businesses tackle churn with strategic retention?\n\nBy recognizing the unique challenges posed by churn in the SaaS industry, companies can develop targeted strategies that combine data-driven insights and customer-centric approaches. Embracing predictive analytics, personalized experiences, exceptional support, innovative pricing models, and continuous product innovation will contribute to reduced churn rates and increased customer loyalty. [...] via GIPHY\n Tailoring retention strategies to reduce churn in saas: Develop specific retention strategies for each customer segment, focusing on addressing their unique pain points, enhancing engagement, and driving long-term loyalty.\n\ninfo \n\n#### Fractional RevOps\n\nGreat strategies still need alignment. Fractional RevOps gives you a team that connects data, tech, and processes across CS, sales, and marketing. \ud83d\udc47\n\n### How can customer success strategies reduce churn in SaaS? [...] Costly marketing and sales efforts: SaaS companie"
+    },
+    {
+      "sub_question": "What are the primary churn drivers and retention strategies unique to vertical SaaS software models?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Average Churn Rate by Industry SaaS: 2026 Report | Focus Digital",
+      "source_url": "https://focus-digital.co/average-churn-rate-by-industry-saas",
+      "content": "Enterprise churn remains below 1.5% monthly across all SaaS verticals, driven by multi-year contracts (average 24.3 months) and procurement processes that involve multiple stakeholders, making replacement difficult. [...] The overall average monthly churn rate across all SaaS verticals is 3.5%, approximately 35% annually on a compounded basis.\n Infrastructure & DevOps has the lowest monthly churn at 1.8%; Email & Communication Tools has the highest at 8.1%.\n 26% of all SaaS churn is involuntary, caused by failed payments rather than cancellation, the most addressable reduction opportunity available.\n Usage-based pricing reduces churn by 46% compared to single flat-rate models (2.1% vs. 3.9% monthly)."
+    },
+    {
+      "sub_question": "What are the primary churn drivers and retention strategies unique to vertical SaaS software models?",
+      "origin": "web",
+      "status": "ok",
+      "title": "SaaS Customer Retention: Strategies for Long-Term Success",
+      "source_url": "https://www.june.so/blog/saas-customer-retention",
+      "content": "Customer retention is the foundation of any successful SaaS business. While acquiring new customers is important, the real driver of sustainable growth lies in keeping existing customers engaged, satisfied, and continuously finding value in the product. Unlike one-time transactions, the SaaS model thrives on recurring revenue, making it essential for businesses to focus on reducing churn and ensuring customers remain loyal over time. [...] Proactive customer success efforts also help prevent churn before it happens. By tracking early warning signals such as decreased usage, lower login frequency, or reduced engagement with key features, teams can intervene before a customer decides to leave. A retention-focused strategy should include structured outreach efforts that re-engage inactive users and address potential issues early. [...] Customer retention is essential for SaaS growth, ensuring predictable revenue, reducing acquisition costs, and driving expansion through upsells and cross-"
+    },
+    {
+      "sub_question": "What are the primary churn drivers and retention strategies unique to vertical SaaS software models?",
+      "origin": "docs",
+      "status": "no_results",
+      "title": "",
+      "source_url": "",
+      "content": "No search results found."
+    },
+    {
+      "sub_question": "How do gross margins for vertical SaaS companies compare to traditional horizontal SaaS business models?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Vertical SaaS Outperforms Horizontal in Revenue Multiples | Khaled Azar posted on the topic | LinkedIn",
+      "source_url": "https://www.linkedin.com/posts/khaledazar_saas-verticalsaas-valuation-activity-7401645805369233408-D91R",
+      "content": "I compared vertical SaaS companies to horizontal platforms in my analysis. The results: Vertical SaaS average: 8.2x revenue Horizontal SaaS average: 4.9x revenue Vertical SaaS trades at a 67% premium. Here\u2019s why. Vertical SaaS Examples: \u2022 Veeva (life sciences): 23% growth, 37% EBITDA \u2014 13.6x multiple \u2022 Toast (restaurants): 26% growth, 5% EBITDA \u2014 3.4x multiple \u2022 Procore (construction): 16% growth, -2% EBITDA \u2014 8.0x multiple \u2022 Guidewire (insurance): 23% growth, 7% EBITDA \u2014 16.4x multiple [...] \u2014 16.4x multiple Average: 8.2x revenue Horizontal SaaS Examples: \u2022 Monday.com (work management): 30% growth, -1% EBITDA \u2014 7.2x multiple \u2022 Asana (project management): 16% growth, -21% EBITDA \u2014 3.9x multiple \u2022 Dropbox (file storage): 0% growth, 30% EBITDA \u2014 4.0x multiple \u2022 Box (file storage): 8% growth, 11% EBITDA \u2014 4.1x multiple Average: 4.9x revenue Why Vertical Wins: Reason 1: Less competition Horizontal CRM = compete with Salesforce, HubSpot, and 50 others. Vertical CRM for veterinarians = [...]"
+    },
+    {
+      "sub_question": "How do gross margins for vertical SaaS companies compare to traditional horizontal SaaS business models?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Vertical Vs Horizontal SaaS: Which Is The Best Choice?",
+      "source_url": "https://news.crunchbase.com/venture/vertical-vs-horizontal-saas-which-is-the-best-choice",
+      "content": "Financials. Sales and Marketing Budgets: The Sales & Marketing (S&M) to Revenue (LTM, Median) ratio is 19 percent in vertical SaaS vs 41 percent in horizontal SaaS. EBITDA Margins (LTM, Median) are 13 percent in vertical SaaS vs 0.8 percent in horizontal SaaS.\n\nSource: Flavors of SaaS report by Allied Advisers"
+    },
+    {
+      "sub_question": "How do gross margins for vertical SaaS companies compare to traditional horizontal SaaS business models?",
+      "origin": "web",
+      "status": "ok",
+      "title": "SaaS Business Models | Horizontal vs Vertical \"Industry- ...",
+      "source_url": "https://flgpartners.com/saas-industry-centric-business-models-horizontal-vertical",
+      "content": "Vertical SaaS companies gain unique experience selling into industry verticals and typically employ a \u201cLand and Expand\u201d Go-To-Market strategy. These factors drive a higher overall sales efficiency than is found in Horizontal SaaS companies. A focus on vertical sales gives the software provider a detailed understanding of the optimum use case. R&D uses this information to tailor the product accordingly and this makes the sale easier. Customer case studies and customer references will help enable [...] Veeva Systems serves as a good Vertical SaaS comparable company due to its high SaaS Gross Margin, its sales efficiency and profitability. And its history of moving toward a higher mix of SaaS to services revenue is common to that of many Vertical SaaS companies. [...] Vertical and Horizontal SaaS companies\u2019 financial profiles differ in that the former has higher sales efficiency as measured by Sales and Marketing expense as a percentage of revenue and this frees up cash flow for investmen"
+    },
+    {
+      "sub_question": "How do gross margins for vertical SaaS companies compare to traditional horizontal SaaS business models?",
+      "origin": "docs",
+      "status": "no_results",
+      "title": "",
+      "source_url": "",
+      "content": "No search results found."
+    }
+  ],
+  "judge": {
+    "groundedness": 5,
+    "completeness": 3,
+    "coherence": 5,
+    "usefulness": 4,
+    "rationale": "The report is well-structured and cites evidence effectively for most sections. However, it fails to address the specific sub-question regarding gross margins, substituting it with other financial efficiency metrics.",
+    "weaknesses": [
+      "The report fails to answer the sub-question regarding gross margins for vertical SaaS companies; it provides sales and marketing expense ratios and EBITDA margins, but does not provide actual gross margin data as requested."
+    ]
+  },
+  "category": "business",
+  "run_config": "2981e89fce66",
+  "judge_config": "ef6fddaa4dff"
+}

@@ -1,0 +1,125 @@
+{
+  "topic": "designing an on-call rotation for a six-person team",
+  "error": null,
+  "duration_s": 8.8,
+  "sub_questions": [
+    "What are the standard scheduling models for a six-person engineering team on-call rotation?",
+    "How can a six-person team prevent burnout and manage fatigue during on-call rotations?",
+    "What compensation and alert threshold policies should be established for a six-person on-call rotation?",
+    "How should a six-person team handle handoffs and documentation for on-call incidents?"
+  ],
+  "notes_ok": 12,
+  "notes_missing": 0,
+  "sources_available": 10,
+  "sources_cited": 9,
+  "citations_invented": 0,
+  "word_count": 589,
+  "revision_count": 1,
+  "critique_passed": true,
+  "critique_scores": {
+    "groundedness": 5,
+    "completeness": 5,
+    "coherence": 5
+  },
+  "report": "# Designing an On-Call Rotation for a Six-Person Engineering Team\n\nDesigning an effective on-call rotation for a six-person team requires balancing operational coverage with sustainable workloads to prevent engineer burnout. Proper scheduling, clear handoffs, and transparent compensation policies form the foundation of a healthy rotation [9].\n\n## Standard Scheduling Models\n\nFor a six-person engineering team, the most common and practical model is a weekly rotation [1]. In a six-person pool, engineers can cycle through primary and secondary tiers (offset by three positions), meaning each person spends one week on primary and one week on secondary in a six-week cycle [2]. Alternatively, teams can use a primary-only model where each person is on call roughly once a month, which is frequent enough to keep tooling familiar but infrequent enough to prevent burnout [6]. Schedules should be published at least 4 to 6 weeks in advance [1], and bookable absences must be entered at least 2 weeks ahead [2]. \n\n## Preventing Burnout and Managing Fatigue\n\nTo protect team members from burnout, teams must distribute on-call duties equally and make shift-switching simple [4]. Juggling daily workloads alongside on-call duties causes fatigue; therefore, workflows should be created that are less reliant on on-call engineers during the day, and on-call weeks should carry a reduced sprint commitment [2][5]. Teams should cut alert volume, protect development time, document everything needed at 3 AM, and structure shifts to a maximum of 12 hours (or 8 hours for heavy page loads) to minimize error rates [4][6].\n\n## Compensation and Alert Threshold Policies\n\nEmployers must review their on-call policies for compliance with federal and state regulations regarding compensable time and waiting time, as regulatory scrutiny and salary thresholds for overtime exemptions continue to rise [8]. NO EVIDENCE AVAILABLE for specific internal alert threshold dollar amounts, but best practices dictate establishing multi-layer escalation paths and cutting alert volume to avoid alert fatigue [4][9]. Escalation paths should never dead-end [9]; a standard path might page the primary instantly, escalate to the secondary after 5 minutes, and reach out to the engineering manager or CTO at 15 minutes [2][3].\n\n## Handoffs and Documentation\n\nHandoffs should be written, public, posted in the team channel rather than sent via direct message, and kept short (around two minutes) so they are never skipped [2][10]. A proper handoff covers six items: open incidents with current status, self-resolved watch items, known noise with an expiry date, incoming changes, suppressed or overridden alerts, and any critical context [2]. Additionally, teams must document common fixes in a runbook so incoming responders do not start from scratch [3].\n\n## Conclusion\n\nA successful six-person on-call rotation relies on predictable weekly scheduling, fair distribution of labor, and a reduced daytime workload during on-call weeks [1][2][5]. By enforcing concise written handoffs, maintaining runbooks, and complying with labor regulations regarding compensable time, teams can build a sustainable, low-friction incident response process [2][3][8][9].\n\n## Sources\n[1] How to Implement On-Call Rotations \u2014 https://oneuptime.com/blog/post/2026-02-02-on-call-rotations/view\n[2] On-Call Rotation Guide: Schedules, Handoffs and Templates (2026) \u2013 All Quiet \u2014 https://allquiet.app/blog/on-call-rotation-guide\n[3] On-Call Rotation Guide: Schedule Templates, Handoffs & Examples \u2014 https://runframe.io/blog/on-call-rotation-guide\n[4] 10 On-Call Best Practices to Reduce Burnout \u2014 https://taskcallapp.com/blog/10-on-call-best-practices-to-reduce-burnout\n[5] Best Practices for Creating On-Call Rotations and Schedules \u2014 https://firehydrant.com/blog/best-practices-for-creating-on-call-rotations-and-schedules\n[6] How to Run Effective On-Call Rotations Without Burning Out Your DevOps Team \u2014 https://medium.com/@alertsleep/how-to-run-effective-on-call-rotations-without-burning-out-your-devops-team-c2b40db98311\n[8] What Is an On Call Schedule in 2026? | ShiftFlow \u2014 https://www.shiftflow.app/blog/on-call-schedule\n[9] On-call best practices: handoffs, schedules, and alert fatigue \u2014 https://incident.io/blog/on-call-best-practices-guide-2026\n[10] Setting Team Norms - PagerDuty Best Practices for On Call Teams Ops Guide \u2014 https://goingoncall.pagerduty.com/people",
+  "first_draft": "# Designing an On-Call Rotation for a Six-Person Engineering Team\n\nDesigning an effective on-call rotation for a six-person team requires balancing operational coverage with sustainable workloads to prevent engineer burnout. Proper scheduling, clear handoffs, and transparent compensation policies form the foundation of a healthy rotation [9].\n\n## Standard Scheduling Models\n\nFor a six-person engineering team, the most common and practical model is a weekly rotation [1]. In a six-person pool, engineers can cycle through primary and secondary tiers (offset by three positions), meaning each person spends one week on primary and one week on secondary in a six-week cycle [2]. Alternatively, teams can use a primary-only model where each person is on call roughly once a month, which is frequent enough to keep tooling familiar but infrequent enough to prevent burnout [6]. Schedules should be published at least 4 to 6 weeks in advance [1], and bookable absences must be entered at least 2 weeks ahead [2]. \n\n## Preventing Burnout and Managing Fatigue\n\nTo protect team members from burnout, teams must distribute on-call duties equally and make shift-switching simple [4]. Juggling daily workloads alongside on-call duties causes fatigue; therefore, workflows should be created that are less reliant on on-call engineers during the day, and on-call weeks should carry a reduced sprint commitment [2][5]. Teams should cut alert volume, protect development time, document everything needed at 3 AM, and structure shifts to a maximum of 12 hours (or 8 hours for heavy page loads) to minimize error rates [4][6].\n\n## Compensation and Alert Threshold Policies\n\nEmployers must review their on-call policies for compliance with federal and state regulations regarding compensable time and waiting time, as regulatory scrutiny and salary thresholds for overtime exemptions continue to rise [8]. NO EVIDENCE AVAILABLE for specific internal alert threshold dollar amounts, but best practices dictate establishing multi-layer escalation paths and cutting alert volume to avoid alert fatigue [4][9]. Escalation paths should never dead-end [9]; a standard path might page the primary instantly, escalate to the secondary after 5 minutes, and reach out to the engineering manager or CTO at 15 minutes [2][3].\n\n## Handoffs and Documentation\n\nHandoffs should be written, public, posted in the team channel rather than sent via direct message, and kept short (around two minutes) so they are never skipped [2][10]. A proper handoff covers six items: open incidents with current status, self-resolved watch items, known noise with an expiry date, incoming changes, suppressed or overridden alerts, and any critical context [2]. Additionally, teams must document common fixes in a runbook so incoming responders do not start from scratch [3].\n\n## Conclusion\n\nA successful six-person on-call rotation relies on predictable weekly scheduling, fair distribution of labor, and a reduced daytime workload during on-call weeks [1][2][5]. By enforcing concise written handoffs, maintaining runbooks, and complying with labor regulations regarding compensable time, teams can build a sustainable, low-friction incident response process [2][3][8][9].",
+  "research_notes": [
+    {
+      "sub_question": "What are the standard scheduling models for a six-person engineering team on-call rotation?",
+      "status": "ok",
+      "title": "How to Implement On-Call Rotations",
+      "source_url": "https://oneuptime.com/blog/post/2026-02-02-on-call-rotations/view",
+      "content": "For most teams, aim for at least 6-8 engineers in a rotation to maintain sustainability. Smaller teams should consider limiting coverage to business hours or partnering with other teams.\n\n## Step 2: Choose Your Rotation Model\n\nDifferent rotation models suit different team structures and coverage requirements.\n\n### Weekly Rotation\n\nThe most common model. One engineer owns on-call for an entire week. [...] ## Best Practices Summary\n\n### Schedule Design\n\n Size your team appropriately: Aim for 6-8 engineers minimum per rotation\n Publish schedules early: At least 4-6 weeks in advance\n Balance the load: Track hours per engineer and adjust as needed\n Include backup coverage: Never rely on a single point of failure\n\n### Tooling and Automation [...] ```\nflowchart TD A[Incident Created] --> B[Notify Primary On-Call] B --> C{Response in 5 min?} C -->|Yes| D[Primary Handles] C -->|No| E[Notify Secondary On-Call] E --> F{Response in 10 min?} F -->|Yes| G[Secondary Handles] F -->|No| H[Notify Team L"
+    },
+    {
+      "sub_question": "What are the standard scheduling models for a six-person engineering team on-call rotation?",
+      "status": "ok",
+      "title": "On-Call Rotation Guide: Schedules, Handoffs and Templates (2026) \u2013 All Quiet",
+      "source_url": "https://allquiet.app/blog/on-call-rotation-guide",
+      "content": "ROTATION: Platform on-call Pattern: Weekly, handoff Wednesday 09:00 local Pool: Ana, Ben, Chidi, Dee, Eli, Fay Tiers: Primary + Secondary (offset by 3) Week Primary Secondary 1 Ana Dee 2 Ben Eli 3 Chidi Fay 4 Dee Ana 5 Eli Ben 6 Fay Chidi (repeats, 6-week cycle: 1 primary week + 1 secondary week each) ESCALATION 0 min page Primary (push, then phone call after 2 min) 5 min page Secondary (phone call) 15 min page Engineering Manager OVERRIDES Booked absences entered at least 2 weeks ahead. [...] ROTATION: Product on-call Pattern: Weekly, handoff Wednesday 09:00 Pool: Ana, Ben, Chidi, Dee Tiers: Primary only. Backup = Engineering Manager. Week Primary 1 Ana 2 Ben 3 Chidi 4 Dee (4-week cycle, 13 weeks on call per person per year) ESCALATION 0 min page Primary 5 min page Engineering Manager 15 min page CTO CONSTRAINTS (state these openly) - On-call week carries a reduced sprint commitment. Non-negotiable. - Out-of-hours coverage is best-effort until headcount reaches 6. - Review at 6 [...] "
+    },
+    {
+      "sub_question": "What are the standard scheduling models for a six-person engineering team on-call rotation?",
+      "status": "ok",
+      "title": "On-Call Rotation Guide: Schedule Templates, Handoffs & Examples",
+      "source_url": "https://runframe.io/blog/on-call-rotation-guide",
+      "content": "For more on managing incidents at scale, read our engineering productivity guide.\n\n## On-Call Rotation Template\n\nThis works for 20-100 person teams. Adapt it to your needs.\n\nSetup time: ~10 minutes if you keep it simple.\n\n### The Setup\n\nSet a clear boundary: Monday 9 AM \u2192 Monday 9 AM (local time). Coverage is primary (first responder) plus backup (5-min escalation). Handoff happens Monday morning in #on-call (written, not a meeting).\n\nExample rotation for 6 engineers: [...] 1. Pick a primary + backup for this week (write it down)\n2. Post in #on-call: \"Primary: @alice \u00b7 Backup: @bob \u00b7 No-response rule: 5 minutes \u2192 backup \u00b7 Sev-0/1: 10 minutes \u2192 EM\"\n3. Set a recurring reminder for Monday 9 AM handoff\n4. Document common fixes in a runbook so the next person doesn't start from scratch\n5. Keep the rules stable for 4 weeks, then adjust based on pages and misses\n\nThat's it. Start simple, add complexity only when you hit pain points. [...] That's it. Two minutes. Done.\n\n### Escalation Path (No"
+    },
+    {
+      "sub_question": "How can a six-person team prevent burnout and manage fatigue during on-call rotations?",
+      "status": "ok",
+      "title": "10 On-Call Best Practices to Reduce Burnout",
+      "source_url": "https://taskcallapp.com/blog/10-on-call-best-practices-to-reduce-burnout",
+      "content": "So start reducing burnout today with TaskCall.\n\n  \n  \n\n## FAQs\n\n  \n\nHow may burnout in on-call rotations be prevented?\n\nOne of the best strategies to lessen burnout is to distribute on-call duties equally throughout the team.\n\nWhat role does scheduling flexibility have in lowering on-call burnout?\n\nPreventing burnout in on-call schedules requires making it simple to switch shifts when necessary and routinely evaluating workload data.\n\nWhat makes a compassionate on-call culture crucial? [...] Read more >\n\n 1. Structure Rotation Schedules Based on Team Size\n 2. Build Multi-Layer Escalation Paths\n 3. Protect Development Time During On-Call Rotations\n 4. Cut Alert Volume\n 5. Compensate After-Hours Work Appropriately\n 6. Distribute Coverage Across Time Zones\n 7. Document Everything Engineers Need at 3 AM\n 8. Run Blameless Incident Reviews\n 9. Prepare Engineers Before Their First Rotation\n 10. Create Feedback Loops with On-Call Teams\n Start Reducing Burnout Today\n FAQs [...] Learn about the "
+    },
+    {
+      "sub_question": "How can a six-person team prevent burnout and manage fatigue during on-call rotations?",
+      "status": "ok",
+      "title": "Best Practices for Creating On-Call Rotations and Schedules",
+      "source_url": "https://firehydrant.com/blog/best-practices-for-creating-on-call-rotations-and-schedules",
+      "content": "For on-call team members, juggling their daily workload alongside on-call responsibilities leads to burnout and fatigue. Offering additional support and flexibility is crucial and goes a long way in improving employee satisfaction and well-being. When team members are on call, create workflows that are less reliant on them during the day to reduce some of their to-do list."
+    },
+    {
+      "sub_question": "How can a six-person team prevent burnout and manage fatigue during on-call rotations?",
+      "status": "ok",
+      "title": "How to Run Effective On-Call Rotations Without Burning Out Your DevOps Team",
+      "source_url": "https://medium.com/@alertsleep/how-to-run-effective-on-call-rotations-without-burning-out-your-devops-team-c2b40db98311",
+      "content": "## Medium teams (6\u201315 people)\n\nAt this size, you can implement what Datadog calls the \u201conce-per-month\u201d model. With 6\u20138 engineers in rotation, each person goes on-call roughly once monthly. This frequency is ideal \u2014 often enough that engineers stay familiar with procedures and tooling, but infrequent enough to prevent burnout. [...] Sitemap\n\nOpen in app\n\nSign up\n\nSign in\n\n\")\n4.   Medium teams (6\u201315 people)\")\n5.   Implementing follow-the-sun for distributed teams\n6.   Building escalation policies that actually work\n7.   Preventing alert fatigue and reducing noise\n8.   Protecting your team from burnout\n9.   Common mistakes that destroy on-call rotations\n10.   Quick action checklist\n11.   Building sustainable on-call for the long term\n\nImage 2: Alert Sleep\n## Alert Sleep [...] Structure your rotations with 12-hour shifts maximum. Google SRE\u2019s hard-won lesson: shifts longer than 12 hours dramatically increase error rates and fatigue. For teams with heavy page loads, consider 8-hour shifts. "
+    },
+    {
+      "sub_question": "What compensation and alert threshold policies should be established for a six-person on-call rotation?",
+      "status": "ok",
+      "title": "On-Call Rotations and Schedules: A Guide for 2026",
+      "source_url": "https://www.xurrent.com/blog/on-call-rotations-and-schedules-guide",
+      "content": "Establish clear swap policies, require advance notice when possible, and use tools that maintain visibility of all schedule changes.\n\n## Related Articles\n\nSee More\n\nLong horizontal right-pointing arrow icon in black.See More\n\n\n\nIncident Management [...] 3. Equitable Distribution: Ensure that the on-call responsibilities are distributed fairly among team members.\n4. Flexibility: Allow for flexibility in schedules to accommodate personal commitments and preferences. [...] ## Conclusion\n\nOn-call rotations and schedules play a critical role in ensuring responsive, reliable operations across organizations. By understanding the implications of on-call work, considering best practices, and leveraging the right tools, you can create a system that supports both your team's needs and your organizational goals. With proper planning, communication, and support, your on-call process for 2026 can enhance efficiency, reduce burnout, and improve overall service quality."
+    },
+    {
+      "sub_question": "What compensation and alert threshold policies should be established for a six-person on-call rotation?",
+      "status": "ok",
+      "title": "What Is an On Call Schedule in 2026? | ShiftFlow",
+      "source_url": "https://www.shiftflow.app/blog/on-call-schedule",
+      "content": "State salary thresholds increase. California, Colorado, Maine, New York, and Washington all raised minimum salary requirements for overtime exemptions effective January 1, 2026. California\u2019s threshold hit $70,304 annually\u2014well above the federal $35,568. If you\u2019re classifying salaried employees as exempt from overtime, verify you meet your state\u2019s requirements.\n\n## What Should Your On Call Policy Include? [...] DOL ramps up enforcement on FLSA compliance. In January 2026, the Department of Labor issued six new opinion letters interpreting FLSA and FMLA compliance. This signals they\u2019re paying closer attention to compensable time issues, including whether on call arrangements properly classify waiting time. Employers with questionable on call practices should review their policies\u2014scrutiny is increasing. [...] Rotate on call duties equally across the team using a clear schedule everyone can see in advance. Use scheduling software to track rotation fairness automatically. Set reasonable re"
+    },
+    {
+      "sub_question": "What compensation and alert threshold policies should be established for a six-person on-call rotation?",
+      "status": "ok",
+      "title": "On-call best practices: handoffs, schedules, and alert fatigue",
+      "source_url": "https://incident.io/blog/on-call-best-practices-guide-2026",
+      "content": "Building a sustainable on-call program in 2026 requires a deliberate approach to rotation design, escalation structure, and tooling integration. The goal is to reduce friction between alert receipt and resolution by aligning scheduling, alerting, and incident coordination into a cohesive workflow. [...] # On-call best practices: handoffs, schedules, and alert fatigue\n\nImage 1: Tom Wentworth\n\nTom Wentworth\n\nFebruary 27, 2026\u201421 min read\n\n_Updated February 27, 2026_ [...] > TL;DR:Sustainable on-call schedulingrequires matching your rotation model to team size and geography, designing escalation policies that never dead-end, and eliminating the coordination tax that burns engineers out. Three models cover most teams: Follow-the-Sun (9+ engineers across 3 time zones), Primary/Secondary (ideal for onboarding junior engineers), and weekly rotations (smaller teams needing predictability). The toolchain matters as much as the schedule. When scheduling, alerting, and"
+    },
+    {
+      "sub_question": "How should a six-person team handle handoffs and documentation for on-call incidents?",
+      "status": "ok",
+      "title": "On-Call Rotation Guide: Schedules, Handoffs and Templates (2026) \u2013 All Quiet",
+      "source_url": "https://allquiet.app/blog/on-call-rotation-guide",
+      "content": "Every handoff should be written, public, and short enough that nobody skips it. Post it in the team channel rather than sending it as a DM, so that the six people who are not on call can see the state of things without asking.\n\nSix items. If it takes longer than two minutes, you are writing an incident report instead of a handoff: [...] Six things: open incidents with current status, watch items that fired and self-resolved, known noise with an expiry date, changes landing in the incoming shift, anything currently suppressed or overridden and when it ends, and anything else you would not want to inherit without being told. Write it in a public channel rather than a direct message, and keep it to about two minutes.\n\n  \n\n### How do you handle vacations and sick days in an on-call rotation? [...] Quick answer\n\nAn on-call rotation is a repeating schedule that gives incident-response duty to one named person at a time, with a named backup behind them. To set one up: choose a rotation length"
+    },
+    {
+      "sub_question": "How should a six-person team handle handoffs and documentation for on-call incidents?",
+      "status": "ok",
+      "title": "Setting Team Norms - PagerDuty Best Practices for On Call Teams Ops Guide",
+      "source_url": "https://goingoncall.pagerduty.com/people",
+      "content": "## Handoffs#\n\nAt the end of an on-call shift, it\u2019s a good practice to have some kind of formal handoff. This can take the form of a team meeting, where the outgoing on-call responder summarizes the incidents for their shift. It can also take the form of an email, shared document, or saved query in your incident response platform that highlights the current and recent alerts and how they were handled, if they are closed, or the current status for those ongoing into the next shift. [...] The purpose of the handoff is to make sure the incoming on-call responder has all of the information and context for the current state of the environment.\n\nOther items that might be helpful in your handoffs: [...] Your team will likely find other key areas that are useful to share in shift handoffs. At PagerDuty we recommend the second layer of your escalation policy be the person from the prior week as they should still have context from any previous incidents. You can learn more about PagerDuty recomme"
+    },
+    {
+      "sub_question": "How should a six-person team handle handoffs and documentation for on-call incidents?",
+      "status": "ok",
+      "title": "On-Call Rotation Guide: Schedule Templates, Handoffs & Examples",
+      "source_url": "https://runframe.io/blog/on-call-rotation-guide",
+      "content": "1. Pick a primary + backup for this week (write it down)\n2. Post in #on-call: \"Primary: @alice \u00b7 Backup: @bob \u00b7 No-response rule: 5 minutes \u2192 backup \u00b7 Sev-0/1: 10 minutes \u2192 EM\"\n3. Set a recurring reminder for Monday 9 AM handoff\n4. Document common fixes in a runbook so the next person doesn't start from scratch\n5. Keep the rules stable for 4 weeks, then adjust based on pages and misses\n\nThat's it. Start simple, add complexity only when you hit pain points. [...] When \"who's on-call?\" costs minutes, swaps are frequent, or you're coordinating across time zones/services. If a spreadsheet + Slack bot works, stick with it.\n\n   What's the difference between on-call and incident management? \n\nOn-call is who responds. Incident management is how the team coordinates, documents, and communicates once the response starts. You need both. Read our post-incident review template guide with 3 downloadable formats and action-item tracking for the documentation part. [...] First, make sure your on-call "
+    }
+  ],
+  "category": "how-to",
+  "run_config": "66ca4e65ea51",
+  "judge_config": "ef6fddaa4dff",
+  "judge": {
+    "groundedness": 5,
+    "completeness": 5,
+    "coherence": 5,
+    "usefulness": 5,
+    "rationale": "The report provides a thorough, well-structured, and highly accurate summary based on the provided evidence. It covers all requested sub-questions while maintaining a high standard of groundedness and readability.",
+    "weaknesses": [
+      "The report includes a section titled 'NO EVIDENCE AVAILABLE' within the body text, which is an unnecessary administrative note that could have been handled more professionally."
+    ]
+  }
+}

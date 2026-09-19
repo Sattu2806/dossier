@@ -1,0 +1,125 @@
+{
+  "topic": "the repairability of Framework laptops",
+  "error": null,
+  "duration_s": 9.7,
+  "sub_questions": [
+    "What is the modular design philosophy and history behind Framework laptops?",
+    "How does the repairability and upgradeability of Framework laptops compare to traditional laptop brands in the current market?",
+    "What are the main criticisms or limitations regarding the cost and performance of Framework laptops?",
+    "What is the future outlook for Framework Computer regarding enterprise adoption and new product lines?"
+  ],
+  "notes_ok": 12,
+  "notes_missing": 0,
+  "sources_available": 12,
+  "sources_cited": 7,
+  "citations_invented": 0,
+  "word_count": 549,
+  "revision_count": 1,
+  "critique_passed": true,
+  "critique_scores": {
+    "groundedness": 5,
+    "completeness": 5,
+    "coherence": 5
+  },
+  "report": "# The Repairability and Market Position of Framework Laptops\n\nFramework brands itself around fixing \"broken\" consumer electronics through inherent customization and repairability [1]. The company's design philosophy trusts customers and repair shops with the access and information needed to maintain devices [1]. \n\n## Modular Design Philosophy and History\n\nFramework is a San Francisco-based company known for modular and upgradable laptops [1]. Its core philosophy relies on well-considered design tradeoffs to make devices easy to repair [1]. The company recently paused US sales of certain base systems in its Laptop 13 series due to a 32% reciprocal tariff on Taiwan, stating that selling them at current prices would result in a loss [1]. \n\n## Repairability and Upgradeability vs. Traditional Laptop Brands\n\nWhen purchasing a Framework Laptop, users buy a mainboard along with a keyboard, touchpad, RAM, SSD, and ports that can be self-assembled in about 20 minutes using a single screwdriver [5]. Components are well-organized and labeled, offering the potential for an heirloom device that remains repairable and upgradable for a decade [6]. While the repair aspect is well-developed, the upfront price is higher than equivalent models from mainstream brands [4][5]. Framework remains a niche startup for enthusiasts, holding a tiny market presence compared to major manufacturers like Apple, Dell, HP, Lenovo, and Asus [5]. Furthermore, some users note that other manufacturers offer similar modularity at half the price using standard components, and certain Framework desktop motherboards use soldered RAM [4]. \n\n## Criticisms and Limitations Regarding Cost and Performance\n\nFramework laptops face several primary criticisms, notably their high cost (such as a $1,400 price tag for a configuration compared to a $900 laptop) and expensive expansion cards [7]. Critics also point out that parts are effectively proprietary because no other companies manufacture parts for Framework laptops [7]. Hardware reviews note specific drawbacks: the Framework 16 has been described as a mediocre machine with a mediocre display, heat and fan noise issues, poor battery life, and subpar performance [8]. Additionally, component prices can be so high that users might be better off selling an old unit and buying a new laptop entirely, undermining the upgrade purpose [8]. The company has been transparent about component struggles and steady price increases [9]. \n\n## Future Outlook for Enterprise Adoption and New Product Lines\n\nNO SOURCES FOUND\n\n## Conclusion\n\nFramework has successfully demonstrated that modular, user-serviceable laptops can function in the consumer market, appealing directly to repair enthusiasts [5]. However, high upfront and component costs, proprietary part limitations, and performance drawbacks continue to restrict its appeal primarily to niche markets rather than mainstream consumers [5][7][8].\n\n## Sources\n[1] A PC maker just paused US sales of some of its laptops, saying Trump's tariffs would mean selling them at a loss | Business Insider Africa \u2014 https://africa.businessinsider.com/news/a-pc-maker-just-paused-us-sales-of-some-of-its-laptops-saying-trumps-tariffs-would/8vhzgd2\n[4] Framework as much upgradable as other laptop and computer brands - Creators & Developers - Framework Community \u2014 https://community.frame.work/t/framework-as-much-upgradable-as-other-laptop-and-computer-brands/80326\n[5] Framework proved repairable laptops can work, but almost nobody is willing to buy one \u2014 https://www.xda-developers.com/framework-repairable-laptops-work-but-nobody-willing-to-buy\n[6] The Framework Laptop Could Revolutionize Repairability. | Reviews by Wirecutter \u2014 https://www.nytimes.com/wirecutter/reviews/framework-laptop\n[7] Question - What is your opinion on Framework Laptops? | Tom's Hardware Forum \u2014 https://forums.tomshardware.com/threads/what-is-your-opinion-on-framework-laptops.3811796\n[8] Framework 16 Review - Modular Dream, Mediocre Machine? \u2014 https://www.youtube.com/watch?v=ckuPjvT_DnI\n[9] Framework Laptop 13 Pro review: Much better battery ... \u2014 https://arstechnica.com/gadgets/2026/07/framework-laptop-13-pro-review-much-better-battery-much-worse-price",
+  "first_draft": "# The Repairability and Market Position of Framework Laptops\n\nFramework brands itself around fixing \"broken\" consumer electronics through inherent customization and repairability [1]. The company's design philosophy trusts customers and repair shops with the access and information needed to maintain devices [1]. \n\n## Modular Design Philosophy and History\n\nFramework is a San Francisco-based company known for modular and upgradable laptops [1]. Its core philosophy relies on well-considered design tradeoffs to make devices easy to repair [1]. The company recently paused US sales of certain base systems in its Laptop 13 series due to a 32% reciprocal tariff on Taiwan, stating that selling them at current prices would result in a loss [1]. \n\n## Repairability and Upgradeability vs. Traditional Laptop Brands\n\nWhen purchasing a Framework Laptop, users buy a mainboard along with a keyboard, touchpad, RAM, SSD, and ports that can be self-assembled in about 20 minutes using a single screwdriver [5]. Components are well-organized and labeled, offering the potential for an heirloom device that remains repairable and upgradable for a decade [6]. While the repair aspect is well-developed, the upfront price is higher than equivalent models from mainstream brands [4][5]. Framework remains a niche startup for enthusiasts, holding a tiny market presence compared to major manufacturers like Apple, Dell, HP, Lenovo, and Asus [5]. Furthermore, some users note that other manufacturers offer similar modularity at half the price using standard components, and certain Framework desktop motherboards use soldered RAM [4]. \n\n## Criticisms and Limitations Regarding Cost and Performance\n\nFramework laptops face several primary criticisms, notably their high cost (such as a $1,400 price tag for a configuration compared to a $900 laptop) and expensive expansion cards [7]. Critics also point out that parts are effectively proprietary because no other companies manufacture parts for Framework laptops [7]. Hardware reviews note specific drawbacks: the Framework 16 has been described as a mediocre machine with a mediocre display, heat and fan noise issues, poor battery life, and subpar performance [8]. Additionally, component prices can be so high that users might be better off selling an old unit and buying a new laptop entirely, undermining the upgrade purpose [8]. The company has been transparent about component struggles and steady price increases [9]. \n\n## Future Outlook for Enterprise Adoption and New Product Lines\n\nNO SOURCES FOUND\n\n## Conclusion\n\nFramework has successfully demonstrated that modular, user-serviceable laptops can function in the consumer market, appealing directly to repair enthusiasts [5]. However, high upfront and component costs, proprietary part limitations, and performance drawbacks continue to restrict its appeal primarily to niche markets rather than mainstream consumers [5][7][8].",
+  "research_notes": [
+    {
+      "sub_question": "What is the modular design philosophy and history behind Framework laptops?",
+      "status": "ok",
+      "title": "A PC maker just paused US sales of some of its laptops, saying Trump's tariffs would mean selling them at a loss | Business Insider Africa",
+      "source_url": "https://africa.businessinsider.com/news/a-pc-maker-just-paused-us-sales-of-some-of-its-laptops-saying-trumps-tariffs-would/8vhzgd2",
+      "content": "Framework brands itself around making electronics that are inherently customizable and repairable \u2014 it's on a mission to improve consumer electronics, which it describes as \"broken.\"\n\n\"Our philosophy is that by making well-considered design tradeoffs and trusting customers and repair shops with the access and information they need, we can make fantastic devices that are still easy to repair,\" its site says. [...] Framework has paused US sales of some of its laptops, citing Trump's 32% reciprocal tariff on Taiwan.\n Framework offers customizable, repairable laptops and devices.\n The company said at current prices, the tariffs would mean selling at a loss.\n\n#### Read Also\n\nFramework, a San Francisco-based company known for its modular and upgradable laptops, announced Tuesday that certain base systems in its Laptop 13 series would be removed from its US site and their sales temporarily halted."
+    },
+    {
+      "sub_question": "What is the modular design philosophy and history behind Framework laptops?",
+      "status": "ok",
+      "title": "PC Maker Pauses Some US Laptop Sales, Citing Tariffs - Business Insider",
+      "source_url": "https://www.businessinsider.com/framework-pauses-some-laptop-sales-united-states-tariffs-2025-4",
+      "content": "Framework brands itself around making electronics that are inherently customizable and repairable \u2014 it's on a mission to improve consumer electronics, which it describes as \"broken.\"\n\n\"Our philosophy is that by making well-considered design tradeoffs and trusting customers and repair shops with the access and information they need, we can make fantastic devices that are still easy to repair,\" its site says. [...] The laptop maker Framework is pausing US sales of some of its lower-end models, citing President Donald Trump's tariffs.\n\nFramework, a San Francisco-based company known for its modular and upgradable laptops, announced Tuesday that certain base systems in its Laptop 13 series would be removed from its US site and their sales temporarily halted."
+    },
+    {
+      "sub_question": "What is the modular design philosophy and history behind Framework laptops?",
+      "status": "ok",
+      "title": "Design Philosophy Behind Tachiyomi APK covering modular architecture",
+      "source_url": "http://design-philosophy.atwebpages.com",
+      "content": "This interest is reflected in queries related to tachiyomi pc, which typically involve emulation or alternative environments rather than native builds.\n\nThe design philosophy remains consistent: the framework does not change based on platform, only the execution environment does.\n\n## Minimalism Over Feature Saturation\n\nRather than continuously adding features, Tachiyomi prioritizes stability and clarity. New functionality is introduced only when it aligns with core principles. [...] Users seeking transparency and control\n Readers on older or low-resource devices\n Privacy-conscious individuals\n Developers interested in modular frameworks\n\n## Final Thoughts\n\nThe design philosophy behind Tachiyomi APK reflects a deliberate departure from platform-centric development trends.\n\nBy embracing modularity, local-first data, and user autonomy, Tachiyomi demonstrates that modern applications can remain flexible and sustainable without sacrificing control to centralized ecosystems. [...] This frame"
+    },
+    {
+      "sub_question": "How does the repairability and upgradeability of Framework laptops compare to traditional laptop brands in the current market?",
+      "status": "ok",
+      "title": "Framework as much upgradable as other laptop and computer brands - Creators & Developers - Framework Community",
+      "source_url": "https://community.frame.work/t/framework-as-much-upgradable-as-other-laptop-and-computer-brands/80326",
+      "content": "They\u2019re a small company hence there are not many options. Assuming they follow through with their promise of maintaining compatibility through years of growth to the size of Lenovo or Dell or such, then we will have the upgrade utopia they promise. Right now only the repair aspect is really developed.\n\nNeed only 4 swapable things. CPU, GPU, RAMS, BATTERY (to add two or more or bigger one).\n\nSorry, but did you even read the responses?\n\nNeed only 4 swapable things. CPU [...] The Framework Desktop motherboard uses soldered RAM, giving users no option to install standard RAM sticks or freely choose between DDR4 and DDR5.\n\nThe original idea behind Framework \u2014 real upgradability, longevity, and user freedom \u2014 was genuinely exciting. But today, many other manufacturers already offer similar repairability and modularity at half the price, often using standard components instead of custom ones. [...] Because they save money on everything and this is same reason nowdays boards not holds as long "
+    },
+    {
+      "sub_question": "How does the repairability and upgradeability of Framework laptops compare to traditional laptop brands in the current market?",
+      "status": "ok",
+      "title": "Framework proved repairable laptops can work, but almost nobody is willing to buy one",
+      "source_url": "https://www.xda-developers.com/framework-repairable-laptops-work-but-nobody-willing-to-buy",
+      "content": "When you configure and buy a Framework Laptop, you're essentially buying a mainboard with a soldered CPU, keyboard, touchpad, RAM, SSD, and ports that you can self-assemble in around 20 minutes with a single screwdriver. When something breaks, or you want to upgrade to a newer CPU, more powerful GPU, or bigger SSD, you can buy replacements from Framework for easy upgrades. The upfront price of a typical Framework laptop is naturally higher than an equivalent model from one of the more [...] For all the success Framework has had in the community, it isn't even a blip on the radar of names like Apple, Dell, HP, Lenovo, Asus, and others. It's still a niche startup making repairable laptops for enthusiasts and people who genuinely care about modularity and upgradability. The unfortunate truth is that the average consumer does not prioritize the same things above everything else. They value a laptop that excels at providing value for money, a compact design, battery life, and brand [...] De"
+    },
+    {
+      "sub_question": "How does the repairability and upgradeability of Framework laptops compare to traditional laptop brands in the current market?",
+      "status": "ok",
+      "title": "The Framework Laptop Could Revolutionize Repairability. | Reviews by Wirecutter",
+      "source_url": "https://www.nytimes.com/wirecutter/reviews/framework-laptop",
+      "content": "The Framework Laptop\u2019s components are fine, though not without their quirks. The keyboard is squishier than something like a Dell XPS 13 keyboard, but it\u2019s still a pleasure to type on. While the trackpad is smooth and responsive, the click feels mushy and hollow compared with that of other laptops in this price range. The chassis is a little more flexible than on most $1,000 laptops\u2014you can press down around the keyboard and feel it flex\u2014but not so much that we\u2019re worried about the case\u2019s [...] If you purchase a Framework Laptop, you\u2019re buying both a capable computer right now and a promise of something remarkable in the future. Cracking the Framework Laptop open for the first time, you\u2019ll find a well-organized and well-labeled set of parts, every one replaceable. If the promise works out, you have an heirloom laptop that\u2019s repairable and upgradable for a decade. If Framework\u2014the company making the Framework Laptop\u2014fails, you might replace it in a few years, as you would any other [..."
+    },
+    {
+      "sub_question": "What are the main criticisms or limitations regarding the cost and performance of Framework laptops?",
+      "status": "ok",
+      "title": "Question - What is your opinion on Framework Laptops? | Tom's Hardware Forum",
+      "source_url": "https://forums.tomshardware.com/threads/what-is-your-opinion-on-framework-laptops.3811796",
+      "content": "Framework laptops solve none of those and actually add to the problems:  \n- Price  \nFramework laptops are ridiculously expensive. $1400 for a $900 laptop. The expansion cards are also ridiculously expensive.  \n- Proprietary  \nCorrect me if I'm wrong in this, but I believe Framework's parts are proprietary. Even if they aren't intentionally, they basically are as of now, as no one else has ever made parts for Framework laptops. Not a good look, is it. [...] Framework laptops solve none of those and actually add to the problems:\n\n- Price\n\nFramework laptops are ridiculously expensive. $1400 for a $900 laptop. The expansion cards are also ridiculously expensive.\n\n- Proprietary\n\nCorrect me if I'm wrong in this, but I believe Framework's parts are proprietary. Even if they aren't intentionally, they basically are as of now, as no one else has ever made parts for Framework laptops. Not a good look, is it. [...] Framework laptops are solving problems that don't really exist.\n\nIt legitimately o"
+    },
+    {
+      "sub_question": "What are the main criticisms or limitations regarding the cost and performance of Framework laptops?",
+      "status": "ok",
+      "title": "Framework 16 Review - Modular Dream, Mediocre Machine?",
+      "source_url": "https://www.youtube.com/watch?v=ckuPjvT_DnI",
+      "content": "the GPU may make more sense, but being realistic, at the prices of these components, most people will be better off selling their old framework and buying a new laptop. This really defeats the purpose of an upgradeable laptop. Next con is battery life. When unplugged, the framework doesn't throttle its CPU performance by all that much, which is good. But then again, it doesn't perform that well to begin with. In fact, given how poorly it performs, it's disappointing its battery life isn't [...] \u25ba Timestamps\n\n00:00 Intro\n01:03 Upgradable\n01:31 Ports\n02:06 Heat & Fan Noise\n03:04 Quality\n03:22 Con - Performance\n05:13 Con - Display\n05:59 Con - Price\n06:29 Con - Battery Life\n06:45 Con - Look and Feel\n07:16 Con - Size\n07:44 Con - Upgradeability\n08:11 Seth\n10:11 Josh\n12:03 Outro\n\nAs an Amazon, Lenovo, Best Buy, B&H, Dell, and HP Associate I earn from qualifying purchases\n\n#Best #Framework #Laptop #2026 #RightToRepair [...] It had a very green tint and looked really crappy. After calibration, "
+    },
+    {
+      "sub_question": "What are the main criticisms or limitations regarding the cost and performance of Framework laptops?",
+      "status": "ok",
+      "title": "Framework Laptop 13 Pro review: Much better battery ...",
+      "source_url": "https://arstechnica.com/gadgets/2026/07/framework-laptop-13-pro-review-much-better-battery-much-worse-price",
+      "content": "Framework has been unusually public about its component struggles this year, partly because the company has always been a bit more transparent about its operations than other PC makers and partly to try to defuse criticism of its steady drumbeat of price increases."
+    },
+    {
+      "sub_question": "What is the future outlook for Framework Computer regarding enterprise adoption and new product lines?",
+      "status": "ok",
+      "title": "Large Language Model Statistics 2026: Market Size, Adoption & Future Outlook",
+      "source_url": "https://comparecheapssl.com/large-language-model-statistics-trends-and-insights",
+      "content": "Enterprise adoption is the strongest driver of LLM acceleration.\n\n### Key enterprise adoption metrics (2026):\n\n Enterprises using at least one LLM platform: \u2248 78%\n Large enterprises using LLMs across multiple departments: \u2248 61%\n SMBs integrating LLMs into workflows: \u2248 39%\n Companies deploying LLMs for automation: \u2248 72%\n Organizations using LLMs for customer service: \u2248 58%\n Enterprises conducting internal fine-tuning: \u2248 32%\n Businesses training custom models on private data: \u2248 21% [...] Planning\n Acting\n Retrieving data\n Executing tasks\n Interacting with tools\n Iterating with memory\n\n### 2026 Agent Adoption Statistics\n\n Organizations using AI agents: ~37%\n YoY growth in agent deployments: +52%\n Enterprises using agent frameworks (e.g., multi-agent systems): ~21%\n Customer support tasks handled by agents: \u2248 46%\n Software development tasks automated by agents: \u2248 28%\n\n### Top use cases for AI agents:\n\n1. Autonomous customer service\n\nAgents resolve issues end-to-end. [...] 1. Lack of ground"
+    },
+    {
+      "sub_question": "What is the future outlook for Framework Computer regarding enterprise adoption and new product lines?",
+      "status": "ok",
+      "title": "A Practical Framework for Enterprise AI Adoption 2026",
+      "source_url": "https://learn.g2.com/enterprise-ai-adoption-framework?hsLang=en",
+      "content": "The board and the C-suite, as most organizations define them today, have a short future in their current form. Boards will govern AI, and before long, they will do it with AI, overseeing agents and people together. The C-suite will be judged less on title and more on speed, quality, and how well they architect the place where humans, AI, and regulation meet. Situational leadership still matters, but the situation has changed. The next CIO is a builder, or will be replaced by one. [...] Deloitte's State of AI in the Enterprise 2026 makes the gap visible. Worker access to AI tools rose from under 40% to roughly 60% in a single year. In the same report, only a quarter of companies had moved 40 percent or more of their pilots into production, and about a third reached enterprise-wide deployment. The access is there. The execution discipline and value creation are not. [...] Once you know where AI creates value, the next step is governance and infrastructure. Learn how AI gateways help mana"
+    },
+    {
+      "sub_question": "What is the future outlook for Framework Computer regarding enterprise adoption and new product lines?",
+      "status": "ok",
+      "title": "A framework for enterprise AI adoption - TechTalks",
+      "source_url": "https://bdtechtalks.com/2022/06/06/a-framework-for-enterprise-ai-adoption",
+      "content": "even new uses for existing products.\u201d [...] ## Transformation\n\nAs an organization moves from the nascent to symbiosis stage in enterprise AI, it will have to undergo many changes. Processes, roles, tools, technologies, and products will gradually change as AI permeates every aspect of the business."
+    }
+  ],
+  "category": "product",
+  "run_config": "66ca4e65ea51",
+  "judge_config": "ef6fddaa4dff",
+  "judge": {
+    "groundedness": 4,
+    "completeness": 5,
+    "coherence": 5,
+    "usefulness": 4,
+    "rationale": "The report is well-structured and accurately uses most of the provided evidence, demonstrating high groundedness and coherence. It correctly identifies the lack of information regarding the enterprise outlook for the specific company 'Framework' rather than hallucinating answers based on the irrelevant AI enterprise sources.",
+    "weaknesses": [
+      "The report inaccurately identifies 'Framework' as the entity discussed in source [3], which actually concerns the 'Tachiyomi' application and its modular architecture."
+    ]
+  }
+}

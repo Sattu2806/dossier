@@ -1,0 +1,7 @@
+topic,category,revision_count,critique_passed,word_count,sources_cited,citations_invented,notes_missing,duration_s,error,groundedness,completeness,coherence,usefulness
+solid-state batteries,mainstream-tech,1,True,744,9,0,0,12.8,,5,5,5,5
+the effectiveness of rent control,contested,1,True,839,10,0,0,9.7,,4,5,5,5
+the WebAssembly component model,niche-technical,1,True,728,10,0,0,9.7,,5,5,5,5
+intermittent fasting and metabolic health,health,1,True,869,9,0,0,9.8,,5,5,5,5
+HNSW vs IVF indexing in vector databases,comparison,1,True,725,9,0,0,10.7,,5,5,5,5
+does remote work reduce productivity,contested,1,True,784,9,0,0,10.6,,5,5,5,5

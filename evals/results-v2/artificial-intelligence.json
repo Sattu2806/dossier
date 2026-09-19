@@ -1,0 +1,167 @@
+{
+  "topic": "artificial intelligence",
+  "error": null,
+  "duration_s": 10.5,
+  "sub_questions": [
+    "What are the foundational milestones and historical developments in the field of artificial intelligence?",
+    "What are the current state-of-the-art capabilities and major industry applications of artificial intelligence systems today?",
+    "What are the primary ethical debates, safety concerns, and societal risks associated with the rapid advancement of artificial intelligence?",
+    "What are the future technological outlooks, regulatory trends, and potential long-term impacts of artificial intelligence on the global economy?"
+  ],
+  "notes_ok": 12,
+  "notes_missing": 4,
+  "sources_available": 12,
+  "sources_cited": 9,
+  "citations_invented": 0,
+  "word_count": 612,
+  "revision_count": 1,
+  "critique_passed": true,
+  "critique_scores": {
+    "groundedness": 5,
+    "completeness": 5,
+    "coherence": 5
+  },
+  "report": "# Artificial Intelligence Research Report\n\nArtificial intelligence has evolved from early historical foundations into a pervasive global technology that is rapidly transforming enterprise operations and scientific research. However, this rapid progression brings forth significant ethical challenges, complex regulatory landscapes, and profound economic implications.\n\n## What are the foundational milestones and historical developments in the field of artificial intelligence?\nThe history of artificial intelligence spans decades of breakthroughs, quiet periods, and system revolutions, originating with figures like Alan Turing and progressing toward modern systems like ChatGPT [2]. The field experienced historical cycles where excitement peaked, followed by phases where expert systems lost momentum, leading researchers to adopt quieter, more cautious approaches before newer foundations began to emerge [2]. Globally, national AI strategies and state-backed investments in supercomputing are expanding, while model production remains concentrated in the U.S. and China alongside growing open-source contributions [3].\n\n## What are the current state-of-the-art capabilities and major industry applications of artificial intelligence systems today?\nArtificial intelligence has reached a critical inflection point, with 88% of organizations regularly using AI in at least one business function [5]. Organizations are scaling AI deployments more deeply across enterprises, most commonly utilizing AI agents within IT, knowledge management, and software engineering, particularly within technology companies [4]. Beyond standard operations, AI acts as an operational backbone for scientific research, where autonomous systems plan and execute experiments to shorten R&D cycles, design novel antibiotics, predict toxicity, and cut prototype development time for electric vehicle batteries [6].\n\n## What are the primary ethical debates, safety concerns, and societal risks associated with the rapid advancement of artificial intelligence?\nThe rapid pace of artificial intelligence has raised profound ethical concerns regarding its use, ownership, accountability, human dignity, moral agency, and the potential to surpass human capabilities [7][8]. Safety issues have materialized into tangible societal harms, including non-consensual child abuse, deep fakes, suicides, and psychosis [7]. Addressing these risks requires collaboration among technologists, policymakers, and ethicists to establish robust regulations, ensure transparency, and promote diversity and inclusivity in development [8].\n\n## What are the future technological outlooks, regulatory trends, and potential long-term impacts of artificial intelligence on the global economy?\nTechnological outlooks feature emerging trends such as agentic AI, quantum computing for superior security and power, and the unpredictable potential of Artificial General Intelligence and Artificial Superintelligence [11]. In the healthcare sector alone, the global AI market is projected to grow from $48.5 billion to $1.92 trillion by 2040, driven by wearable health monitoring, automated clinical documentation, generative AI drug discovery, and autonomous virtual assistants [10]. Meanwhile, organizations face a wide gap between experimentation and measurable financial return, with only 39% reporting EBIT impact despite 64% noting that AI drives innovation [5].\n\n## Conclusion\nArtificial intelligence has established itself as an essential pillar of modern enterprise, scientific R&D, and global economic forecasting. While technological capabilities and adoption rates continue to accelerate rapidly, addressing safety concerns, closing the monetization gap, and enacting robust regulations remain critical to sustainable deployment.\n\n## Sources\n[2] The Complete History of AI (1950\u20132026) - The Rise of Artificial Intelligence \u2014 https://www.youtube.com/watch?v=Xl-G6Mv-N0A\n[3] The 2026 AI Index Report | Stanford HAI \u2014 https://hai.stanford.edu/ai-index/2026-ai-index-report\n[4] The State of AI: Global Survey 2026 - McKinsey \u2014 https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai\n[5] 2026 State of AI: Insights on Adoption, Challenges, and Opportunities | Airia \u2014 https://airia.com/resources/2026-state-of-ai\n[6] The Future of AI: How AI Is Changing the World \u2014 https://builtin.com/artificial-intelligence/artificial-intelligence-future\n[7] Town Hall: Dilemmas around Ethics in AI | World Economic Forum Annual Meeting 2026 \u2014 https://www.youtube.com/watch?v=khtxU8WxZ_8\n[8] The Ethical Considerations of Artificial Intelligence \u2014 https://www.captechu.edu/blog/ethical-considerations-of-artificial-intelligence\n[10] $1.92 Trillion Artificial Intelligence (AI) in Healthcare Market Trends and Global Long-term Forecasts, 2026-2040 \u2014 https://finance.yahoo.com/news/1-92-trillion-artificial-intelligence-112900148.html\n[11] KPMG Global tech report 2026 \u2014 https://kpmg.com/xx/en/our-insights/ai-and-technology/global-tech-report.html",
+  "first_draft": "# Artificial Intelligence Research Report\n\nArtificial intelligence has evolved from early historical foundations into a pervasive global technology that is rapidly transforming enterprise operations and scientific research. However, this rapid progression brings forth significant ethical challenges, complex regulatory landscapes, and profound economic implications.\n\n## What are the foundational milestones and historical developments in the field of artificial intelligence?\nThe history of artificial intelligence spans decades of breakthroughs, quiet periods, and system revolutions, originating with figures like Alan Turing and progressing toward modern systems like ChatGPT [2]. The field experienced historical cycles where excitement peaked, followed by phases where expert systems lost momentum, leading researchers to adopt quieter, more cautious approaches before newer foundations began to emerge [2]. Globally, national AI strategies and state-backed investments in supercomputing are expanding, while model production remains concentrated in the U.S. and China alongside growing open-source contributions [3].\n\n## What are the current state-of-the-art capabilities and major industry applications of artificial intelligence systems today?\nArtificial intelligence has reached a critical inflection point, with 88% of organizations regularly using AI in at least one business function [5]. Organizations are scaling AI deployments more deeply across enterprises, most commonly utilizing AI agents within IT, knowledge management, and software engineering, particularly within technology companies [4]. Beyond standard operations, AI acts as an operational backbone for scientific research, where autonomous systems plan and execute experiments to shorten R&D cycles, design novel antibiotics, predict toxicity, and cut prototype development time for electric vehicle batteries [6].\n\n## What are the primary ethical debates, safety concerns, and societal risks associated with the rapid advancement of artificial intelligence?\nThe rapid pace of artificial intelligence has raised profound ethical concerns regarding its use, ownership, accountability, human dignity, moral agency, and the potential to surpass human capabilities [7][8]. Safety issues have materialized into tangible societal harms, including non-consensual child abuse, deep fakes, suicides, and psychosis [7]. Addressing these risks requires collaboration among technologists, policymakers, and ethicists to establish robust regulations, ensure transparency, and promote diversity and inclusivity in development [8].\n\n## What are the future technological outlooks, regulatory trends, and potential long-term impacts of artificial intelligence on the global economy?\nTechnological outlooks feature emerging trends such as agentic AI, quantum computing for superior security and power, and the unpredictable potential of Artificial General Intelligence and Artificial Superintelligence [11]. In the healthcare sector alone, the global AI market is projected to grow from $48.5 billion to $1.92 trillion by 2040, driven by wearable health monitoring, automated clinical documentation, generative AI drug discovery, and autonomous virtual assistants [10]. Meanwhile, organizations face a wide gap between experimentation and measurable financial return, with only 39% reporting EBIT impact despite 64% noting that AI drives innovation [5].\n\n## Conclusion\nArtificial intelligence has established itself as an essential pillar of modern enterprise, scientific R&D, and global economic forecasting. While technological capabilities and adoption rates continue to accelerate rapidly, addressing safety concerns, closing the monetization gap, and enacting robust regulations remain critical to sustainable deployment.",
+  "research_notes": [
+    {
+      "sub_question": "What are the foundational milestones and historical developments in the field of artificial intelligence?",
+      "origin": "web",
+      "status": "ok",
+      "title": "The History of AI: A Timeline of Artificial Intelligence",
+      "source_url": "https://www.coursera.org/articles/history-of-ai",
+      "content": "6.\n\nMIT. \"MIT team building social robot,  Accessed April 22, 2026.\n\n7.\n\nGoogle DeepMind. \"AlphaGo,  Accessed April 22, 2026.\n\n## Keep reading\n\n Prompt Engineering Jobs: Your 2026 Career Guide\n\n  December 5, 2025\n Will AI Replace Programmers?\n\n  May 28, 2026\n What Is Generative AI? How It Works, Examples, Benefits, and Limitations\n\n  April 18, 2026\n AI in UX Design: Examples, Tools, and Trends\n\n  February 5, 2026\n AI in Marketing: How to Use It to Enhance Your Marketing Efforts [...] Politecnico di MilanoBeginner3 - 6 MonthsSpecialization4.6(878)\n\n## Article sources\n\n1.\n\nBritannica. \"Early business machines,  Accessed April 22, 2026.\n\n2.\n\nHistory of Data Science. \"Dartmouth Summer Research Project: The Birth of Artificial Intelligence,  Accessed April 22, 2026.\n\n3.\n\nStanford. \"Shakey the Robot,  Accessed April 22, 2026.\n\n4.\n\nComputer History. \"Shakey,  Accessed April 22, 2026.\n\n5.\n\nAAAI. \"About AAAI,  Accessed April 22, 2026.\n\n6."
+    },
+    {
+      "sub_question": "What are the foundational milestones and historical developments in the field of artificial intelligence?",
+      "origin": "web",
+      "status": "ok",
+      "title": "The Complete History of AI (1950\u20132026) - The Rise of Artificial Intelligence",
+      "source_url": "https://www.youtube.com/watch?v=Xl-G6Mv-N0A",
+      "content": "### Description\n2099 views\nPosted: 17 Apr 2026\nDiscover the complete history of artificial intelligence from 1950 to 2026 in this full documentary. From Alan Turing and the birth of AI, to the rise of modern systems like ChatGPT, this video explains how AI evolved over decades of breakthroughs, failures, and revolutions. [...] products in more practical terms. The field did not disappear, but it became less visible. Researchers [music] continued their work, but often without the same level of attention or support. The excitement that [music] had once surrounded artificial intelligence was replaced by a quieter, more cautious approach. Despite [music] the decline, important developments were still taking place. While expert [music] systems were losing momentum, other approaches were slowly gaining ground. Researchers [...] The same pattern that had appeared before was starting to return. And [music] just as the excitement reached another peak, the foundations of this approach began to s"
+    },
+    {
+      "sub_question": "What are the foundational milestones and historical developments in the field of artificial intelligence?",
+      "origin": "web",
+      "status": "ok",
+      "title": "The 2026 AI Index Report | Stanford HAI",
+      "source_url": "https://hai.stanford.edu/ai-index/2026-ai-index-report",
+      "content": "National AI strategies are expanding, particularly among developing economies, and state-backed investments in AI supercomputing are rising in parallel\u2014a sign of growing ambitions for domestic control over AI ecosystems. Yet model production remains concentrated in the U.S. and China. Open-source development is starting to redistribute participation, with contributions from the rest of the world now outpacing Europe and approaching the United States on GitHub, fueling more linguistically [...] Artificial Intelligence has leapt to the forefront of global discourse, garnering increased attention from practitioners, industry leaders, policymakers, and the general public. The diversity of opinions and debates gathered from news articles this year illustrates just how broadly AI is being investigated, studied, and applied. However, the field of AI is still evolving rapidly and even experts have a hard time understanding and tracking progress across the field.\n\nImage 19 [...] Artificial Inte"
+    },
+    {
+      "sub_question": "What are the foundational milestones and historical developments in the field of artificial intelligence?",
+      "origin": "docs",
+      "status": "no_results",
+      "title": "",
+      "source_url": "",
+      "content": "No search results found."
+    },
+    {
+      "sub_question": "What are the current state-of-the-art capabilities and major industry applications of artificial intelligence systems today?",
+      "origin": "web",
+      "status": "ok",
+      "title": "The State of AI: Global Survey 2026 - McKinsey",
+      "source_url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai",
+      "content": "Organizations\u2019 conviction in AI is growing faster than the immediate financial returns they can attribute to it. Organizations continue to scale AI deployments more broadly and deeply across the enterprise, expand their use of increasingly capable technologies, and increase their investments\u2014even as the share reporting meaningful EBIT impact remains essentially unchanged so far. Organizations are discovering that AI capabilities not only give them more options for building rather than buying [...] The survey findings show that organizations are scaling AI in the functions with the greatest potential value for their industries. Overall, respondents most often report scaling AI agents within IT, knowledge management, and software engineering (exhibit). Use of agents is most widely reported by respondents working for technology companies, as was true in last year\u2019s survey, and respondents in the industry much more commonly report using agents in their software engineering than do [...] Ne"
+    },
+    {
+      "sub_question": "What are the current state-of-the-art capabilities and major industry applications of artificial intelligence systems today?",
+      "origin": "web",
+      "status": "ok",
+      "title": "2026 State of AI: Insights on Adoption, Challenges, and Opportunities | Airia",
+      "source_url": "https://airia.com/resources/2026-state-of-ai",
+      "content": "Download Now: A Comprehensive Guide for Business Leaders Navigating the AI Transformation\n\nAs we enter 2026, artificial intelligence has reached a critical inflection point. While adoption rates continue climbing, the gap between AI experimentation and measurable business impact remains stubbornly wide.\n\n88% of organizations now regularly use AI in at least one business function, according to a recent McKinsey survey. [...] Key Findings:\n\n Only 39% of organizations report EBIT impact from AI (McKinsey), yet 64% say it\u2019s driving innovation\n Infrastructure and orchestration \u2013 not model capabilities \u2013 are becoming the primary differentiators\n High-performing Al organizations share common patterns around workflow redesign and leadership commitment\n The regulatory landscape is creating both constraints and competitive opportunities for early movers [...] Use this resource as a practical starting point for evaluating how enterprise AI moves from isolated pilots to managed, measurable program"
+    },
+    {
+      "sub_question": "What are the current state-of-the-art capabilities and major industry applications of artificial intelligence systems today?",
+      "origin": "web",
+      "status": "ok",
+      "title": "The Future of AI: How AI Is Changing the World",
+      "source_url": "https://builtin.com/artificial-intelligence/artificial-intelligence-future",
+      "content": "AI has quickly become the operational backbone of scientific research. In 2026 autonomous systems that can plan and execute experiments rather than just summarize data and are shortening research and development cycles. Pharmaceutical leaders are now using AI to design completely new antibiotics from scratch and predict the toxicity of compounds before they ever enter a physical lab. Elsewhere, companies like CATL are using AI-powered platforms to cut prototype development for EV batteries by"
+    },
+    {
+      "sub_question": "What are the current state-of-the-art capabilities and major industry applications of artificial intelligence systems today?",
+      "origin": "docs",
+      "status": "no_results",
+      "title": "",
+      "source_url": "",
+      "content": "No search results found."
+    },
+    {
+      "sub_question": "What are the primary ethical debates, safety concerns, and societal risks associated with the rapid advancement of artificial intelligence?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Town Hall: Dilemmas around Ethics in AI | World Economic Forum Annual Meeting 2026",
+      "source_url": "https://www.youtube.com/watch?v=khtxU8WxZ_8",
+      "content": "# Town Hall: Dilemmas around Ethics in AI | World Economic Forum Annual Meeting 2026\n## Channel: World Economic Forum (verified)\n1.08M subscribers\n\n### Description\n2,859 views\nPosted: 2026-01-22\nAs AI reshapes economies, societies and daily life, profound questions emerge about human dignity, moral agency and the essence of personhood. \n\nHow can humanity navigate the promises and perils of AI, and what values should define us in an age of advanced artificial intelligence? [...] [23:18] just as a parent, you know, it's just so heart-wrenching to see that exactly the things we could have prevented if we had\n[23:25] taken these safety issues more serious, they're actually happening now. But I think on the on the on the upside, the good news is uh particularly that child\n[23:33] harm that we're beginning to see, you know, everywhere from anything from non-consensual child abuse, deep fakes\n[23:39] to suicides and psychosis is really really uh resonating. I've never seen [...] [22:47] found"
+    },
+    {
+      "sub_question": "What are the primary ethical debates, safety concerns, and societal risks associated with the rapid advancement of artificial intelligence?",
+      "origin": "web",
+      "status": "ok",
+      "title": "The Ethical Considerations of Artificial Intelligence",
+      "source_url": "https://www.captechu.edu/blog/ethical-considerations-of-artificial-intelligence",
+      "content": "Artificial intelligence is progressing at an astonishing pace, raising profound ethical concerns regarding its use, ownership, accountability, and long-term implications for humanity. As technologists, ethicists, and policymakers look at the future of AI, ongoing debates about the control, power dynamics, and potential for AI to surpass human capabilities highlight the need to address these ethical challenges in the present. With the White House recently investing $140 million in funding and [...] Addressing the ethical issues surrounding AI requires collaboration among technologists, policymakers, ethicists, and society at large. Establishing robust regulations, ensuring transparency in AI systems, promoting diversity and inclusivity in development, and fostering ongoing discussions are integral to responsible AI deployment. By proactively engaging with these concerns, we can harness the incredible potential of AI while upholding ethical principles to shape a future where socially [.."
+    },
+    {
+      "sub_question": "What are the primary ethical debates, safety concerns, and societal risks associated with the rapid advancement of artificial intelligence?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Societal impacts of artificial intelligence: Ethical, legal, and governance issues",
+      "source_url": "https://www.sciencedirect.com/science/article/pii/S2949697724000055",
+      "content": "All content on this site: Copyright \u00a9 2026 Elsevier B.V., its licensors, and contributors. All rights are reserved, including those for text and data mining, AI training, and similar technologies. For all open access content, the relevant licensing terms apply.\n\nImage 7: RELX group home page\n\nPersistent link using digital object identifier (DOI)"
+    },
+    {
+      "sub_question": "What are the primary ethical debates, safety concerns, and societal risks associated with the rapid advancement of artificial intelligence?",
+      "origin": "docs",
+      "status": "no_results",
+      "title": "",
+      "source_url": "",
+      "content": "No search results found."
+    },
+    {
+      "sub_question": "What are the future technological outlooks, regulatory trends, and potential long-term impacts of artificial intelligence on the global economy?",
+      "origin": "web",
+      "status": "ok",
+      "title": "$1.92 Trillion Artificial Intelligence (AI) in Healthcare Market Trends and Global Long-term Forecasts, 2026-2040",
+      "source_url": "https://finance.yahoo.com/news/1-92-trillion-artificial-intelligence-112900148.html",
+      "content": "The global AI in healthcare market size is estimated to grow from USD 48.5 billion in the current year to USD 1.92 trillion by 2040, at a CAGR of 30% during the forecast period, till 2040. The new study provides market size, growth scenarios, industry trends and future forecasts. [...] Emerging trends in artificial intelligence (AI) for healthcare include advanced wearable devices that enable real-time health monitoring and proactive clinician alerts for anomalies such as arrhythmias. Generative AI facilitates automated clinical documentation, synthetic patient data generation for secure model training, and accelerated drug discovery pipelines. Further, autonomous AI agents function as virtual assistants, streamlining appointment scheduling and post-care follow-up. [...] Dublin, March 03, 2026 (GLOBE NEWSWIRE) -- The \"Artificial Intelligence (AI) in Healthcare Market, till 2040: Distribution by Type of Platform, Type of Component, Type of Application, Type of Technology, End User, Key "
+    },
+    {
+      "sub_question": "What are the future technological outlooks, regulatory trends, and potential long-term impacts of artificial intelligence on the global economy?",
+      "origin": "web",
+      "status": "ok",
+      "title": "KPMG Global tech report 2026",
+      "source_url": "https://kpmg.com/xx/en/our-insights/ai-and-technology/global-tech-report.html",
+      "content": "##### The foundations for the next wave\n\nThe rise of agentic AI is commanding the attention of tech executives, but there are even more disruptive AI tech trends on the horizon. Quantum provides immense computing power and calls for superior security, while Artificial General Intelligence and Artificial Superintelligence hold unpredictable potential. One eye must always remain fixed on what is coming next. [...] This report features valuable insights on emerging technology trends from interviews with eight global technology leaders including Dean Bortz, Director, AI Go-to-Market, Google; Zack Kass, Global AI advisor, thought leader, and former Head of Go-to-Market, OpenAI; Noelle Russell, AI Solutions Architect and Strategic Advisor, CEO, AI Leadership Institute; and Seth Patton, General Manager, Product Marketing, Microsoft 365 Copilot.\n\n## Explore our sector insights [...] ### Energy, Natural Resources and Chemicals: KPMG Global tech report 2026\n\n## Related insights\n\n### Transforming"
+    },
+    {
+      "sub_question": "What are the future technological outlooks, regulatory trends, and potential long-term impacts of artificial intelligence on the global economy?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Artificial Intelligence (AI)-Generated Influencer Script Global Market Report 2025 with Long-term Prospects to 2029 and 2034",
+      "source_url": "https://finance.yahoo.com/news/artificial-intelligence-ai-generated-influencer-151100665.html",
+      "content": "Artificial Intelligence (AI)-Generated Influencer Script Market\n\n \n\nDublin, Jan. 07, 2026 (GLOBE NEWSWIRE) -- The \"Artificial Intelligence (AI)-Generated Influencer Script Global Market Report 2025\"-Generated+Influencer+Script+Global+Market+Report+2025+with+Long-term+Prospects+to+2029+and+2034&utm_exec=chdomsai) has been added to ResearchAndMarkets.com's offering."
+    },
+    {
+      "sub_question": "What are the future technological outlooks, regulatory trends, and potential long-term impacts of artificial intelligence on the global economy?",
+      "origin": "docs",
+      "status": "no_results",
+      "title": "",
+      "source_url": "",
+      "content": "No search results found."
+    }
+  ],
+  "judge": {
+    "groundedness": 5,
+    "completeness": 5,
+    "coherence": 5,
+    "usefulness": 5,
+    "rationale": "The report is concise and accurately synthesizes the provided evidence across all requested sub-questions. It maintains a formal tone and properly cites the source material for each claim made.",
+    "weaknesses": []
+  },
+  "category": "too-broad",
+  "run_config": "2981e89fce66",
+  "judge_config": "ef6fddaa4dff"
+}

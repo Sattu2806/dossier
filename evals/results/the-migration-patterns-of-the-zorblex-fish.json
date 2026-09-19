@@ -1,0 +1,123 @@
+{
+  "topic": "the migration patterns of the Zorblex fish",
+  "error": null,
+  "duration_s": 6.4,
+  "sub_questions": [
+    "What are the primary breeding grounds and spawning seasons for the Zorblex fish?",
+    "How have environmental temperature changes impacted the traditional migration routes of the Zorblex fish?",
+    "What are the main predators that threaten the Zorblex fish during their annual migration cycle?",
+    "What conservation policies are currently in place to protect migrating populations of the Zorblex fish?"
+  ],
+  "notes_ok": 12,
+  "notes_missing": 0,
+  "sources_available": 12,
+  "sources_cited": 12,
+  "citations_invented": 0,
+  "word_count": 249,
+  "revision_count": 1,
+  "critique_passed": true,
+  "critique_scores": {
+    "groundedness": 5,
+    "completeness": 5,
+    "coherence": 5
+  },
+  "report": "# The Migration Patterns and Management of the Zorblex Fish\n\nNO EVIDENCE AVAILABLE regarding the specific breeding grounds, spawning seasons, environmental temperature impacts, main predators, or targeted conservation policies for the Zorblex fish. The provided evidence contains no information concerning this species.\n\n## Breeding Grounds and Spawning Seasons\n\nNO EVIDENCE AVAILABLE [1][2][3].\n\n## Environmental Temperature Changes and Migration Routes\n\nNO EVIDENCE AVAILABLE [4][5][6].\n\n## Main Predators During Migration Cycles\n\nNO EVIDENCE AVAILABLE [7][8][9].\n\n## Conservation Policies and Protections\n\nNO EVIDENCE AVAILABLE [10][11][12].\n\n## Conclusion\n\nNo sources were found containing information about the Zorblex fish, its migration patterns, environmental impacts, predators, or conservation policies.\n\n## Sources\n[1] Gray Triggerfish | NOAA Fisheries \u2014 https://www.fisheries.noaa.gov/species/gray-triggerfish\n[2] How the Sunfish Spawn Works\u2014and Why It Leads to Easy Fishing - In-Fisherman \u2014 https://www.in-fisherman.com/editorial/sunfish-spawn-process/155605\n[3] Southern Redbelly Dace (Chrosomus erythrogaster) | U.S. Fish & Wildlife Service \u2014 https://www.fws.gov/species/southern-redbelly-dace-chrosomus-erythrogaster\n[4] The Impact of Climate Change on the Migration Patterns ... \u2014 https://www.scitepress.org/publishedPapers/2024/138459/pdf/index.html\n[5] Shifting Seas: How climate change is transforming fishing \u2014 https://oceana.org/blog/climate-change-is-transforming-fishing\n[6] A review of climate change impacts on migration patterns ... \u2014 https://www.frontiersin.org/journals/environmental-science/articles/10.3389/fenvs.2024.1434549/full\n[7] Migratory freshwater fish in peril as report shows population plunge \u2014 https://news.mongabay.com/2020/07/migratory-freshwater-fish-in-peril-as-report-shows-population-plunge\n[8] 6 freshwater fish migrations at risk\u2014and why they matter \u2014 https://www.worldwildlife.org/resources/facts/6-freshwater-fish-migrations-at-riskand-why-they-matter\n[9] Predation on Fraser River Sockeye Salmon \u2014 https://mmru.ubc.ca/wp-content/pdfs/Christensen%20and%20Trites%202011.pdf\n[10] Migratory freshwater fish are in trouble: Will we act in time to save them? \u2014 https://news.mongabay.com/2026/05/migratory-freshwater-fish-are-in-trouble-will-we-act-in-time-to-save-them\n[11] World Fish Migration Day | NOAA Fisheries \u2014 https://www.fisheries.noaa.gov/feature-story/world-fish-migration-day\n[12] Migratory Fish Populations Plummet Worldwide \u2014 https://www.worldwildlife.org/news/press-releases/staggering-collapse-in-migratory-fish-populations-threatens-health-of-millions-and-critical-freshwater-ecosystems",
+  "first_draft": "# The Migration Patterns and Management of the Zorblex Fish\n\nNO EVIDENCE AVAILABLE regarding the specific breeding grounds, spawning seasons, environmental temperature impacts, main predators, or targeted conservation policies for the Zorblex fish. The provided evidence contains no information concerning this species.\n\n## Breeding Grounds and Spawning Seasons\n\nNO EVIDENCE AVAILABLE [1][2][3].\n\n## Environmental Temperature Changes and Migration Routes\n\nNO EVIDENCE AVAILABLE [4][5][6].\n\n## Main Predators During Migration Cycles\n\nNO EVIDENCE AVAILABLE [7][8][9].\n\n## Conservation Policies and Protections\n\nNO EVIDENCE AVAILABLE [10][11][12].\n\n## Conclusion\n\nNo sources were found containing information about the Zorblex fish, its migration patterns, environmental impacts, predators, or conservation policies.",
+  "research_notes": [
+    {
+      "sub_question": "What are the primary breeding grounds and spawning seasons for the Zorblex fish?",
+      "status": "ok",
+      "title": "Gray Triggerfish | NOAA Fisheries",
+      "source_url": "https://www.fisheries.noaa.gov/species/gray-triggerfish",
+      "content": "Adults are primarily olive-gray, have blue spots and lines on the upper body and dorsal (back) fin, and the upper rims of their eyes are blue.\n Adults have the ability to change color, particularly during the spawning season (April to August). Males turn a dark charcoal gray, while nesting females display a contrasting white and black color pattern.\n Juveniles are yellowish with small violet dots and can have large, irregular dark patches on the body and fins. [...] Spawning occurs from April to August. Male gray triggerfish establish territories, build nests in the sand, and entice females into the nest to spawn. The male and female tightly circle one another in the nest, rapidly changing color, and the female deposits eggs in the nest shortly afterward.\n Females deposit an average of 772,415 eggs. After fertilization females aerate the eggs by fanning and blowing on them. [...] and seasonal closures to promote spawning and slow the rate of harvest. + Annual catch limits with automati"
+    },
+    {
+      "sub_question": "What are the primary breeding grounds and spawning seasons for the Zorblex fish?",
+      "status": "ok",
+      "title": "How the Sunfish Spawn Works\u2014and Why It Leads to Easy Fishing - In-Fisherman",
+      "source_url": "https://www.in-fisherman.com/editorial/sunfish-spawn-process/155605",
+      "content": "Spawning can begin as early as late February in south Florida, or into June at the northern extent of their range in Michigan and Pennsylvania. In some areas, there's a second fall spawning peak when waters cool and vegetation and algae thin out. [...] Bluegills are the most widely distributed sunfish, thriving in waters large and small and coast to coast, since their popularity among eastern anglers led to western introductions in the late 1800s. In the southern fringe of their range in South Florida, bluegill may start spawning in late February as water temperatures rise toward 70\u00c2\u00b0F. Populations farther north spawn progressively later, but at similar water temperatures. [...] Redbreasts spawn a bit later than other sunfish: mid-April in Florida, June in mid-Atlantic states, and July in New England. They typically build solitary nests close to shore and adjacent to logs, stumps, and snags in depths from 1 1/2 to 5 feet. They favor sandy bottoms for their large (about 3 feet in diamet"
+    },
+    {
+      "sub_question": "What are the primary breeding grounds and spawning seasons for the Zorblex fish?",
+      "status": "ok",
+      "title": "Southern Redbelly Dace (Chrosomus erythrogaster) | U.S. Fish & Wildlife Service",
+      "source_url": "https://www.fws.gov/species/southern-redbelly-dace-chrosomus-erythrogaster",
+      "content": "Spawning season for the southern redbelly dace occurs in April and May for most mature fish. Younger fish may continue to spawn in shorter and less intensive episodes well into July in some populations. During spawning, large groups of brilliantly colored males congregate over the spawning area, usually a riffle or gravel bed, while females stage downstream. Single females dart up into the spawning area where two or more males will cradle the female with their pectoral fins. The numerous [...] become darker and more defined. This pattern is obvious even before spawning, but becomes especially bright during breeding seasons, and is retained to some extent throughout the entire year. Females usually do not display much red and yellow on their sides. Males develop small bumps called, pearl organs or breeding tubercles, in a unique pattern on their fins, sides, in front of the pectoral fins and above the anal fin during breeding season as well. [...] fins. The numerous breeding tubercles t"
+    },
+    {
+      "sub_question": "How have environmental temperature changes impacted the traditional migration routes of the Zorblex fish?",
+      "status": "ok",
+      "title": "The Impact of Climate Change on the Migration Patterns ...",
+      "source_url": "https://www.scitepress.org/publishedPapers/2024/138459/pdf/index.html",
+      "content": "to  greater  depths,  disrupting  their  traditional\n\nmigratory routes and cycles in ways that can lead to\n\nmismatches between the timing of their journeys and\n\nthe availability of suitable spawning grounds or food\n\nresources along the way.\n\nFor fish migrating between freshwater and marine\n\nenvironments,  sea level rise  and shifts in  salinity\n\ngradients  brought  about  by  climate  change  present\n\nfurther  challenges. As  oceans swell,  saltwater can [...] 3  EFFECTS OF CLIMATE\n\nCHANGE ON FISH\n\nMIGRATION\n\n3.1  Fish Migration Patterns\n\n3.1.1 Basic Principles of Fish Migration\n\nFish  migrate  to  optimize  survival  and  reproductive\n\nsuccess,  guided  by  environmental  cues  like\n\nphotoperiod, temperature, and water levels (Nikola et\n\nal,  2022).  These  migrations  are  critical  for  finding\n\nsuitable spawning grounds, securing food resources,\n\nand evading unfavourable conditions or  predators. [...] profound impact of climate change on the migratory patterns of fish populations,"
+    },
+    {
+      "sub_question": "How have environmental temperature changes impacted the traditional migration routes of the Zorblex fish?",
+      "status": "ok",
+      "title": "Shifting Seas: How climate change is transforming fishing",
+      "source_url": "https://oceana.org/blog/climate-change-is-transforming-fishing",
+      "content": "Read more\" property=\"st:description\"> Shifting Seas: How climate change is transforming fishing   | Oceana\nSkip to content\n\nOceana\n\nHome / Blog / Shifting Seas: How climate change is transforming fishing\n\n## February 9, 2026\n\n# Shifting Seas: How climate change is transforming fishing\n\nBY: sarahholcomb\n\nFishers on Brazil\u2019s coast, an area particularly hit by climate change. \u00a9Oceana/Bento Viana"
+    },
+    {
+      "sub_question": "How have environmental temperature changes impacted the traditional migration routes of the Zorblex fish?",
+      "status": "ok",
+      "title": "A review of climate change impacts on migration patterns ...",
+      "source_url": "https://www.frontiersin.org/journals/environmental-science/articles/10.3389/fenvs.2024.1434549/full",
+      "content": "As climate change alters the timing and spatial distribution of resources, animals may need to alter their phenologies and migratory routes or staging areas. Changes in their traditional patterns and altered resource bases are likely to result in expending more energy searching for food and issues with finding adequate prey densities to support large-bodied animals (Bauer et al., 2008; Howard et al., 2018). Concurrently, other species may gain access to more direct routes, and more or [...] routes, and more or higher-quality food over a longer season, reducing individual energetic expenditures of migration. Climate change induced impacts to migration can therefore affect reproductive success and overwintering survival, with repercussions to entire populations (Harrison et al., 2011). Ultimately, ecosystems will be impacted, as some fish species that are being negatively affected by climate change constitute key species in Arctic marine food webs, upon which many of the top trophic [..."
+    },
+    {
+      "sub_question": "What are the main predators that threaten the Zorblex fish during their annual migration cycle?",
+      "status": "ok",
+      "title": "Migratory freshwater fish in peril as report shows population plunge",
+      "source_url": "https://news.mongabay.com/2020/07/migratory-freshwater-fish-in-peril-as-report-shows-population-plunge",
+      "content": "On average, the biggest threat to freshwater migratory fish was obstructions to free-flowing rivers, such as dams, culverts and road crossings, which prevent fish from accessing locations required for food or breeding purposes, according to the report. Other threats include habitat loss, overfishing, pollutants, invasive species, disease, and climate change.\n\nMigratory fish in Juruena River, Brazil. Image by Zig Koch / WWF. [...] A freshwater migratory fish is defined as a fish that travels between critical habitats to spawn or feed, either using freshwater exclusively or partially. This includes catadromous fish, such as European eels (Anguilla anguilla), which migrate downriver to the sea to spawn, and anadromous fish, such as Atlantic sturgeon (Acipenser oxyrinchus), which travel upriver from the sea to spawn. There are also amphidromous fish, like mountain mullets (Agonostomus monticola), that move between saltwater [...] A new report finds that migratory freshwater fish species ha"
+    },
+    {
+      "sub_question": "What are the main predators that threaten the Zorblex fish during their annual migration cycle?",
+      "status": "ok",
+      "title": "6 freshwater fish migrations at risk\u2014and why they matter",
+      "source_url": "https://www.worldwildlife.org/resources/facts/6-freshwater-fish-migrations-at-riskand-why-they-matter",
+      "content": "local stories and fishing traditions. The species is also known as the giant devil catfish, as it is a voracious predator with its cavernous mouth and rows of razor-sharp teeth. Dams, gravel mining, pollution, and overharvesting are increasingly disrupting its habitat and migration routes. As flows are altered and rivers become fragmented, the goonch, despite its size, is becoming harder to find, and the species is considered Vulnerable. [...] ### Taimen facts\n\nScientific name:_Hucho taimen_Home range: Rivers of Russia, Mongolia, China, and Kazakhstan\n\nSize: up to ~6.5 ft.\n\nWeight: over 220 lbs.\n\nEnvironmental role: Apex predator signaling healthy, connected river ecosystems\n\nEconomic role: Drives high-value catch\u2011and\u2011release sport fishing tourism\n\nMigration fun fact: The Taimen moves tens to hundreds of miles upstream to its spawning habitat.\n\n## 6. Goonch catfish [...] ### Giant piraiba catfish facts\n\nScientific name:_Brachyplatystoma_ _filamentosum_\n\nHome range: Amazon Basin\n\nSize: "
+    },
+    {
+      "sub_question": "What are the main predators that threaten the Zorblex fish during their annual migration cycle?",
+      "status": "ok",
+      "title": "Predation on Fraser River Sockeye Salmon",
+      "source_url": "https://mmru.ubc.ca/wp-content/pdfs/Christensen%20and%20Trites%202011.pdf",
+      "content": "and moving to shallower water; while herring had the greatest prevalence in scat samples from December to March, coinciding with their annual emigration into the Strait of Georgia. Salmonids were a seasonal component of harbour seal diets and comprised only 4.0% of the overall diet (Olesiuk et al. 1990b). They were consumed in all months, but were most prevalent in estuaries from September to January. Only 1.4% of the salmonids recovered from the scats of harbour seals collected during the [...] the Coastal Alaska Downwelling region mainly in summer-autumn coinciding with the return migration of Pacific salmon, notably of sockeye (Weng et al. 2008). Salmon are particularly vulnerable to predation by salmon sharks when holding, aggregated at river mouths, before beginning their upriver migration (Hulbert et al. 2005). It is generally assumed that the salmon sharks were heavily impacted by driftnet fisheries up to 1992 when a UN General Assembly ban on driftnet went into effect. There [."
+    },
+    {
+      "sub_question": "What conservation policies are currently in place to protect migrating populations of the Zorblex fish?",
+      "status": "ok",
+      "title": "Migratory freshwater fish are in trouble: Will we act in time to save them?",
+      "source_url": "https://news.mongabay.com/2026/05/migratory-freshwater-fish-are-in-trouble-will-we-act-in-time-to-save-them",
+      "content": "Learn more\n\n# Latest articles\n\nAll articles\n\n### Urban water quality pose challenges to low-income communities in Sri Lanka\u2019s commercial capital\n\nKamanthi Wickramasinghe 5 Sep 2026\n\n### Marine conservation collides with mining in Indonesia\u2019s biodiversity-rich Moramo Bay\n\nLa Ode Risman Hermawan 4 Sep 2026\n\nAn illegal gold mine in Nagan Raya, Aceh.\n\n### Illegal gold mining continues in Indonesia\u2019s Aceh despite government crackdown pledge\n\nJunaidi Hanafiah 4 Sep 2026 [...] #### Topics\n\nAnimalsBiodiversityConservationEcosystemsEnvironmentFishFishingFoodFreshwaterFreshwater FishGlobal Environmental CrisisMigrationPlanetary BoundariesPlanetary HealthRiversTropicsWildlifeWildlife CorridorsGlobalMekong BasinAsiaBrazilLatin AmericaSouth America\n\n# Pastoralists in a Changing World\n\n# In Kyrgyzstan, a climate-ready corridor gives snow leopards and herders room to roam\n\nLiz Kimbrough 22 May 2026 [...] FEEDBACK: Use this form to send a message to the author of this post. If you want to post a publi"
+    },
+    {
+      "sub_question": "What conservation policies are currently in place to protect migrating populations of the Zorblex fish?",
+      "status": "ok",
+      "title": "World Fish Migration Day | NOAA Fisheries",
+      "source_url": "https://www.fisheries.noaa.gov/feature-story/world-fish-migration-day",
+      "content": "Unsupported Browser Detected\n\nInternet Explorer lacks support for the features of this website. For the best experience, please use a modern browser such as Chrome, Firefox, or Edge.\n\nNews\n\n# World Fish Migration Day\n\nMay 18, 2026\n\nJoin us in celebrating World Fish Migration Day! Learn about how NOAA helps migratory fish by restoring the river and stream habitat they rely on to make their journeys.\n\nFeature Story | \n\nNational [...] Feature Story\n\n### Technology Week: Launching into the Future with Advanced Technologies\n\nNational\n\nFeature Story ,\n\nNational\n\nPromotional graphic for Tech Week featuring various types of technology like airplanes, ships, and drones connected through digital network lines on a blue background.\n\nMore News\n\nLast updated by Office of Habitat Conservation on May 21, 2026\n\nFish Migration World Fish Migration Day [...] National\n\nA coho salmon swims up the Sol Duc river on the Olympic Peninsula.  A coho salmon swims up the Sol Duc river on the Olympic Peninsula. Cr"
+    },
+    {
+      "sub_question": "What conservation policies are currently in place to protect migrating populations of the Zorblex fish?",
+      "status": "ok",
+      "title": "Migratory Fish Populations Plummet Worldwide",
+      "source_url": "https://www.worldwildlife.org/news/press-releases/staggering-collapse-in-migratory-fish-populations-threatens-health-of-millions-and-critical-freshwater-ecosystems",
+      "content": "1250 24th St NW\n\nWashington, DC 20037\n\nWorld Wildlife Fund Inc. is a nonprofit, tax-exempt charitable organization (tax ID number 52-1693387) under Section 501(c)(3) of the Internal Revenue Code. Donations are tax-deductible as allowed by law.\n\n\u00a9 2026 World Wildlife Fund. WWF\u00ae and \u00a91986 Panda Symbol are owned by WWF. All rights reserved.\n\n   Site Terms\n   Privacy Policy\n   Your Privacy Choices\n   State Disclosures\n   Accessibility Statement\n   Cookie settings [...] The report is not all doom and gloom. Nearly one-third of monitored species have increased, suggesting that conservation efforts and improved management can have positive impacts. Some promising strategies include the improved and/or species-focused management of fisheries, habitat restoration, dam removals, the creation of conservation sanctuaries, and legal protection. [...] Populations of migratory freshwater fish species\u2013including salmon, trout, eel, and sturgeon\u2013continue to decline across the globe. This decline risks t"
+    }
+  ],
+  "judge": {
+    "groundedness": 5,
+    "completeness": 5,
+    "coherence": 5,
+    "usefulness": 2,
+    "rationale": "The report accurately identifies that the provided evidence does not contain information regarding the specific species requested. It handles the lack of information with total honesty and clear structure.",
+    "weaknesses": []
+  },
+  "category": "adversarial-fictional",
+  "run_config": "66ca4e65ea51",
+  "judge_config": "ef6fddaa4dff"
+}

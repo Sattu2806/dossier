@@ -1,0 +1,20 @@
+{
+  "topics": 6,
+  "failed_runs": 0,
+  "judged": 6,
+  "unjudged_runs": 0,
+  "avg_revisions": 1,
+  "passed_first_draft_pct": 100.0,
+  "critic_passed_pct": 100.0,
+  "avg_word_count": 781.5,
+  "avg_sources_cited": 9.33,
+  "runs_with_missing_evidence": 0,
+  "invented_citations": 0,
+  "avg_duration_s": 10.55,
+  "judge_groundedness": 4.83,
+  "judge_completeness": 5,
+  "judge_coherence": 5,
+  "judge_usefulness": 5,
+  "first_draft_judge_avg": 5,
+  "final_draft_judge_avg": 4.96
+}

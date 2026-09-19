@@ -1,0 +1,167 @@
+{
+  "topic": "solid-state batteries",
+  "error": null,
+  "duration_s": 21.2,
+  "sub_questions": [
+    "What are the primary material compositions currently being researched for solid-state battery electrolytes?",
+    "What are the main manufacturing challenges preventing the mass production of solid-state batteries?",
+    "How do solid-state batteries compare to traditional lithium-ion batteries in terms of energy density and safety?",
+    "Which automotive and technology companies are leading the commercialization timeline for solid-state batteries?"
+  ],
+  "notes_ok": 12,
+  "notes_missing": 4,
+  "sources_available": 12,
+  "sources_cited": 12,
+  "citations_invented": 0,
+  "word_count": 846,
+  "revision_count": 2,
+  "critique_passed": true,
+  "critique_scores": {
+    "groundedness": 5,
+    "completeness": 5,
+    "coherence": 5
+  },
+  "report": "# Research Report: Solid-State Batteries\n\nSolid-state batteries are advancing rapidly toward commercialization, driven by the promise of higher energy densities and enhanced safety compared to traditional liquid-electrolyte systems [2][7]. However, mass production is currently hindered by complex manufacturing barriers, material limitations, and high production costs [5][6].\n\n## What are the primary material compositions currently being researched for solid-state battery electrolytes?\n\nSolid-state electrolyte materials are broadly divided into three primary chemistry classes: sulfide-based, oxide-based, and polymer-based electrolytes [1]. Each class possesses distinct trade-offs concerning ionic conductivity, electrochemical stability, interfacial compatibility, and manufacturing scalability [1]. \n\n* **Oxide-based electrolytes:** These encompass LLZO (garnet-type), NASICON-type, and LIPON thin-film materials [1]. They offer superior chemical and electrochemical stability relative to sulfides, making them compatible with a wider range of cathode materials and ambient processing conditions [1]. Complex garnet oxide formulations often incorporate four or more metals plus oxygen to optimize ionic conductivity [3].\n* **Sulfide-based electrolytes:** These are emerging as a dominant commercial pathway for automotive-grade applications [2]. Precursor materials like lithium sulfide are seeing targeted industrial investments, such as production facilities built to support all-solid-state batteries developed in collaboration with Toyota [2]. Sulfide materials can, however, be sensitive to moisture, requiring controlled environments like dry rooms during fabrication [6].\n* **Polymer-based electrolytes:** Polyethylene oxide (PEO) is noted as the most common polymer used in solid-state lithium-ion battery configurations [9].\n\n## What are the main manufacturing challenges preventing the mass production of solid-state batteries?\n\nScaling up solid-state battery production involves overcoming several intricate fabrication and material hurdles:\n\n* **Thin Layer and Defect Control:** Solid electrolyte layers must often be as thin as 20 microns, introducing manufacturing tolerances and dimensions new to the battery industry [4]. Creating defect-free, ultra-thin layers with precise contact requires advanced engineering facilities and rigid inline process control to prevent pinholes, cracks, or uneven topography [4][6].\n* **Dendrite Formation:** Lithium metal anodes are highly prone to dendrite growth, which can propagate across the solid electrolyte, cause short-circuits, result in overheating, and severely reduce battery lifespan [4][5].\n* **Environmental Sensitivities:** Sensitive materials\u2014particularly sulfide-based electrolytes\u2014require specialized dry rooms during processing to prevent moisture degradation [6]. \n* **Cost and Scalability:** The high costs associated with raw materials and complex, difficult-to-scale fabrication techniques make solid-state batteries expensive and less competitive than mature traditional lithium-ion batteries [5][6].\n\n## How do solid-state batteries compare to traditional lithium-ion batteries in terms of energy density and safety?\n\nSolid-state batteries offer higher theoretical energy densities and enhanced safety by replacing liquid or gel electrolytes with fully solid materials [7][9]. \n\n* **Energy Density:** Solid-state batteries can deliver energy densities reaching 400 watt-hours per kilogram, which is double that of traditional lithium-ion batteries [8]. This high potential is largely enabled by their capacity to utilize metallic lithium anodes instead of traditional graphite anodes [9].\n* **Safety:** Fully solid-state electrolytes eliminate liquid leakage risks entirely [8]. Traditional lithium-ion batteries\u2014particularly those utilizing high-energy NMC cathodes\u2014are more prone to thermal runaway and gas production, whereas solid-state designs offer higher overall safety and stability [8].\n\n## Which automotive and technology companies are leading the commercialization timeline for solid-state batteries?\n\nAs of 2026, fully solid-state batteries remain in early commercialization and pre-mass production stages, predominantly targeting automotive applications [10]. Key companies and partnerships leading these timelines include:\n\n* **Toyota:** Toyota holds the most solid-state battery patents in the world, with over 1,000, and aims to have its solid-state batteries in mass production by 2027\u20132028, with vehicle integration targeted for 2028 [11]. Toyota is actively collaborating on sulfide-based solid electrolytes via precursor investments [2].\n* **QuantumScape and Solid Power:** Major automotive-focused technology companies progressing toward scalable manufacturing and real-world deployment [10]. QuantumScape is partnered with automotive manufacturers such as Volkswagen, while Solid Power collaborates with companies like BMW [12].\n* **Other Automakers:** Global efforts involve major manufacturers including BMW, Hyundai, Mercedes-Benz, Dongfeng, and others developing in-house cell capabilities and scaling technologies from the laboratory to prototype phases [11][12].\n\n## Conclusion\n\nSolid-state batteries represent a transformative shift in energy storage, offering up to double the energy density of conventional lithium-ion cells alongside complete elimination of liquid leakage risks [8][9]. While material classes like oxides and sulfides show strong potential for automotive deployment, significant hurdles in manufacturing complexity, dendrite mitigation, and cost remain [1][5][6]. Led by major entities such as Toyota, QuantumScape, and Solid Power, the industry is pushing toward mass production milestones slated for the late 2020s [10][11][12].\n\n## Sources\n[1] Solid-state electrolyte materials landscape 2026 | Patsnap \u2014 https://www.patsnap.com/resources/blog/articles/solid-state-electrolyte-materials-landscape-2026\n[2] Solid-State Battery Electrolyte Materials Market | IG Transformation Partners \u2014 https://www.igtps.com/report/solid-state-battery-electrolyte-materials-market\n[3] 2026 Roadmap on Next-Generation Solid Electrolytes for ... \u2014 https://iopscience.iop.org/article/10.1088/2752-5724/ae5120/pdf\n[4] Resolving Production Challenges that Hinder Advancement in Solid-State Batteries | Innovation | KLA \u2014 https://www.kla.com/advance/innovation/resolving-production-challenges-that-hinder-advancement-in-solid-state-batteries\n[5] Solid-State Battery Industry Challenges \u2014 https://www.meegle.com/en_us/topics/solid-state-batteries/solid-state-battery-industry-challenges\n[6] Challenges in Solid-State EV Batteries \u2014 https://www.batterypowertips.com/what-are-the-main-challenges-in-developing-solid-state-batteries-for-evs\n[7] Solid-State Batteries vs Lithium-Ion Batteries \u2014 https://www.wevolver.com/article/solid-state-batteries-vs-lithium-ion-batteries\n[8] How Semi-Solid-State Batteries Compare to Lithium-Ion and Solid-State \u2014 https://www.large-battery.com/blog/semi-solid-state-vs-lithium-ion-solid-state\n[9] Lithium-Ion vs. Solid-State Batteries \u2014 https://citylabs.net/solid-state-batteries-vs-lithium-ion\n[10] Are Solid State Batteries Commercially Available in 2026? \u2014 https://www.xtbattery.com/news/are-solid-state-batteries-commercially-available-in-2026-market-reality-explained\n[11] Solid-state battery technology \u2014 https://www.evinfrastructurenews.com/ev-battery/solid-state-battery-technology\n[12] Solid-State Batteries 2026-2036: Technology, Forecasts, ... \u2014 https://www.idtechex.com/en/research-report/solid-state-batteries/1130",
+  "first_draft": "# Research Report: Solid-State Batteries\n\nSolid-state batteries are advancing rapidly toward commercialization, driven by the promise of higher energy densities and enhanced safety compared to traditional liquid-electrolyte systems [2][7]. However, mass production is currently hindered by complex manufacturing barriers, material limitations, and high production costs [5][6].\n\n## What are the primary material compositions currently being researched for solid-state battery electrolytes?\n\nSolid-state electrolyte materials are broadly divided into three primary chemistry classes: sulfide-based, oxide-based, and polymer-based electrolytes [1]. Each class possesses distinct trade-offs concerning ionic conductivity, electrochemical stability, interfacial compatibility, and manufacturing scalability [1]. \n\n* **Oxide-based electrolytes:** These encompass LLZO (garnet-type), NASICON-type, and LIPON thin-film materials [1]. They offer superior chemical and electrochemical stability relative to sulfides, making them compatible with a wider range of cathode materials and ambient processing conditions [1]. Complex garnet oxide formulations often incorporate four or more metals plus oxygen to optimize ionic conductivity [3].\n* **Sulfide-based electrolytes:** These are emerging as a dominant commercial pathway for automotive-grade applications [2]. Precursor materials like lithium sulfide are seeing targeted industrial investments, such as production facilities built to support all-solid-state batteries developed in collaboration with Toyota [2]. Sulfide materials can, however, be sensitive to moisture, requiring controlled environments like dry rooms during fabrication [6].\n* **Polymer-based electrolytes:** Polyethylene oxide (PEO) is noted as the most common polymer used in solid-state lithium-ion battery configurations [9].\n\n## What are the main manufacturing challenges preventing the mass production of solid-state batteries?\n\nScaling up solid-state battery production involves overcoming several intricate fabrication and material hurdles:\n\n* **Thin Layer and Defect Control:** Solid electrolyte layers must often be as thin as 20 microns, introducing manufacturing tolerances and dimensions new to the battery industry [4]. Creating defect-free, ultra-thin layers with precise contact requires advanced engineering facilities and rigid inline process control to prevent pinholes, cracks, or uneven topography [4][6].\n* **Dendrite Formation:** Lithium metal anodes are highly prone to dendrite growth, which can propagate across the solid electrolyte, cause short-circuits, result in overheating, and severely reduce battery lifespan [4][5].\n* **Environmental Sensitivities:** Sensitive materials\u2014particularly sulfide-based electrolytes\u2014require specialized dry rooms during processing to prevent moisture degradation [6]. \n* **Cost and Scalability:** The high costs associated with raw materials and complex, difficult-to-scale fabrication techniques make solid-state batteries expensive and less competitive than mature traditional lithium-ion batteries [5][6].\n\n## How do solid-state batteries compare to traditional lithium-ion batteries in terms of energy density and safety?\n\nSolid-state batteries offer higher theoretical energy densities and enhanced safety by replacing liquid or gel electrolytes with fully solid materials [7][9]. \n\n* **Energy Density:** Solid-state batteries can deliver energy densities reaching 400 watt-hours per kilogram, which is double that of traditional lithium-ion batteries [8]. This high potential is largely enabled by their capacity to utilize metallic lithium anodes instead of traditional graphite anodes [9].\n* **Safety:** Fully solid-state electrolytes eliminate liquid leakage risks entirely [8]. Traditional lithium-ion batteries\u2014particularly those utilizing high-energy NMC cathodes\u2014are more prone to thermal runaway and gas production, whereas solid-state designs offer higher overall safety and stability [8].\n\n## Which automotive and technology companies are leading the commercialization timeline for solid-state batteries?\n\nAs of 2026, fully solid-state batteries remain in early commercialization and pre-mass production stages, predominantly targeting automotive applications [10]. Key companies and partnerships leading these timelines include:\n\n* **Toyota:** Positioned as a frontrunner holding over a global majority of solid-state battery patents (exceeding 1,000), Toyota aims to transition its batteries into mass production by 2027\u20132028, with vehicle integration targeted for 2028 [11]. Toyota is actively collaborating on sulfide-based solid electrolytes via precursor investments [2].\n* **QuantumScape and Solid Power:** Major automotive-focused technology companies progressing toward scalable manufacturing and real-world deployment [10]. QuantumScape is partnered with automotive manufacturers such as Volkswagen, while Solid Power collaborates with companies like BMW [12].\n* **Other Automakers:** Global efforts involve major manufacturers including BMW, Hyundai, Mercedes-Benz, Dongfeng, and others developing in-house cell capabilities and scaling technologies from the laboratory to prototype phases [11][12].\n\n## Conclusion\n\nSolid-state batteries represent a transformative shift in energy storage, offering up to double the energy density of conventional lithium-ion cells alongside complete elimination of liquid leakage risks [8][9]. While material classes like oxides and sulfides show strong potential for automotive deployment, significant hurdles in manufacturing complexity, dendrite mitigation, and cost remain [1][5][6]. Led by major entities such as Toyota, QuantumScape, and Solid Power, the industry is pushing toward mass production milestones slated for the late 2020s [10][11][12].",
+  "research_notes": [
+    {
+      "sub_question": "What are the primary material compositions currently being researched for solid-state battery electrolytes?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Solid-state electrolyte materials landscape 2026 | Patsnap",
+      "source_url": "https://www.patsnap.com/resources/blog/articles/solid-state-electrolyte-materials-landscape-2026",
+      "content": "Solid-state electrolyte materials are divided into three primary chemistry classes \u2014 sulfide-based, oxide-based, and polymer-based \u2014 each presenting distinct trade-offs in ionic conductivity, electrochemical stability, interfacial compatibility, and manufacturing scalability. [...] Frequently asked questions\n\n## Solid-state electrolyte materials \u2014 key questions answered\n\nThe three primary classes of solid-state electrolyte materials are sulfide-based electrolytes, oxide-based electrolytes, and polymer-based electrolytes. Each class presents distinct trade-offs in ionic conductivity, electrochemical stability, processing requirements, and compatibility with electrode materials. [...] Oxide-based electrolytes \u2014 encompassing LLZO (garnet-type), NASICON-type, and LIPON thin-film materials \u2014 offer superior chemical and electrochemical stability compared to sulfides, making them compatible with a wider range of cathode materials and ambient processing conditions. The primary challenge for ox"
+    },
+    {
+      "sub_question": "What are the primary material compositions currently being researched for solid-state battery electrolytes?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Solid-State Battery Electrolyte Materials Market | IG Transformation Partners",
+      "source_url": "https://www.igtps.com/report/solid-state-battery-electrolyte-materials-market",
+      "content": "## Overview\n\nThe global Solid-State Battery Electrolyte Materials market was valued at\nUSD 0.41 billion in 2025 and is projected to reach USD 5.40 billion by 2034,\ngrowing at a CAGR of 33.1% during the forecast period (2026\u20132034). The market\nis driven by increasing advancement of solid-state battery technologies and\nrising utilization of sulfide, oxide, and polymer-based electrolytes that\nenhance battery safety, energy density, and charging performance. [...] \u2022      In\nJanuary 2026, Idemitsu Kosan invested USD 143 million to construct a\nlithium sulfide production facility in Chiba, Japan. Lithium sulfide is a\ncritical precursor material for sulfide-based solid electrolytes used in\nall-solid-state batteries being developed in collaboration with Toyota. \n\n## Frequently Asked Questions\n\n###### What is the current size of the global Solid-State Battery Electrolyte Materials Market? [...] Sulfide-based solid\nelectrolytes are developing as the dominant commercial pathway for\nautomotive-grade"
+    },
+    {
+      "sub_question": "What are the primary material compositions currently being researched for solid-state battery electrolytes?",
+      "origin": "web",
+      "status": "ok",
+      "title": "2026 Roadmap on Next-Generation Solid Electrolytes for ...",
+      "source_url": "https://iopscience.iop.org/article/10.1088/2752-5724/ae5120/pdf",
+      "content": "Concluding remarks Our general understanding and development of post-Li and Na solid-state electrolytes for K, Mg, Ca, and F-based SSBs are currently in the cradle phase and are largely driven by the demands of specific chemistries in the field of battery 14 Mater. Futures 5 (2026) 033001 Roadmap technology or the necessity to understand the complex inter-play of structure and ion movement in the fields of materials chemistry, physics, inorganic chemistry, and solid-state ion-ics. Ongoing [...] The all-solid electrolytes discussed so far in this roadmap have undergone a significant amount of research and develop-ment primarily aimed at optimizing ionic conductivity. This has resulted in quite complex compositions (e.g. garnet oxide SEs typically consist of four or more metals plus oxygen) and thus reside in highly underexplored composition spaces. [...] Current and future challenges Improving ionic conductivity and chemical stability remains a key challenge for the practical implementa"
+    },
+    {
+      "sub_question": "What are the primary material compositions currently being researched for solid-state battery electrolytes?",
+      "origin": "docs",
+      "status": "no_results",
+      "title": "",
+      "source_url": "",
+      "content": "No search results found."
+    },
+    {
+      "sub_question": "What are the main manufacturing challenges preventing the mass production of solid-state batteries?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Resolving Production Challenges that Hinder Advancement in Solid-State Batteries | Innovation | KLA",
+      "source_url": "https://www.kla.com/advance/innovation/resolving-production-challenges-that-hinder-advancement-in-solid-state-batteries",
+      "content": "A major challenge in SSB manufacturing is designing stable production processes that can yield high-performance products at high volume. The solid electrolyte can be only 20 microns thick, introducing dimensions and standards new to the battery industry. Process challenges such as dendrite growth from the Li-metal electrode can propagate across the solid electrolyte and short-circuit the cell. Dendrites can be caused by a variety of factors, including physical defects, material impurities, [...] impurities, pinholes, cracks or uneven topography.  Manufacturers must adopt more rigid production processes with inline process control to improve yield and reliability. Errors in implementing these processes or unexpected excursions can lead to quality control issues, such as uneven thickness or impurities in the electrolyte, resulting in reduced battery performance, a shorter lifespan and safety hazards like overheating or short-circuiting. [...] For higher energy density and maximum perform"
+    },
+    {
+      "sub_question": "What are the main manufacturing challenges preventing the mass production of solid-state batteries?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Solid-State Battery Industry Challenges",
+      "source_url": "https://www.meegle.com/en_us/topics/solid-state-batteries/solid-state-battery-industry-challenges",
+      "content": "1. Material Limitations: Finding a solid electrolyte material that combines high ionic conductivity, mechanical stability, and compatibility with other components is a significant hurdle.\n2. Dendrite Formation: Lithium metal anodes are prone to dendrite growth, which can short-circuit the battery and reduce its lifespan.\n3. Manufacturing Complexity: Producing solid-state batteries at scale requires advanced manufacturing techniques, which are currently expensive and time-consuming. [...] 4. Cost: The high cost of raw materials and production processes makes solid-state batteries less competitive than lithium-ion batteries.\n5. Scalability: Scaling up production to meet global demand is a major challenge for the industry. [...] hinder large-scale commercialization and widespread adoption. From material limitations and manufacturing complexities to cost barriers and scalability issues, the road to solid-state battery dominance is fraught with obstacles."
+    },
+    {
+      "sub_question": "What are the main manufacturing challenges preventing the mass production of solid-state batteries?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Challenges in Solid-State EV Batteries",
+      "source_url": "https://www.batterypowertips.com/what-are-the-main-challenges-in-developing-solid-state-batteries-for-evs",
+      "content": "Many automotive manufacturers prioritize the development of solid-state batteries to achieve higher energy storage capacity, faster charging times, and improved safety.\n\nsolid-state batteries \n\nFigure 3. Graphical overview of the core stability issues in solid-state batteries. (Image: MDPI)\n\nHowever, mass adoption is still limited by various design and manufacturing challenges (Figure 3), including: [...] Complexity and scalability: Producing solid-state batteries involves complex, difficult-to-scale fabrication processes and costly solid electrolyte materials that provide high ionic conductivity, mechanical strength, and stability. Creating defect-free, thin solid electrolyte layers and ensuring precise contact with electrodes require advanced engineering facilities. At the same time, dry rooms are often necessary to prevent moisture from degrading sensitive materials such as sulfide-based"
+    },
+    {
+      "sub_question": "What are the main manufacturing challenges preventing the mass production of solid-state batteries?",
+      "origin": "docs",
+      "status": "no_results",
+      "title": "",
+      "source_url": "",
+      "content": "No search results found."
+    },
+    {
+      "sub_question": "How do solid-state batteries compare to traditional lithium-ion batteries in terms of energy density and safety?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Solid-State Batteries vs Lithium-Ion Batteries",
+      "source_url": "https://www.wevolver.com/article/solid-state-batteries-vs-lithium-ion-batteries",
+      "content": "## Conclusion\n\nSolid-state batteries offer higher theoretical energy density, improved safety, and better packaging potential by replacing liquid electrolytes with solid materials and enabling lithium metal anodes. However, challenges such as dendrite formation, interfacial resistance, cracking, and manufacturing complexity must be overcome before widespread adoption. [...] Not universally. Solid-state batteries can offer higher energy density and improved safety potential because they use a solid electrolyte instead of a liquid electrolyte, and many designs enable a lithium metal anode. However, lithium-ion batteries are mature, lower cost, field-proven, and already strong in cycle life, manufacturability, and reliability. For electric vehicles, solid-state may become attractive first in premium, high-range platforms. For grid storage, LFP lithium-ion batteries"
+    },
+    {
+      "sub_question": "How do solid-state batteries compare to traditional lithium-ion batteries in terms of energy density and safety?",
+      "origin": "web",
+      "status": "ok",
+      "title": "How Semi-Solid-State Batteries Compare to Lithium-Ion and Solid-State",
+      "source_url": "https://www.large-battery.com/blog/semi-solid-state-vs-lithium-ion-solid-state",
+      "content": "1. Solid-state batteries deliver energy densities of 400 watt-hours per kilogram, which is double that of lithium-ion batteries.\n2. Semi-solid-state battery technology improves safety by minimizing leakage risks while remaining compatible with existing manufacturing processes. [...] In contrast, lithium-ion batteries, particularly those using NMC cathodes, are more prone to thermal runaway due to their high energy density. Studies show that gas production during thermal runaway is highest for NMC 955 (0.105 mol/Ah) and lowest for LiFePO4 (0.023 mol/Ah), making LiFePO4 batteries a safer choice for energy storage systems. Solid-state batteries, with their fully solid electrolytes, eliminate leakage risks entirely, offering the highest level of safety and stability. [...] When comparing performance metrics, semi-solid-state batteries offer a unique balance between traditional lithium-ion batteries and cutting-edge solid-state technology. Semi-solid-state batteries achieve higher energy de"
+    },
+    {
+      "sub_question": "How do solid-state batteries compare to traditional lithium-ion batteries in terms of energy density and safety?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Lithium-Ion vs. Solid-State Batteries",
+      "source_url": "https://citylabs.net/solid-state-batteries-vs-lithium-ion",
+      "content": "Solid-state batteries represent a significant shift in energy storage, utilizing solid electrolytes instead of the traditional liquid or gel electrolytes typically used in lithium-ion batteries. These solid electrolytes\u2014often ceramic or polymer-based (polyethylene oxide, or PEO, being the most common polymer)\u2014offer numerous advantages, including enhanced safety, higher energy density, and longer lifespan. [...] While solid-state batteries represent a promising alternative to most lithium-ion batteries, it\u2019s important to note that there are several types of solid-state lithium-ion batteries that exist. In terms of energy density and battery performance, solid-state batteries have the potential to surpass liquid-state lithium-ion batteries due to their ability to utilize metallic lithium anodes, which offer higher energy density compared to graphite anodes. [...] A wide range of industries use batteries that include solid-state and liquid-state lithium-ion power sources, from consumer el"
+    },
+    {
+      "sub_question": "How do solid-state batteries compare to traditional lithium-ion batteries in terms of energy density and safety?",
+      "origin": "docs",
+      "status": "no_results",
+      "title": "",
+      "source_url": "",
+      "content": "No search results found."
+    },
+    {
+      "sub_question": "Which automotive and technology companies are leading the commercialization timeline for solid-state batteries?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Are Solid State Batteries Commercially Available in 2026?",
+      "source_url": "https://www.xtbattery.com/news/are-solid-state-batteries-commercially-available-in-2026-market-reality-explained",
+      "content": "Stable mass production\n Scalable supply chain\n Certified products\n Real-world deployment\n\nAs of 2026, fully solid-state batteries remain in early commercialization stages, mainly targeting automotive applications.\n\n## Current Market Status of Full Solid-State Batteries\n\nMajor automotive-focused companies such as:\n\n Toyota\n QuantumScape\n Solid Power\n\nAre progressing toward mass production, but challenges remain:"
+    },
+    {
+      "sub_question": "Which automotive and technology companies are leading the commercialization timeline for solid-state batteries?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Solid-state battery technology",
+      "source_url": "https://www.evinfrastructurenews.com/ev-battery/solid-state-battery-technology",
+      "content": "## Toyota solid-state Battery timeline: production plans and lifespan projections\n\nMany of the solid-state battery developments are coming out of Japan, with Toyota among the frontrunners. Toyota has long been one of the leading automotive companies in Japan, and it currently holds the most solid-state battery patents in the world, with over 1,000. Toyota aims to have its solid-state batteries in mass production by 2027-2028, with them integrated into its vehicles by 2028. [...] EV Battery\n EV Technology\n Industry Trends\n\nBlogs\n\n# Solid-state battery technology: how Toyota, Tesla, and Honda are revolutionising EV energy storage\n\nSolid-state batteries promise safer, faster-charging EVs with longer range by replacing liquid electrolytes with solid materials. How long before we see them in mass-produced electric vehicles?\n\nPicture of Liam Critchley\n\nLiam Critchley,Contributing Writer\n\nMarch 3, 2026\n\nschedule13 Min Read [...] with batteries ready for vehicle use from 2026 onwards. Dongfeng"
+    },
+    {
+      "sub_question": "Which automotive and technology companies are leading the commercialization timeline for solid-state batteries?",
+      "origin": "web",
+      "status": "ok",
+      "title": "Solid-State Batteries 2026-2036: Technology, Forecasts, ...",
+      "source_url": "https://www.idtechex.com/en/research-report/solid-state-batteries/1130",
+      "content": "10-year granular market forecasts by 10 application areas.\n 10-year market forecasts segmented by technology.\n\nRegional Activities and Trends\n\n Overview of developments in key regions:\n United States\n South Korea\n Japan\n China\n Europe\n Other regions\n Activities of leading automotive manufacturers such as Toyota, Volkswagen (via QuantumScape), BMW (with Solid Power), Hyundai, and others.\n\nRecent Focus Areas [...] | 5.22. | Regional efforts: France |\n| 5.23. | Regional efforts: Australia |\n| 5.24. | Activities on Automotive OEMs |\n| 5.25. | Automakers' efforts - BMW |\n| 5.26. | BMW's solid-state battery research |\n| 5.27. | BMW's scaling competences from lab to prototype |\n| 5.28. | Mercedes-Benz's inhouse cell development |\n| 5.29. | Automakers' efforts - Volkswagen |\n| 5.30. | Volkswagen's investment in electric vehicle batteries |\n| 5.31. | Automakers' efforts - Hyundai | [...] The development of solid-state batteries is a collaborative global effort involving research institutes, mat"
+    },
+    {
+      "sub_question": "Which automotive and technology companies are leading the commercialization timeline for solid-state batteries?",
+      "origin": "docs",
+      "status": "no_results",
+      "title": "",
+      "source_url": "",
+      "content": "No search results found."
+    }
+  ],
+  "judge": {
+    "groundedness": 5,
+    "completeness": 5,
+    "coherence": 5,
+    "usefulness": 5,
+    "rationale": "The report is exceptionally well-structured, thoroughly answering every sub-question by synthesizing the provided evidence into clear, concise, and accurate summaries. Every claim is properly supported by the source citations, and the tone is professional and highly informative.",
+    "weaknesses": []
+  },
+  "category": "mainstream-tech",
+  "run_config": "2981e89fce66",
+  "judge_config": "ef6fddaa4dff"
+}
