@@ -95,6 +95,14 @@ Directory** to `web`, and add:
 
 `DOSSIER_API_URL = https://<your-service>.onrender.com`
 
+**If every path 404s**, including `/api/key`, the Root Directory is still the
+repository root. Check the response headers: `x-vercel-error: NOT_FOUND` with
+`content-type: text/plain` is Vercel saying nothing was deployed, whereas the
+app's own 404 is styled HTML. At the repo root Vercel finds Python, detects no
+framework, and publishes nothing. Fix it under **Settings → Build and
+Deployment → Root Directory**, then redeploy — changing the setting alone does
+not rebuild.
+
 Then open the site and paste the bootstrap key into the connect screen.
 
 Two caveats worth knowing: the SSE proxy route holds a connection open for the
