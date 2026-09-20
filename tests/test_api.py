@@ -37,7 +37,9 @@ def auth(database):
 
 
 def test_health_needs_no_auth(client):
-    assert client.get("/health").json() == {"status": "ok"}
+    body = client.get("/health").json()
+    assert body["status"] == "ok"
+    assert "version" in body  # identifies the running build; see test_deploy_config
 
 
 @pytest.mark.parametrize("headers", [{}, {"Authorization": "Bearer wrong"}, {"Authorization": "nonsense"}])
