@@ -1,17 +1,21 @@
 import Connect from "@/components/Connect";
 import Research from "@/components/Research";
-import { apiKey, backendFetch, type Me } from "@/lib/backend";
+import SignedOutLanding from "@/components/SignedOutLanding";
+import { backendFetch, clerkIsConfigured, isAuthenticated, type Me } from "@/lib/backend";
 
 export default async function Home() {
-  const key = await apiKey();
-  if (!key) return <Connect />;
+  // Signed out: invite them to make an account when Clerk is set up, or ask
+  // for an API key when it is not (self-hosted and local development).
+  if (!(await isAuthenticated())) {
+    return clerkIsConfigured() ? <SignedOutLanding /> : <Connect />;
+  }
 
   let me: Me | null = null;
   let unreachable = false;
   try {
     const response = await backendFetch("/api/me");
     if (response.ok) me = (await response.json()) as Me;
-    else return <Connect message="That key is no longer accepted. Paste a current one." />;
+    else if (!clerkIsConfigured()) return <Connect message="That key is no longer accepted. Paste a current one." />;
   } catch {
     unreachable = true;
   }

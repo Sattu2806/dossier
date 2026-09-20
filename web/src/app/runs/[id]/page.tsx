@@ -4,12 +4,13 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 import Connect from "@/components/Connect";
-import { apiKey, backendFetch, type Run } from "@/lib/backend";
+import SignedOutLanding from "@/components/SignedOutLanding";
+import { backendFetch, clerkIsConfigured, isAuthenticated, type Run } from "@/lib/backend";
 
 export const dynamic = "force-dynamic";
 
 export default async function RunPage({ params }: { params: Promise<{ id: string }> }) {
-  if (!(await apiKey())) return <Connect />;
+  if (!(await isAuthenticated())) return clerkIsConfigured() ? <SignedOutLanding /> : <Connect />;
 
   const { id } = await params;
   const response = await backendFetch(`/api/runs/${id}`);

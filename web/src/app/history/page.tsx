@@ -1,12 +1,13 @@
 import Link from "next/link";
 
 import Connect from "@/components/Connect";
-import { apiKey, backendFetch, type Run } from "@/lib/backend";
+import SignedOutLanding from "@/components/SignedOutLanding";
+import { backendFetch, clerkIsConfigured, isAuthenticated, type Run } from "@/lib/backend";
 
 export const dynamic = "force-dynamic";
 
 export default async function History() {
-  if (!(await apiKey())) return <Connect />;
+  if (!(await isAuthenticated())) return clerkIsConfigured() ? <SignedOutLanding /> : <Connect />;
 
   let runs: Run[] = [];
   try {

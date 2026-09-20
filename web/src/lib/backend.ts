@@ -1,28 +1,54 @@
 /**
  * Server-side access to the FastAPI backend.
  *
- * The API key never reaches the browser: it lives in an httpOnly cookie, is
- * read here on the server, and is attached as a bearer token upstream. That is
- * why every call from the client goes through /api/proxy rather than straight
- * to port 8500 — a key in localStorage is readable by any script that gets
- * onto the page.
+ * Two credentials, one backend:
+ *
+ * - **Signed in with Clerk** → forward that session token. The API verifies it
+ *   against Clerk's JWKS and creates the account on first sight, so each
+ *   person gets their own history and their own budget.
+ * - **No Clerk configured** (self-hosting, local development) → fall back to
+ *   an API key held in an httpOnly cookie.
+ *
+ * Either way the credential is attached here, on the server. It never reaches
+ * the browser, which is also why every client call goes through /api/proxy
+ * rather than straight to the API.
  */
+import { auth } from "@clerk/nextjs/server";
 import { cookies } from "next/headers";
 
 export const BACKEND_URL = process.env.DOSSIER_API_URL ?? "http://127.0.0.1:8500";
 export const KEY_COOKIE = "dossier_key";
+
+export function clerkIsConfigured(): boolean {
+  return Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
+}
 
 export async function apiKey(): Promise<string | undefined> {
   const store = await cookies();
   return store.get(KEY_COOKIE)?.value;
 }
 
-/** Call the backend with the stored key. Returns the raw Response so callers
- *  can stream it (SSE) or read JSON. */
+/** The bearer token for this request: a Clerk session if there is one, else
+ *  the stored API key. */
+export async function credential(): Promise<string | undefined> {
+  if (clerkIsConfigured()) {
+    const { getToken } = await auth();
+    const token = await getToken();
+    if (token) return token;
+  }
+  return apiKey();
+}
+
+export async function isAuthenticated(): Promise<boolean> {
+  return Boolean(await credential());
+}
+
+/** Call the backend with whichever credential applies. Returns the raw
+ *  Response so callers can stream it (SSE) or read JSON. */
 export async function backendFetch(path: string, init: RequestInit = {}): Promise<Response> {
-  const key = await apiKey();
+  const token = await credential();
   const headers = new Headers(init.headers);
-  if (key) headers.set("Authorization", `Bearer ${key}`);
+  if (token) headers.set("Authorization", `Bearer ${token}`);
   return fetch(`${BACKEND_URL}${path}`, { ...init, headers, cache: "no-store" });
 }
 
@@ -46,4 +72,5 @@ export type Me = {
   tokens_used_today: number;
   daily_token_limit: number;
   tokens_remaining: number;
+  auth: "clerk" | "api_key";
 };

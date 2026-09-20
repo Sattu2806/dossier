@@ -120,6 +120,53 @@ get static Spaces and ZeroGPU Gradio only. The definition in
 a 48-hour idle timeout are better than Render's free tier in every respect
 except price.
 
+## Letting people sign up (Clerk)
+
+Without this, everyone shares one API key — fine for yourself, wrong for
+anything public. With it, each person signs in and gets their own history and
+their own daily allowance, while the CLI and MCP server keep using API keys.
+
+### 1. Create a Clerk application
+
+```bash
+npx clerk@latest init
+```
+
+It is non-interactive and needs no Clerk account: it creates an application
+and writes the keys into `web/.env.local`. (Or make one at
+[dashboard.clerk.com](https://dashboard.clerk.com) and copy the keys.)
+
+### 2. Vercel — the web app
+
+| variable | value |
+|---|---|
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | `pk_test_…` |
+| `CLERK_SECRET_KEY` | `sk_test_…` |
+
+### 3. Render — the API
+
+| variable | value |
+|---|---|
+| `CLERK_PUBLISHABLE_KEY` | the same `pk_test_…` |
+| `DOSSIER_SIGNUP_TOKEN_LIMIT` | `60000` — what each new account gets per day |
+| `DOSSIER_GLOBAL_DAILY_TOKEN_LIMIT` | e.g. `1000000` — a ceiling across everyone |
+
+**The API never needs Clerk's secret key.** It verifies session tokens against
+Clerk's public JWKS, deriving the URL from the publishable key. One less
+secret in one more place.
+
+The two limits matter more than they look: open signup spends *your* provider
+quota. The per-user limit bounds one person; the global one bounds a bad day.
+
+### What happens on first sign-in
+
+The account row is created on the first authenticated request — no signup
+webhook to miss, nothing to reconcile. Each account is also issued an API key
+at that moment, so a signed-in user can use the CLI and the MCP server too.
+
+Remove the Clerk variables and the app falls back to API keys with no code
+change, which is what `dossier serve` on your laptop uses.
+
 ## Paid, if the free tier chafes: Railway, one project, three services
 
 Railway is the least ceremony for this shape: managed Postgres, volumes and

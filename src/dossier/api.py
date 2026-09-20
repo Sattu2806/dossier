@@ -22,7 +22,7 @@ from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from pydantic import BaseModel, Field
 from sse_starlette.sse import EventSourceResponse
 
-from dossier import db
+from dossier import auth, db
 from dossier.graph import build_graph
 from dossier.guardrails import BudgetExceeded, InvalidTopic, TokenBudget
 
@@ -123,12 +123,38 @@ def create_app(database=None, graph=None) -> FastAPI:
     app.state.graph = graph or build_graph()
 
     def current_user(authorization: str = Header(default="")) -> dict:
+        """Accept either credential and return the same user row.
+
+        An API key identifies a machine; a Clerk session identifies a person.
+        Everything downstream — budgets, history, ownership — works off the
+        row, so nothing else in the app has to know which was used.
+        """
         if not authorization.startswith("Bearer "):
-            raise HTTPException(401, "Send your API key as: Authorization: Bearer <key>")
-        user = db.user_for_key(app.state.db, authorization.removeprefix("Bearer ").strip())
-        if not user:
+            raise HTTPException(401, "Send a bearer token: Authorization: Bearer <key or session>")
+        token = authorization.removeprefix("Bearer ").strip()
+
+        # API keys are ours and recognisable, so check them first and avoid a
+        # pointless signature verification on every CLI request.
+        if token.startswith("dsr_"):
+            user = db.user_for_key(app.state.db, token)
+            if not user:
+                raise HTTPException(401, "Unknown API key")
+            return user
+
+        if not auth.clerk_is_configured():
             raise HTTPException(401, "Unknown API key")
-        return user
+
+        try:
+            claims = auth.verify_clerk_token(token)
+        except auth.InvalidToken as exc:
+            raise HTTPException(401, f"Session rejected: {exc}") from None
+
+        user = db.user_for_clerk_id(app.state.db, claims["sub"])
+        if user:
+            return user
+        # First request from a new account: create it now rather than relying
+        # on a signup webhook arriving first.
+        return db.create_clerk_user(app.state.db, claims["sub"], auth.email_from_claims(claims))
 
     @app.get("/health")
     def health() -> dict:
@@ -158,6 +184,8 @@ def create_app(database=None, graph=None) -> FastAPI:
             "tokens_used_today": used,
             "daily_token_limit": user["daily_token_limit"],
             "tokens_remaining": max(0, user["daily_token_limit"] - used),
+            # Tells the UI whether to offer sign-in or ask for a key.
+            "auth": "clerk" if user.get("clerk_user_id") else "api_key",
         }
 
     @app.post("/api/research", status_code=202)
@@ -169,6 +197,13 @@ def create_app(database=None, graph=None) -> FastAPI:
                 429,
                 f"Daily token budget spent ({used:,}/{user['daily_token_limit']:,}). Try again tomorrow.",
             )
+
+        # Per-user limits bound one person. This bounds a bad day: open signup
+        # spends the operator's provider quota, not the visitor's.
+        if db.GLOBAL_DAILY_TOKEN_LIMIT:
+            spent = db.tokens_used_today_globally(app.state.db)
+            if spent >= db.GLOBAL_DAILY_TOKEN_LIMIT:
+                raise HTTPException(429, "This instance has spent its daily budget. Try again tomorrow.")
 
         run_id = secrets.token_hex(8)
         db.start_run(app.state.db, run_id, user["id"], request.topic)

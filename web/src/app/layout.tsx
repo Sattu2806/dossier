@@ -1,6 +1,9 @@
+import { ClerkProvider, SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
+
+import { clerkIsConfigured } from "@/lib/backend";
 
 import "./globals.css";
 
@@ -13,7 +16,9 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
+  const withClerk = clerkIsConfigured();
+
+  const shell = (
     <html lang="en">
       <body className={`${sans.variable} ${mono.variable} min-h-screen antialiased`}>
         <header className="sticky top-0 z-20 border-b border-line bg-bg/80 backdrop-blur">
@@ -37,6 +42,25 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               >
                 History
               </Link>
+              {withClerk && (
+                <div className="ml-2 flex items-center gap-2 border-l border-line pl-3">
+                  <SignedOut>
+                    <SignInButton mode="modal">
+                      <button className="rounded-md px-3 py-1.5 text-muted transition-colors hover:bg-panel-2 hover:text-text">
+                        Sign in
+                      </button>
+                    </SignInButton>
+                    <SignUpButton mode="modal">
+                      <button className="rounded-md bg-accent px-3 py-1.5 font-medium text-[#04211a] transition-opacity hover:opacity-90">
+                        Sign up
+                      </button>
+                    </SignUpButton>
+                  </SignedOut>
+                  <SignedIn>
+                    <UserButton />
+                  </SignedIn>
+                </div>
+              )}
             </nav>
           </div>
         </header>
@@ -44,4 +68,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </body>
     </html>
   );
+
+  // Without Clerk keys the app still runs on API keys alone, which is what
+  // self-hosting and local development use. Rendering the provider anyway
+  // would crash the whole app for want of a publishable key.
+  return withClerk ? <ClerkProvider>{shell}</ClerkProvider> : shell;
 }

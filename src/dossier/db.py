@@ -8,6 +8,7 @@ handful of queries — an ORM would add indirection without removing any.
 
 import hashlib
 import json
+import logging
 import os
 import secrets
 from datetime import UTC, datetime
@@ -27,12 +28,23 @@ from sqlalchemy import (
     select,
 )
 
+logger = logging.getLogger(__name__)
+
 DEFAULT_DB_PATH = Path(__file__).resolve().parents[2] / "data" / "dossier.db"
 DATABASE_URL = os.getenv("DOSSIER_DATABASE_URL", f"sqlite:///{DEFAULT_DB_PATH}")
 
 # What one user may spend per day. The check happens before a run starts, so
 # a user who is over budget costs nothing at all.
 DAILY_TOKEN_LIMIT = int(os.getenv("DOSSIER_DAILY_TOKEN_LIMIT", "500000"))
+
+# What someone gets when they sign up themselves. Lower than the default on
+# purpose: open signup spends YOUR provider quota, and a generous default is
+# how a free tier becomes an expensive one.
+SIGNUP_TOKEN_LIMIT = int(os.getenv("DOSSIER_SIGNUP_TOKEN_LIMIT", "60000"))
+
+# A ceiling across everyone, for the same reason. Per-user limits bound one
+# person; this bounds a bad day.
+GLOBAL_DAILY_TOKEN_LIMIT = int(os.getenv("DOSSIER_GLOBAL_DAILY_TOKEN_LIMIT", "0")) or None
 
 metadata = MetaData()
 
@@ -44,6 +56,9 @@ users = Table(
     # Only the hash is stored: a leaked database must not hand over working
     # credentials. The key itself is shown once, when it is created.
     Column("api_key_hash", String(64), unique=True, nullable=False),
+    # Set for accounts that signed in through Clerk. They still get an API
+    # key, so the CLI and MCP server work for them too.
+    Column("clerk_user_id", String(64), unique=True, nullable=True),
     Column("daily_token_limit", Integer, nullable=False, default=DAILY_TOKEN_LIMIT),
     Column("created_at", DateTime, nullable=False),
 )
@@ -95,6 +110,25 @@ def engine(url: str | None = None):
 
 def init(db) -> None:
     metadata.create_all(db)
+    migrate(db)
+
+
+def migrate(db) -> None:
+    """Bring an existing database up to the current schema.
+
+    `create_all` only creates tables that are missing; it never alters one
+    that already exists, so a deployed database would keep its old columns
+    forever. This is deliberately tiny — add a column if it is absent — and
+    idempotent, because it runs on every boot. The day it needs to do more
+    than this is the day to add Alembic.
+    """
+    from sqlalchemy import inspect, text
+
+    existing = {column["name"] for column in inspect(db).get_columns("users")}
+    if "clerk_user_id" not in existing:
+        with db.begin() as connection:
+            connection.execute(text("ALTER TABLE users ADD COLUMN clerk_user_id VARCHAR(64)"))
+        logger.info("migrated: users.clerk_user_id added")
 
 
 def hash_key(api_key: str) -> str:
@@ -143,6 +177,35 @@ def ensure_user(db, email: str, api_key: str, *, daily_token_limit: int = DAILY_
     return True
 
 
+def user_for_clerk_id(db, clerk_user_id: str) -> dict | None:
+    with db.connect() as connection:
+        row = connection.execute(select(users).where(users.c.clerk_user_id == clerk_user_id)).mappings().first()
+    return dict(row) if row else None
+
+
+def create_clerk_user(db, clerk_user_id: str, email: str, *, daily_token_limit: int | None = None) -> dict:
+    """Create the row for someone who just signed in, and give them an API key.
+
+    Just-in-time rather than a signup webhook: one fewer moving part, no
+    ordering problem between "account created" and "first request", and
+    nothing to reconcile if a webhook is missed.
+    """
+    api_key = f"dsr_{secrets.token_urlsafe(32)}"
+    limit = daily_token_limit if daily_token_limit is not None else SIGNUP_TOKEN_LIMIT
+    with db.begin() as connection:
+        connection.execute(
+            users.insert().values(
+                email=email,
+                api_key_hash=hash_key(api_key),
+                clerk_user_id=clerk_user_id,
+                daily_token_limit=limit,
+                created_at=datetime.now(UTC),
+            )
+        )
+    logger.info("created account for %s (%s)", email, clerk_user_id)
+    return user_for_clerk_id(db, clerk_user_id)
+
+
 def user_for_key(db, api_key: str) -> dict | None:
     with db.connect() as connection:
         row = connection.execute(select(users).where(users.c.api_key_hash == hash_key(api_key))).mappings().first()
@@ -164,6 +227,15 @@ def tokens_used_today(db, user_id: int) -> int:
             select(func.coalesce(func.sum(runs.c.tokens), 0)).where(
                 runs.c.user_id == user_id, runs.c.created_at >= start
             )
+        ).scalar_one()
+    return int(total)
+
+
+def tokens_used_today_globally(db) -> int:
+    start = datetime.now(UTC).replace(hour=0, minute=0, second=0, microsecond=0)
+    with db.connect() as connection:
+        total = connection.execute(
+            select(func.coalesce(func.sum(runs.c.tokens), 0)).where(runs.c.created_at >= start)
         ).scalar_one()
     return int(total)
 
