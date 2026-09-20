@@ -1,89 +1,197 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   Design tokens. Two surface families, one accent with three stops, and
+   shadows that stack rather than smear. Nothing in the app hard-codes a
+   colour; it all refers back to here.
+--------------------------------------------------------------------------- */
 :root {
-  --bg: #0b0d10;
-  --panel: #12151a;
-  --panel-2: #171b22;
-  --line: #232932;
-  --text: #e7ecf3;
-  --muted: #8b95a5;
-  --accent: #6ee7b7;
-  --accent-dim: #2b7a62;
+  --ink-000: #07080a;
+  --ink-050: #0b0d11;
+  --ink-100: #101319;
+  --ink-200: #161a22;
+  --ink-300: #1e232d;
+  --line: #242a35;
+  --line-soft: #1a1f28;
+
+  --text: #edf1f7;
+  --text-dim: #b6bfcd;
+  --muted: #7d8899;
+
+  --accent: #5eead4;
+  --accent-deep: #14b8a6;
+  --accent-dim: #164e46;
+  --violet: #a78bfa;
   --warn: #fbbf24;
-  --bad: #f87171;
+  --bad: #fb7185;
+
+  --shadow-card:
+    0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 12px 32px -12px rgba(0, 0, 0, 0.8);
+  --shadow-float: 0 24px 60px -18px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-panel: var(--panel);
-  --color-panel-2: var(--panel-2);
+  --color-bg: var(--ink-000);
+  --color-panel: var(--ink-100);
+  --color-panel-2: var(--ink-200);
+  --color-panel-3: var(--ink-300);
   --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
   --color-text: var(--text);
+  --color-text-dim: var(--text-dim);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-violet: var(--violet);
   --color-warn: var(--warn);
   --color-bad: var(--bad);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
 }
 
-html,
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--bg);
+  background: var(--ink-000);
   color: var(--text);
-}
-
-body {
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* The report is the product: give it real typographic care rather than
-   letting Tailwind's resets flatten headings and lists. */
-.report {
-  line-height: 1.7;
+/* Grain: one tiled SVG at low opacity. It stops large dark areas banding on
+   cheap panels, and is most of the difference between "flat black" and
+   "printed". Fixed, so it never scrolls with the content. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.3;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
 }
-.report h1 {
-  font-size: 1.6rem;
-  font-weight: 650;
+
+::selection {
+  background: var(--accent-dim);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ink-000);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink-300);
+  border: 3px solid var(--ink-000);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2c3340;
+}
+
+/* --- type ----------------------------------------------------------------- */
+.display {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 400;
   letter-spacing: -0.02em;
-  margin-bottom: 0.75rem;
+  line-height: 1.03;
+}
+
+.eyebrow {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* --- surfaces ------------------------------------------------------------- */
+.card {
+  background: linear-gradient(180deg, var(--ink-100), var(--ink-050));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
+}
+
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+
+/* --- the report ----------------------------------------------------------- */
+.report {
+  font-size: 16.5px;
+  line-height: 1.75;
+  color: var(--text-dim);
+}
+.report > h1:first-child {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(30px, 4vw, 42px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  color: var(--text);
+  margin-bottom: 1.1rem;
+}
+/* The opening paragraph is the summary, so it is set larger — the move a
+   magazine makes with a standfirst. */
+.report > h1:first-child + p {
+  font-size: 18.5px;
+  line-height: 1.68;
+  color: var(--text);
 }
 .report h2 {
-  font-size: 1.05rem;
-  font-weight: 620;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 23px;
+  font-weight: 400;
   letter-spacing: -0.01em;
-  margin: 1.9rem 0 0.6rem;
-  padding-bottom: 0.4rem;
-  border-bottom: 1px solid var(--line);
+  color: var(--text);
+  margin: 2.6rem 0 0.85rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line-soft);
+  scroll-margin-top: 90px;
+}
+.report h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 1.6rem 0 0.5rem;
 }
 .report p {
-  margin-bottom: 1rem;
-  color: #d3dae5;
+  margin-bottom: 1.15rem;
 }
 .report ul,
 .report ol {
-  margin: 0 0 1rem 1.15rem;
+  margin: 0 0 1.15rem 1.15rem;
   list-style: disc;
-  color: #d3dae5;
 }
 .report li {
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.4rem;
 }
 .report strong {
   color: var(--text);
   font-weight: 600;
 }
-.report em {
-  color: var(--muted);
-}
 .report code {
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 0.85em;
-  background: var(--panel-2);
+  background: var(--ink-200);
   border: 1px solid var(--line);
-  border-radius: 4px;
-  padding: 0.1em 0.35em;
+  border-radius: 5px;
+  padding: 0.12em 0.4em;
+}
+.report blockquote {
+  border-left: 2px solid var(--accent-dim);
+  padding-left: 1rem;
+  color: var(--muted);
+  font-style: italic;
 }
 .report a {
   color: var(--accent);
@@ -92,40 +200,44 @@ body {
   word-break: break-word;
 }
 
-/* Citations are rendered as links to their source. Superscript-sized so they
-   punctuate a sentence instead of interrupting it. */
+/* Citations should punctuate a sentence, not interrupt it. */
 .report a.citation {
   display: inline-block;
-  margin-left: 1px;
-  padding: 0 3px;
+  margin-left: 2px;
+  padding: 0 4px;
   border: 1px solid var(--line);
-  border-radius: 4px;
-  background: var(--panel-2);
+  border-radius: 5px;
+  background: var(--ink-200);
   color: var(--accent);
   font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.72em;
-  line-height: 1.5;
-  vertical-align: 1px;
-  transition: border-color 0.15s ease, color 0.15s ease;
+  font-size: 0.7em;
+  line-height: 1.6;
+  vertical-align: 1.5px;
+  transition:
+    border-color 0.16s ease,
+    background 0.16s ease,
+    transform 0.16s ease;
 }
 .report a.citation:hover {
   border-color: var(--accent);
+  background: var(--accent-dim);
+  transform: translateY(-1px);
 }
 
-/* The jumped-to source, briefly, so the eye lands in the right place. */
 li:target {
-  animation: flash 1.6s ease-out;
+  animation: flash 1.8s ease-out;
 }
 @keyframes flash {
   0%,
   35% {
-    background: color-mix(in oklab, var(--accent) 16%, transparent);
+    background: color-mix(in oklab, var(--accent) 14%, transparent);
   }
   100% {
     background: transparent;
   }
 }
 
+/* --- motion --------------------------------------------------------------- */
 @keyframes pulse-dot {
   0%,
   100% {
@@ -133,47 +245,93 @@ li:target {
     transform: scale(1);
   }
   50% {
-    opacity: 0.45;
-    transform: scale(0.82);
+    opacity: 0.4;
+    transform: scale(0.8);
   }
 }
 .pulse {
   animation: pulse-dot 1.15s ease-in-out infinite;
 }
 
-::selection {
-  background: var(--accent-dim);
-  color: #fff;
+@keyframes sweep {
+  from {
+    transform: translateX(-60%);
+  }
+  to {
+    transform: translateX(160%);
+  }
+}
+.sweep {
+  animation: sweep 2.2s ease-in-out infinite;
 }
 
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(3%, -4%, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(-4%, 2%, 0) scale(0.96);
+  }
+}
+.drift {
+  animation: drift 24s ease-in-out infinite;
+}
+.drift-slow {
+  animation: drift 34s ease-in-out infinite reverse;
+}
 
-/* Printing is the PDF export: the browser already renders this better than a
-   bundled PDF library would, so give it a document to print rather than a
-   screenshot of a dark UI. */
+/* Anyone who asked their system not to animate gets a still page. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* --- print is the PDF export ---------------------------------------------- */
 @media print {
   :root {
-    --bg: #ffffff;
-    --panel: #ffffff;
-    --panel-2: #f4f4f5;
+    --ink-000: #fff;
+    --ink-050: #fff;
+    --ink-100: #fff;
+    --ink-200: #f4f4f5;
     --line: #d4d4d8;
+    --line-soft: #e4e4e7;
     --text: #111113;
+    --text-dim: #27272a;
     --muted: #52525b;
     --accent: #0f766e;
   }
-  html,
+  body::before,
+  header,
+  nav,
+  form,
+  button,
+  .no-print {
+    display: none !important;
+  }
   body {
     background: #fff;
     color: #111113;
   }
-  header,
-  nav,
-  form,
-  button {
-    display: none !important;
-  }
   main {
     max-width: none;
     padding: 0;
+  }
+  .card {
+    background: #fff;
+    border: 0;
+    box-shadow: none;
   }
   .report h2 {
     break-after: avoid;
@@ -184,7 +342,7 @@ li:target {
   }
   a[href^="http"]::after {
     content: " (" attr(href) ")";
-    font-size: 0.75em;
+    font-size: 0.72em;
     color: #52525b;
     word-break: break-all;
   }

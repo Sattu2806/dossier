@@ -33,6 +33,7 @@ import {
   statsFor,
 } from "@/lib/report";
 import Menu from "./ui/Menu";
+import { useToast } from "./ui/Toast";
 import Segmented from "./ui/Segmented";
 
 type View = "report" | "sources" | "markdown" | "details";
@@ -46,9 +47,12 @@ export default function ReportView({ run }: { run: Run }) {
   const outline = useMemo(() => headings(body), [body]);
   const stats = useMemo(() => statsFor(body), [body]);
 
+  const toast = useToast();
+
   async function copy() {
     await navigator.clipboard.writeText(run.report ?? "");
     setCopied(true);
+    toast("Report copied to clipboard");
     setTimeout(() => setCopied(false), 1800);
   }
 
@@ -101,6 +105,13 @@ function Toolbar({
   copied: boolean;
   onCopy: () => void;
 }) {
+  const toast = useToast();
+
+  function save(contents: string, extension: string, type: string) {
+    download(contents, filenameFor(run, extension), type);
+    toast(`Saved ${filenameFor(run, extension)}`);
+  }
+
   return (
     <div className="flex flex-wrap items-center justify-between gap-3">
       <div className="flex flex-wrap items-center gap-2">
@@ -135,19 +146,19 @@ function Toolbar({
               label: "Markdown",
               hint: ".md",
               icon: <FileCode size={14} />,
-              onSelect: () => download(asMarkdown(run), filenameFor(run, "md"), "text/markdown"),
+              onSelect: () => save(asMarkdown(run), "md", "text/markdown"),
             },
             {
               label: "Plain text",
               hint: ".txt",
               icon: <FileText size={14} />,
-              onSelect: () => download(asText(run), filenameFor(run, "txt"), "text/plain"),
+              onSelect: () => save(asText(run), "txt", "text/plain"),
             },
             {
               label: "JSON",
               hint: ".json",
               icon: <Braces size={14} />,
-              onSelect: () => download(asJSON(run), filenameFor(run, "json"), "application/json"),
+              onSelect: () => save(asJSON(run), "json", "application/json"),
             },
             {
               label: "Print or PDF",
@@ -194,7 +205,7 @@ function Report({
       )}
 
       <div className="min-w-0 flex-1 space-y-6">
-        <div className="report rounded-xl border border-line bg-panel p-7 print:border-0 print:bg-white print:p-0">
+        <div className="report card p-8 sm:p-10 print:border-0 print:bg-white print:p-0">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{
@@ -248,7 +259,7 @@ function SourceList({
           <Link2 size={12} /> Sources
         </h3>
       )}
-      <ul className="divide-y divide-line overflow-hidden rounded-xl border border-line bg-panel">
+      <ul className="card divide-y divide-line overflow-hidden">
         {sources.map((source, index) => (
           <motion.li
             key={source.number}
@@ -300,7 +311,7 @@ function Details({ run }: { run: Run }) {
   return (
     <div className="space-y-5">
       {run.sub_questions && run.sub_questions.length > 0 && (
-        <section className="rounded-xl border border-line bg-panel p-5">
+        <section className="card p-5">
           <h3 className="mb-3 font-mono text-[10.5px] uppercase tracking-widest text-muted">
             Sub-questions researched
           </h3>
@@ -316,7 +327,7 @@ function Details({ run }: { run: Run }) {
       )}
 
       {scores.length > 0 && (
-        <section className="rounded-xl border border-line bg-panel p-5">
+        <section className="card p-5">
           <h3 className="mb-4 font-mono text-[10.5px] uppercase tracking-widest text-muted">Review scores</h3>
           <div className="space-y-3.5">
             {scores.map(([name, score]) => (
@@ -351,7 +362,7 @@ function Details({ run }: { run: Run }) {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-line bg-panel px-4 py-3">
+    <div className="card px-4 py-3">
       <p className="font-mono text-[10.5px] uppercase tracking-widest text-muted">{label}</p>
       <p className="mt-1 text-[17px]">{value}</p>
     </div>

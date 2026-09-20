@@ -2,10 +2,13 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { AlertTriangle, ArrowRight, Loader2 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { Me, Run } from "@/lib/backend";
+import Pipeline from "./Pipeline";
 import ProgressTimeline, { type Progress } from "./ProgressTimeline";
+import Proof from "./Proof";
 import ReportView from "./ReportView";
 
 type Phase = "idle" | "running" | "done" | "error";
@@ -25,8 +28,15 @@ export default function Research({ initialMe }: { initialMe: Me | null }) {
   const [run, setRun] = useState<Run | null>(null);
   const [error, setError] = useState<string | null>(null);
   const source = useRef<EventSource | null>(null);
+  const parameters = useSearchParams();
 
   useEffect(() => () => source.current?.close(), []);
+
+  // ⌘K can hand a topic over through the URL.
+  useEffect(() => {
+    const handed = parameters.get("topic");
+    if (handed) setTopic(handed);
+  }, [parameters]);
 
   const watch = useCallback((runId: string) => {
     // EventSource rather than fetch: the browser reconnects it on its own, and
@@ -83,43 +93,30 @@ export default function Research({ initialMe }: { initialMe: Me | null }) {
 
   return (
     <div className="space-y-8">
-      <AnimatePresence initial={false}>
-        {phase === "idle" && (
-          <motion.section
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, height: 0, marginBottom: 0 }}
-            transition={{ duration: 0.25 }}
-          >
-            <h1 className="text-[30px] font-semibold leading-tight tracking-tight">
-              Research anything,
-              <span className="text-accent"> with citations</span>
-            </h1>
-            <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted">
-              Sub-questions are planned, searched in parallel across the web and your documents, drafted, then
-              fact-checked against the sources before you see them.
-            </p>
-          </motion.section>
-        )}
-      </AnimatePresence>
+      <AnimatePresence initial={false}>{phase === "idle" && <Hero />}</AnimatePresence>
 
       <form onSubmit={submit} className="space-y-3 print:hidden">
-        <div className="group relative flex gap-2">
-          <input
-            value={topic}
-            onChange={(event) => setTopic(event.target.value)}
-            placeholder="A topic, in plain words"
-            disabled={busy}
-            className="flex-1 rounded-xl border border-line bg-panel px-4 py-3.5 text-[15px] outline-none transition-colors placeholder:text-muted/60 focus:border-accent/50 disabled:opacity-60"
-          />
-          <button
-            type="submit"
-            disabled={busy || !topic.trim()}
-            className="flex items-center gap-2 rounded-xl bg-accent px-5 py-3.5 text-[15px] font-medium text-[#04211a] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            {busy ? <Loader2 size={16} className="animate-spin" /> : <ArrowRight size={16} />}
-            {busy ? "Researching" : "Research"}
-          </button>
+        <div className="group relative">
+          {/* The focus glow sits behind the field rather than on it, so the
+              border stays crisp while the surround lights up. */}
+          <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-r from-accent/0 via-accent/25 to-violet/20 opacity-0 blur transition-opacity duration-300 group-focus-within:opacity-100" />
+          <div className="relative flex gap-2 rounded-2xl border border-line bg-panel/90 p-2 backdrop-blur transition-colors group-focus-within:border-accent/40">
+            <input
+              value={topic}
+              onChange={(event) => setTopic(event.target.value)}
+              placeholder="A topic, in plain words"
+              disabled={busy}
+              className="flex-1 bg-transparent px-3.5 py-3 text-[16px] outline-none placeholder:text-muted/60 disabled:opacity-60"
+            />
+            <button
+              type="submit"
+              disabled={busy || !topic.trim()}
+              className="flex items-center gap-2 rounded-xl bg-accent px-5 py-3 text-[14.5px] font-medium text-[#04211a] transition-all hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {busy ? <Loader2 size={15} className="animate-spin" /> : <ArrowRight size={15} />}
+              {busy ? "Researching" : "Research"}
+            </button>
+          </div>
         </div>
 
         {phase === "idle" && (
@@ -168,6 +165,16 @@ export default function Research({ initialMe }: { initialMe: Me | null }) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Only while nothing is running: once there is a report, the report is
+          the page. */}
+      {phase === "idle" && (
+        <>
+          <div className="hairline" />
+          <Pipeline />
+          <Proof />
+        </>
+      )}
     </div>
   );
 }
@@ -194,20 +201,69 @@ function UsageBar({ used, limit, email }: { used: number; limit: number; email: 
   );
 }
 
-/** Shown while the first draft is being written: something with the shape of a
- *  report reads as progress, where a spinner reads as a stall. */
+/** Shown while the first draft is written: a report-shaped placeholder reads
+ *  as progress, where a spinner reads as a stall. */
 function Skeleton() {
   return (
-    <div className="space-y-3 rounded-xl border border-line bg-panel p-7">
-      {[80, 100, 95, 60, 100, 88].map((width, index) => (
-        <motion.div
-          key={index}
-          className="h-3 rounded bg-panel-2"
-          style={{ width: `${width}%` }}
-          animate={{ opacity: [0.35, 0.75, 0.35] }}
-          transition={{ repeat: Infinity, duration: 1.6, delay: index * 0.12 }}
-        />
-      ))}
+    <div className="card relative overflow-hidden p-7">
+      <div className="space-y-3.5">
+        <div className="mb-6 h-6 w-2/3 rounded bg-panel-3" />
+        {[96, 100, 88, 94, 70].map((width, index) => (
+          <div key={index} className="h-3 rounded bg-panel-2" style={{ width: `${width}%` }} />
+        ))}
+      </div>
+      {/* One sweeping highlight, rather than five separately pulsing bars:
+          it reads as a single object being filled in. */}
+      <div className="sweep pointer-events-none absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/[0.045] to-transparent" />
     </div>
+  );
+}
+
+const HEADLINE = ["Research", "anything,", "with", "citations"];
+
+function Hero() {
+  return (
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+      transition={{ duration: 0.3 }}
+      className="pb-2"
+    >
+      <motion.p
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.05 }}
+        className="eyebrow mb-5"
+      >
+        Planner · Researchers · Writer · Fact-checker
+      </motion.p>
+
+      {/* Word-by-word rather than letter-by-letter: letters look like a demo,
+          words look like typesetting. */}
+      <h1 className="display max-w-3xl text-[clamp(38px,6.2vw,64px)]">
+        {HEADLINE.map((word, index) => (
+          <motion.span
+            key={word}
+            initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ delay: 0.08 + index * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className={`mr-[0.28em] inline-block ${index >= 2 ? "text-accent" : ""}`}
+          >
+            {word}
+          </motion.span>
+        ))}
+      </h1>
+
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.34, duration: 0.5 }}
+        className="mt-5 max-w-xl text-[15.5px] leading-relaxed text-muted"
+      >
+        Sub-questions are planned, searched in parallel across the web and your documents, drafted, then
+        fact-checked against the sources before you ever see them.
+      </motion.p>
+    </motion.section>
   );
 }
