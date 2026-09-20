@@ -1,4 +1,4 @@
-import { ClerkProvider, SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { ClerkProvider, Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
@@ -44,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </Link>
               {withClerk && (
                 <div className="ml-2 flex items-center gap-2 border-l border-line pl-3">
-                  <SignedOut>
+                  <Show when="signed-out">
                     <SignInButton mode="modal">
                       <button className="rounded-md px-3 py-1.5 text-muted transition-colors hover:bg-panel-2 hover:text-text">
                         Sign in
@@ -55,10 +55,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         Sign up
                       </button>
                     </SignUpButton>
-                  </SignedOut>
-                  <SignedIn>
+                  </Show>
+                  <Show when="signed-in">
                     <UserButton />
-                  </SignedIn>
+                  </Show>
                 </div>
               )}
             </nav>
