@@ -20,73 +20,97 @@ long-lived container.
 
 The **web app** has no such constraints and could live anywhere.
 
-## Free: Hugging Face Spaces + Neon + Vercel
+## Free: Render + Neon + Vercel
 
-No card, three signups, ~20 minutes. This is the cheapest arrangement that
-still satisfies the two constraints above.
+No card, three signups. Verified under Render's actual limits before being
+recommended — see the measurements below.
 
-| piece | host | why it fits |
+| piece | host | why |
 |---|---|---|
-| API | Hugging Face Space (Docker) | free CPU Basic is 2 vCPU / 16 GB RAM, runs any Dockerfile, supports secrets, and only pauses after **48 hours** idle |
-| Postgres | Neon free | the Space's disk is wiped on rebuild, so runs and users must live elsewhere |
+| API | Render free web service | runs a Dockerfile, stays a long-lived process, 512 MB RAM |
+| Postgres | Neon free | Render's own free database is deleted after 30 days, and its free disk is ephemeral |
 | Web | Vercel free | its natural home |
 
-What you give up: uploaded documents do not survive a Space rebuild (no
-persistent volume on the free tier), and the Space pauses after two idle days,
-taking ~30s to wake.
+### Does it fit in 512 MB? Measured, yes
+
+Run in a container capped at exactly Render's free limits
+(`--memory=512m --memory-swap=512m --cpus=0.5`):
+
+| | memory |
+|---|---|
+| idle | 130 MB |
+| during one research run | 145 MB |
+| during three concurrent runs | **157 MB** |
+
+No OOM kill, no restarts, all runs completed. Roughly a third of the cap, so
+the headroom is real rather than marginal.
+
+### What you give up
+
+- **15 minutes of inactivity puts it to sleep**, and the next request waits
+  30–60s for a cold start. For a portfolio link someone clicks once, that first
+  impression is a spinner. (A cron pinging `/health` every 10 minutes keeps it
+  awake, at the cost of your 750 free instance-hours: one always-on service is
+  ~730 hours, so it just about fits, and nothing else can run.)
+- **No shell**, so `dossier user` cannot be run. The bootstrap secrets below
+  exist for exactly this.
+- **Ephemeral disk**, so ingested documents do not survive a deploy. Runs and
+  users live in Neon and do survive.
 
 ### 1. Neon — the database
 
-Sign up at [neon.tech](https://neon.tech) with GitHub, create a project, copy
-the connection string, and **change the scheme** from `postgresql://` to
+Sign up at [neon.tech](https://neon.tech), create a project, copy the
+connection string, and **change the scheme** from `postgresql://` to
 `postgresql+psycopg://`. SQLAlchemy needs the driver named; this is the single
 most common way this deploy fails.
 
-### 2. The Space — the API
+### 2. Render — the API
 
-Create a **Docker** Space at [huggingface.co/new-space](https://huggingface.co/new-space)
-(name it `dossier`, hardware CPU basic — free). Then push the two files from
-`deploy/huggingface/` into it:
+[dashboard.render.com](https://dashboard.render.com) → **New → Web Service** →
+connect `Sattu2806/dossier` → Language **Docker**, instance type **Free**.
 
-```bash
-git clone https://huggingface.co/spaces/<your-hf-user>/dossier /tmp/dossier-space
-cp deploy/huggingface/{Dockerfile,README.md} /tmp/dossier-space/
-cd /tmp/dossier-space && git add -A && git commit -m "Deploy dossier API" && git push
-```
+Environment variables:
 
-That Dockerfile installs the package from GitHub, so the Space repo stays two
-files and every rebuild picks up your latest `main`.
-
-Then set these under **Settings → Variables and secrets**:
-
-| secret | value |
+| variable | value |
 |---|---|
+| `DOSSIER_DATABASE_URL` | the Neon string, with `postgresql+psycopg://` |
 | `GEMINI_API_KEY` | your key |
 | `TAVILY_API_KEY` | your key |
-| `DOSSIER_DATABASE_URL` | the Neon string, with `postgresql+psycopg://` |
+| `DOSSIER_DATA_DIR` | `/tmp/chroma` (the disk is ephemeral; `/data` is not writable) |
 | `DOSSIER_BOOTSTRAP_EMAIL` | `demo@dossier.app` |
 | `DOSSIER_BOOTSTRAP_KEY` | invent one, e.g. `dsr_` plus random text |
 | `DOSSIER_BOOTSTRAP_TOKEN_LIMIT` | `100000` |
 
-A Space has **no shell**, so `dossier user` cannot be run there. The bootstrap
-pair seeds that first user at startup instead — idempotent, so restarts are
-safe and re-deploys do not rotate a working key.
+Health check path: `/health`. Do not set `PORT` — Render injects it, and
+`api.port()` already prefers it.
 
-Check it: `curl https://<your-hf-user>-dossier.hf.space/health`
+The bootstrap pair seeds the first user at startup, since there is no shell to
+run `dossier user`. It is idempotent: restarts are safe, and a redeploy does
+not rotate a working key.
 
 ### 3. Vercel — the web app
 
-Import the GitHub repo at [vercel.com/new](https://vercel.com/new), set **Root
-Directory** to `web`, and add one environment variable:
+Import the repo at [vercel.com/new](https://vercel.com/new), set **Root
+Directory** to `web`, and add:
 
-`DOSSIER_API_URL = https://<your-hf-user>-dossier.hf.space`
+`DOSSIER_API_URL = https://<your-service>.onrender.com`
 
-Open the deployed site and paste the bootstrap key into the connect screen.
+Then open the site and paste the bootstrap key into the connect screen.
 
-One caveat: the SSE proxy route holds a connection open for the length of a
-run, and Hobby functions cap at 60s. A three-draft run can be cut — it
-degrades rather than breaks, because `EventSource` reconnects and
-`RunChannel` replays the events that were missed.
+Two caveats worth knowing: the SSE proxy route holds a connection open for the
+length of a run and Vercel Hobby functions cap at 60s, so a three-draft run can
+be cut — it degrades rather than breaks, because `EventSource` reconnects and
+`RunChannel` replays what was missed. And the first request after a sleep pays
+the cold start, so the connect screen may take a minute to appear.
+
+### Not Hugging Face Spaces
+
+Spaces were the obvious free home until **July 2026**, when Hugging Face put
+the Docker SDK behind a paid plan and removed free CPU Basic. Free accounts now
+get static Spaces and ZeroGPU Gradio only. The definition in
+`deploy/huggingface/` still works if you have a paid account — 16 GB of RAM and
+a 48-hour idle timeout are better than Render's free tier in every respect
+except price.
 
 ## Paid, if the free tier chafes: Railway, one project, three services
 
