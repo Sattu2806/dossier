@@ -16,6 +16,7 @@ import os
 import secrets
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from importlib.metadata import version
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from pydantic import BaseModel, Field
@@ -131,7 +132,23 @@ def create_app(database=None, graph=None) -> FastAPI:
 
     @app.get("/health")
     def health() -> dict:
-        return {"status": "ok"}
+        """Also reports what is running.
+
+        "Which commit is live?" is the first question when a deploy
+        misbehaves, and without this the only way to answer it is to trust the
+        dashboard. Hosts expose the deployed SHA in their own variable.
+        """
+        commit = (
+            os.getenv("RENDER_GIT_COMMIT")
+            or os.getenv("RAILWAY_GIT_COMMIT_SHA")
+            or os.getenv("SOURCE_COMMIT")
+            or os.getenv("GIT_COMMIT")
+        )
+        return {
+            "status": "ok",
+            "version": version("dossier"),
+            "commit": commit[:7] if commit else None,
+        }
 
     @app.get("/api/me")
     def me(user: dict = Depends(current_user)) -> dict:
