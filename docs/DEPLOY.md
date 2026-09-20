@@ -59,10 +59,10 @@ the headroom is real rather than marginal.
 
 ### 1. Neon — the database
 
-Sign up at [neon.tech](https://neon.tech), create a project, copy the
-connection string, and **change the scheme** from `postgresql://` to
-`postgresql+psycopg://`. SQLAlchemy needs the driver named; this is the single
-most common way this deploy fails.
+Sign up at [neon.tech](https://neon.tech), create a project and copy the
+connection string as-is. `postgres://` and `postgresql://` are both accepted:
+`db.normalise_url` names the psycopg 3 driver for you, because every platform
+hands out a scheme that SQLAlchemy would otherwise map to psycopg2.
 
 ### 2. Render — the API
 
@@ -73,7 +73,7 @@ Environment variables:
 
 | variable | value |
 |---|---|
-| `DOSSIER_DATABASE_URL` | the Neon string, with `postgresql+psycopg://` |
+| `DOSSIER_DATABASE_URL` | the Neon string, exactly as Neon gives it |
 | `GEMINI_API_KEY` | your key |
 | `TAVILY_API_KEY` | your key |
 | `DOSSIER_DATA_DIR` | `/tmp/chroma` (the disk is ephemeral; `/data` is not writable) |
@@ -139,9 +139,8 @@ Variables:
 | `DOSSIER_DAILY_TOKEN_LIMIT` | `200000` (see "A public demo" below) |
 | `LANGSMITH_TRACING` / `LANGSMITH_API_KEY` | optional, for traces |
 
-Note the driver prefix: SQLAlchemy needs `postgresql+psycopg://`, while
-Railway's own `DATABASE_URL` starts `postgresql://`. Copying it unchanged is
-the most common way this deploy fails.
+Railway's own `DATABASE_URL` can be referenced directly if you prefer: the
+scheme is normalised in `db.normalise_url`, so `postgresql://` works.
 
 Then **Settings → Volumes → add a volume mounted at `/data`** (1 GB is plenty),
 and set the health check path to `/health`. Do not set `PORT`: Railway injects

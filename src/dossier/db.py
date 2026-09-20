@@ -68,8 +68,26 @@ runs = Table(
 )
 
 
+def normalise_url(url: str) -> str:
+    """Accept the connection string a platform actually gives you.
+
+    Neon, Render, Railway and Heroku all hand out `postgresql://` or the
+    legacy `postgres://`. SQLAlchemy maps the first to psycopg2 — which we do
+    not install, since we ship psycopg 3 — and rejects the second outright.
+    Asking a human to rewrite the scheme by hand is a footgun; naming the
+    driver ourselves is one line.
+
+    A URL that already names a driver (`postgresql+asyncpg://`) is left alone.
+    """
+    if url.startswith("postgres://"):  # legacy Heroku-style
+        url = "postgresql://" + url.removeprefix("postgres://")
+    if url.startswith("postgresql://"):
+        url = "postgresql+psycopg://" + url.removeprefix("postgresql://")
+    return url
+
+
 def engine(url: str | None = None):
-    url = url or DATABASE_URL
+    url = normalise_url(url or DATABASE_URL)
     if url.startswith("sqlite:///"):
         Path(url.removeprefix("sqlite:///")).parent.mkdir(parents=True, exist_ok=True)
     return create_engine(url, future=True)
