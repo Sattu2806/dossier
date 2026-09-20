@@ -1,18 +1,20 @@
 "use client";
 
+import { AnimatePresence, motion } from "motion/react";
+import { AlertTriangle, ArrowRight, Loader2 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 
 import type { Me, Run } from "@/lib/backend";
+import ProgressTimeline, { type Progress } from "./ProgressTimeline";
+import ReportView from "./ReportView";
 
-type Progress = { step: number; node: string; label: string };
 type Phase = "idle" | "running" | "done" | "error";
 
 const EXAMPLES = [
   "solid-state batteries",
   "HNSW vs IVF indexing in vector databases",
   "the effectiveness of rent control",
+  "carbon border adjustment mechanisms",
 ];
 
 export default function Research({ initialMe }: { initialMe: Me | null }) {
@@ -27,15 +29,14 @@ export default function Research({ initialMe }: { initialMe: Me | null }) {
   useEffect(() => () => source.current?.close(), []);
 
   const watch = useCallback((runId: string) => {
-    // EventSource, not fetch: the browser reconnects it automatically, and the
-    // key never has to travel with the request because the same-origin proxy
-    // holds it in an httpOnly cookie.
+    // EventSource rather than fetch: the browser reconnects it on its own, and
+    // the credential never travels with the request because the same-origin
+    // proxy attaches it server-side.
     const stream = new EventSource(`/api/proxy/api/runs/${runId}/stream`);
     source.current = stream;
 
     stream.addEventListener("progress", (event) => {
-      const data = JSON.parse((event as MessageEvent).data) as Progress;
-      setSteps((previous) => [...previous, data]);
+      setSteps((previous) => [...previous, JSON.parse((event as MessageEvent).data) as Progress]);
     });
     stream.addEventListener("done", (event) => {
       setRun(JSON.parse((event as MessageEvent).data) as Run);
@@ -78,134 +79,135 @@ export default function Research({ initialMe }: { initialMe: Me | null }) {
     watch(body.run_id as string);
   }
 
-  const grouped = groupSteps(steps);
+  const busy = phase === "running";
 
   return (
     <div className="space-y-8">
-      <section>
-        <h1 className="text-[28px] font-semibold tracking-tight">Research anything, with citations</h1>
-        <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-muted">
-          Sub-questions are planned, searched in parallel across the web and your own documents, drafted,
-          then fact-checked against the sources before you see them.
-        </p>
-      </section>
+      <AnimatePresence initial={false}>
+        {phase === "idle" && (
+          <motion.section
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <h1 className="text-[30px] font-semibold leading-tight tracking-tight">
+              Research anything,
+              <span className="text-accent"> with citations</span>
+            </h1>
+            <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted">
+              Sub-questions are planned, searched in parallel across the web and your documents, drafted, then
+              fact-checked against the sources before you see them.
+            </p>
+          </motion.section>
+        )}
+      </AnimatePresence>
 
-      <form onSubmit={submit} className="space-y-3">
-        <div className="flex gap-2">
+      <form onSubmit={submit} className="space-y-3 print:hidden">
+        <div className="group relative flex gap-2">
           <input
             value={topic}
             onChange={(event) => setTopic(event.target.value)}
             placeholder="A topic, in plain words"
-            disabled={phase === "running"}
-            className="flex-1 rounded-lg border border-line bg-panel px-4 py-3 text-[15px] outline-none transition-colors placeholder:text-muted/60 focus:border-accent/50 disabled:opacity-60"
+            disabled={busy}
+            className="flex-1 rounded-xl border border-line bg-panel px-4 py-3.5 text-[15px] outline-none transition-colors placeholder:text-muted/60 focus:border-accent/50 disabled:opacity-60"
           />
           <button
             type="submit"
-            disabled={phase === "running" || !topic.trim()}
-            className="rounded-lg bg-accent px-5 py-3 text-[15px] font-medium text-[#04211a] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+            disabled={busy || !topic.trim()}
+            className="flex items-center gap-2 rounded-xl bg-accent px-5 py-3.5 text-[15px] font-medium text-[#04211a] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {phase === "running" ? "Researching…" : "Research"}
+            {busy ? <Loader2 size={16} className="animate-spin" /> : <ArrowRight size={16} />}
+            {busy ? "Researching" : "Research"}
           </button>
         </div>
-        <div className="flex flex-wrap items-center gap-2 text-[13px] text-muted">
-          <span>Try:</span>
-          {EXAMPLES.map((example) => (
-            <button
-              key={example}
-              type="button"
-              onClick={() => setTopic(example)}
-              className="rounded-full border border-line bg-panel px-3 py-1 transition-colors hover:border-accent/40 hover:text-text"
-            >
-              {example}
-            </button>
-          ))}
-        </div>
+
+        {phase === "idle" && (
+          <div className="flex flex-wrap items-center gap-2 text-[13px] text-muted">
+            <span>Try:</span>
+            {EXAMPLES.map((example) => (
+              <button
+                key={example}
+                type="button"
+                onClick={() => setTopic(example)}
+                className="rounded-full border border-line bg-panel px-3 py-1 transition-colors hover:border-accent/40 hover:text-text"
+              >
+                {example}
+              </button>
+            ))}
+          </div>
+        )}
       </form>
 
       {me && (
-        <p className="font-mono text-xs text-muted">
-          {me.email} · {me.tokens_used_today.toLocaleString()} / {me.daily_token_limit.toLocaleString()} tokens
-          used today
-        </p>
+        <UsageBar used={me.tokens_used_today} limit={me.daily_token_limit} email={me.email} />
       )}
 
-      {error && (
-        <div className="rounded-lg border border-bad/40 bg-bad/10 px-4 py-3 text-[14px] text-bad">{error}</div>
-      )}
+      <AnimatePresence>
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="flex items-start gap-2.5 rounded-xl border border-bad/40 bg-bad/10 px-4 py-3 text-[14px] text-bad"
+          >
+            <AlertTriangle size={15} className="mt-0.5 shrink-0" />
+            {error}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {steps.length > 0 && (
-        <section className="rounded-xl border border-line bg-panel p-5">
-          <h2 className="mb-4 font-mono text-[11px] uppercase tracking-widest text-muted">Progress</h2>
-          <ol className="space-y-2.5">
-            {grouped.map((group) => (
-              <li key={group.step} className="flex items-center gap-3 text-[14px]">
-                <span
-                  className={`h-1.5 w-1.5 shrink-0 rounded-full ${
-                    group.active && phase === "running" ? "bg-accent pulse" : "bg-accent/45"
-                  }`}
-                />
-                <span className="text-text">{group.label}</span>
-                {group.count > 1 && (
-                  <span className="rounded-full border border-line bg-panel-2 px-2 py-0.5 font-mono text-[11px] text-muted">
-                    ×{group.count} in parallel
-                  </span>
-                )}
-              </li>
-            ))}
-          </ol>
-        </section>
-      )}
+      {steps.length > 0 && <ProgressTimeline steps={steps} running={busy} />}
 
-      {run?.report && (
-        <article className="space-y-5">
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge tone={run.grounded ? "good" : "warn"}>
-              {run.grounded ? "Fact-checked" : "Unsupported claims found"}
-            </Badge>
-            <Badge tone={run.passed_review ? "good" : "warn"}>
-              {run.passed_review ? "Passed review" : "Published after review limit"}
-            </Badge>
-            <Badge tone="plain">{run.drafts === 1 ? "1 draft" : `${run.drafts} drafts`}</Badge>
-            <Badge tone="plain">{(run.tokens ?? 0).toLocaleString()} tokens</Badge>
-            {run.critique_scores &&
-              Object.entries(run.critique_scores).map(([name, score]) => (
-                <Badge key={name} tone="plain">
-                  {name} {score}/5
-                </Badge>
-              ))}
-          </div>
+      {busy && !run && <Skeleton />}
 
-          <div className="report rounded-xl border border-line bg-panel p-7">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{run.report}</ReactMarkdown>
-          </div>
-        </article>
-      )}
+      <AnimatePresence>
+        {run?.report && (
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+            <ReportView run={run} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
-function Badge({ children, tone }: { children: React.ReactNode; tone: "good" | "warn" | "plain" }) {
-  const tones = {
-    good: "border-accent/35 text-accent",
-    warn: "border-warn/40 text-warn",
-    plain: "border-line text-muted",
-  };
+function UsageBar({ used, limit, email }: { used: number; limit: number; email: string }) {
+  const percent = Math.min(100, Math.round((used / Math.max(1, limit)) * 100));
+  const tight = percent > 80;
   return (
-    <span className={`rounded-full border bg-panel px-2.5 py-1 font-mono text-[11px] ${tones[tone]}`}>
-      {children}
-    </span>
+    <div className="print:hidden">
+      <div className="mb-1.5 flex justify-between font-mono text-[11px] text-muted">
+        <span>{email}</span>
+        <span className={tight ? "text-warn" : undefined}>
+          {used.toLocaleString()} / {limit.toLocaleString()} tokens today
+        </span>
+      </div>
+      <div className="h-1 overflow-hidden rounded-full bg-panel">
+        <motion.div
+          animate={{ width: `${percent}%` }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className={`h-full rounded-full ${tight ? "bg-warn" : "bg-accent/60"}`}
+        />
+      </div>
+    </div>
   );
 }
 
-/** Several researchers report the same step number: show them as one line with
- *  a count, which is also the clearest way to make the fan-out visible. */
-function groupSteps(steps: Progress[]) {
-  const groups: { step: number; label: string; count: number; active: boolean }[] = [];
-  for (const step of steps) {
-    const last = groups.at(-1);
-    if (last && last.step === step.step) last.count += 1;
-    else groups.push({ step: step.step, label: step.label, count: 1, active: false });
-  }
-  if (groups.length) groups[groups.length - 1].active = true;
-  return groups;
+/** Shown while the first draft is being written: something with the shape of a
+ *  report reads as progress, where a spinner reads as a stall. */
+function Skeleton() {
+  return (
+    <div className="space-y-3 rounded-xl border border-line bg-panel p-7">
+      {[80, 100, 95, 60, 100, 88].map((width, index) => (
+        <motion.div
+          key={index}
+          className="h-3 rounded bg-panel-2"
+          style={{ width: `${width}%` }}
+          animate={{ opacity: [0.35, 0.75, 0.35] }}
+          transition={{ repeat: Infinity, duration: 1.6, delay: index * 0.12 }}
+        />
+      ))}
+    </div>
+  );
 }

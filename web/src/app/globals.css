@@ -92,6 +92,40 @@ body {
   word-break: break-word;
 }
 
+/* Citations are rendered as links to their source. Superscript-sized so they
+   punctuate a sentence instead of interrupting it. */
+.report a.citation {
+  display: inline-block;
+  margin-left: 1px;
+  padding: 0 3px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel-2);
+  color: var(--accent);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.72em;
+  line-height: 1.5;
+  vertical-align: 1px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.report a.citation:hover {
+  border-color: var(--accent);
+}
+
+/* The jumped-to source, briefly, so the eye lands in the right place. */
+li:target {
+  animation: flash 1.6s ease-out;
+}
+@keyframes flash {
+  0%,
+  35% {
+    background: color-mix(in oklab, var(--accent) 16%, transparent);
+  }
+  100% {
+    background: transparent;
+  }
+}
+
 @keyframes pulse-dot {
   0%,
   100% {
@@ -110,4 +144,51 @@ body {
 ::selection {
   background: var(--accent-dim);
   color: #fff;
+}
+
+
+/* Printing is the PDF export: the browser already renders this better than a
+   bundled PDF library would, so give it a document to print rather than a
+   screenshot of a dark UI. */
+@media print {
+  :root {
+    --bg: #ffffff;
+    --panel: #ffffff;
+    --panel-2: #f4f4f5;
+    --line: #d4d4d8;
+    --text: #111113;
+    --muted: #52525b;
+    --accent: #0f766e;
+  }
+  html,
+  body {
+    background: #fff;
+    color: #111113;
+  }
+  header,
+  nav,
+  form,
+  button {
+    display: none !important;
+  }
+  main {
+    max-width: none;
+    padding: 0;
+  }
+  .report h2 {
+    break-after: avoid;
+  }
+  .report p,
+  .report li {
+    break-inside: avoid;
+  }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    color: #52525b;
+    word-break: break-all;
+  }
+  a.citation::after {
+    content: none;
+  }
 }
