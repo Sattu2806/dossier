@@ -33,14 +33,22 @@ export default function Connect({ message }: { message?: string }) {
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Connect to your API</h1>
         <p className="mt-2 text-[15px] leading-relaxed text-muted">
-          Create a key on the machine running the API, then paste it here. It is kept in an httpOnly cookie,
-          so it never becomes readable by scripts on this page.
+          Paste your API key. It is kept in an httpOnly cookie, so it never becomes readable by scripts on
+          this page.
         </p>
       </div>
 
-      <pre className="overflow-x-auto rounded-lg border border-line bg-panel-2 px-4 py-3 font-mono text-[12.5px] text-muted">
-        uv run dossier user you@example.com
-      </pre>
+      <div className="space-y-3 rounded-lg border border-line bg-panel-2 px-4 py-3.5 text-[13px] text-muted">
+        <p>
+          <span className="text-text">Deployed API?</span> Use the key you set as{" "}
+          <code className="font-mono text-accent">DOSSIER_BOOTSTRAP_KEY</code> in your host&rsquo;s
+          environment variables — hosts without a shell seed that user at startup.
+        </p>
+        <p>
+          <span className="text-text">Running it locally?</span> Create one with:
+        </p>
+        <pre className="overflow-x-auto font-mono text-[12.5px]">uv run dossier user you@example.com</pre>
+      </div>
 
       <form onSubmit={connect} className="space-y-3">
         <input
