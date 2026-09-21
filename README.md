@@ -127,7 +127,7 @@ uv run dossier run "solid-state batteries"
 uv run dossier run --offline "anything"   # fake nodes, no API keys, no cost
 uv run dossier ingest paper.pdf notes.md  # search your own documents too
 uv run dossier diagram                     # Mermaid diagram of the graph
-uv run pytest                              # 133 tests, none need a key
+uv run pytest                              # 200 tests, none need a key
 ```
 
 ### The API and the web app
@@ -137,6 +137,10 @@ uv run dossier user you@example.com   # prints an API key, once
 uv run dossier serve                  # http://127.0.0.1:8500
 npm --prefix web run dev              # http://localhost:3600
 ```
+
+Sign in (Clerk, if keys are set) or paste an API key, then either ask a
+question or drop a PDF on **Learn a book** and watch the outline and lessons
+arrive over the same SSE channel.
 
 The browser watches a run happen over SSE — including "Researching ×8 in
 parallel" — then renders the cited report. The API key is held in an httpOnly
@@ -198,6 +202,10 @@ reports you already paid for.
 | `web_search` and `doc_search` share a signature | the Researcher never learns there are two kinds of source; a third is one dict entry |
 | A measured relevance floor on document search | a vector store always returns its nearest chunk — mine cited a fish survey for a question about rent control |
 | Fact-Checker separate from Critic | "does the evidence say this?" and "is this good?" need different attention |
+| A second graph for study guides, not a mode flag | different state, no review loop, one source instead of many — the shared part is retrieval, not the pipeline |
+| The outline reads opening pages, not search results | "what is this book about" matches no passage in particular |
+| Generated examples are parsed, never executed | running model-written code for whoever uploaded a PDF is RCE with a friendly name |
+| Mermaid repaired in code *and* fixed in the prompt | a prompt makes an outcome likelier, never certain — and the repair is pattern-bounded so it cannot damage valid input |
 | Validation as the first graph node | CLI, API and MCP cannot forget it |
 | Token budget as a LangChain callback | it sees calls made inside `with_structured_output`, which node-level counting cannot |
 | Hashed API keys, not JWTs | one service that already hits the database per request; instant revocation beats stateless verification here |
