@@ -11,7 +11,7 @@ import time
 
 from langchain_core.exceptions import OutputParserException
 from langchain_core.messages import HumanMessage, SystemMessage
-from langgraph.types import Send
+from langgraph.types import Send, interrupt
 from pydantic import BaseModel, Field
 
 from dossier.docstore import doc_search, document_count
@@ -83,6 +83,54 @@ def planner(state: ResearchState) -> dict:
         # so the graph's retry policy should try again.
         raise OutputParserException("Planner returned no sub-questions")
     return {"sub_questions": questions[:MAX_SUB_QUESTIONS]}
+
+
+# ---------------------------------------------------------------------------
+# Approve the plan
+# ---------------------------------------------------------------------------
+
+
+def approve_plan(state: ResearchState) -> dict:
+    """Stop and show the plan before anyone pays for searches.
+
+    This is the cheapest possible place to interrupt: the Planner has cost one
+    call, and everything expensive — N parallel searches, three drafts, two
+    reviewers — is still ahead. Dropping two sub-questions here is a real
+    saving, not a gesture.
+
+    `interrupt()` raises on the way out and re-runs this node from the top on
+    resume, so nothing above it in this function may have side effects. It
+    needs a checkpointer; without one the pause has nowhere to live.
+    """
+    decision = interrupt({"topic": state["topic"], "sub_questions": state["sub_questions"]})
+
+    edited = _edited_questions(decision)
+    if edited is None:
+        return {}
+
+    # An empty edit means "I deleted everything", which cannot be researched.
+    # Keeping the plan is friendlier than failing: to cancel, simply never
+    # resume — an interrupt nobody answers costs nothing and expires with its
+    # checkpoint.
+    if not edited:
+        logger.warning("plan edited to nothing; keeping the planner's questions")
+        return {}
+
+    logger.info("plan edited: %d questions -> %d", len(state["sub_questions"]), len(edited))
+    return {"sub_questions": edited}
+
+
+def _edited_questions(decision) -> list[str] | None:
+    """The sub-questions a client sent back, or None for plain approval.
+
+    Accepts the shapes a client naturally sends: a bare list, a dict carrying
+    one, or anything else meaning "approved as planned".
+    """
+    if isinstance(decision, dict):
+        decision = decision.get("sub_questions")
+    if not isinstance(decision, list):
+        return None
+    return _clean([str(question) for question in decision])[:MAX_SUB_QUESTIONS]
 
 
 # ---------------------------------------------------------------------------

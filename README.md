@@ -210,6 +210,9 @@ reports you already paid for.
 | Token budget as a LangChain callback | it sees calls made inside `with_structured_output`, which node-level counting cannot |
 | Hashed API keys, not JWTs | one service that already hits the database per request; instant revocation beats stateless verification here |
 | SSE events kept and replayed | a run that finishes before the browser connects would otherwise show nothing |
+| The human-approval pause sits right after the Planner | one call spent, every search still ahead — the cheapest point at which stopping saves real money |
+| Approval is opt-in, not the default | the CLI and MCP server must not hang waiting for a human who isn't there |
+| Cancelling means never resuming | an unanswered interrupt costs nothing and expires with its checkpoint; a cancel endpoint would be a second way to do the same thing |
 
 ## Learning notes
 
@@ -242,6 +245,7 @@ revision loop that does not currently fire.
 | `DOSSIER_PASS_THRESHOLD` | `4` | the score every rubric dimension must reach |
 | `LANGSMITH_TRACING` | `false` | set to `true` with a key for traces |
 | `DOSSIER_MIN_RELEVANCE` | `0.5` | document matches below this are discarded (measured, not guessed) |
+| `DOSSIER_APPROVE_PLAN` | `false` | pause after the Planner so a human can edit the sub-questions |
 | `DOSSIER_MAX_UPLOAD_MB` | `12` | largest book you can upload |
 | `DOSSIER_MAX_PAGES` | `400` | pages per upload — each one costs embedding calls |
 | `DOSSIER_MAX_DOCUMENTS` | `20` | books kept per user |

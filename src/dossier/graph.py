@@ -1,5 +1,8 @@
 """Wiring: which node runs after which.
 
+With `approval=True` an `approve` node sits between the Planner and the
+fan-out, pausing the run before a single search is paid for.
+
                     ┌─ researcher ─┐   (one per sub-question,
 START → validate → planner ─┼─ researcher ─┼──► all in the same step)
                     └─ researcher ─┘
@@ -15,10 +18,11 @@ from collections.abc import Callable
 from typing import Literal
 
 from langchain_core.exceptions import OutputParserException
+from langgraph.checkpoint.base import BaseCheckpointSaver
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import RetryPolicy
 
-from dossier import nodes
+from dossier import checkpoints, nodes
 from dossier.state import ResearchState
 
 # Business rule: the Writer gets at most this many attempts. After that we
@@ -74,11 +78,18 @@ def build_graph(
     fact_checker: Node = nodes.fact_checker,
     critic: Node = nodes.critic,
     finalize: Node = nodes.finalize,
+    approval: bool = False,
+    saver: BaseCheckpointSaver | None = None,
 ):
     """Build and compile the graph.
 
     Every node can be swapped via a keyword argument. Tests and `--offline`
     use this to run with fakes.FAKE_NODES, which needs no API key.
+
+    `approval=True` inserts a pause after the Planner so a human can edit the
+    sub-questions before any search is paid for. It needs a checkpointer, so
+    one is created if the caller did not supply it — the pause has to be
+    written down somewhere or there is nothing to resume into.
     """
     builder = StateGraph(ResearchState)
 
@@ -92,9 +103,17 @@ def build_graph(
 
     builder.add_edge(START, "validate")
     builder.add_edge("validate", "planner")
+
+    # With approval on, the fan-out moves one node later: plan, pause, then
+    # spend. Off, the edge is exactly as it was — the default path has no
+    # extra node to execute and no checkpoint to write.
+    if approval:
+        builder.add_node("approve", nodes.approve_plan)
+        builder.add_edge("planner", "approve")
+
     # Fan-out: one researcher per sub-question. The list argument tells
     # LangGraph where the Sends can land, so `dossier diagram` stays accurate.
-    builder.add_conditional_edges("planner", nodes.fan_out_to_researchers, ["researcher"])
+    builder.add_conditional_edges("approve" if approval else "planner", nodes.fan_out_to_researchers, ["researcher"])
     builder.add_edge("researcher", "writer")
     builder.add_edge("writer", "fact_checker")
     builder.add_edge("fact_checker", "critic")
@@ -103,4 +122,6 @@ def build_graph(
 
     # compile() checks the structure (no dangling edges, unreachable nodes)
     # and returns a runnable with .invoke() / .stream().
-    return builder.compile().with_config(recursion_limit=RECURSION_LIMIT)
+    if approval and saver is None:
+        saver = checkpoints.checkpointer()
+    return builder.compile(checkpointer=saver).with_config(recursion_limit=RECURSION_LIMIT)
