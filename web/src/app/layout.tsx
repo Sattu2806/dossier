@@ -61,6 +61,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                   Research
                 </Link>
                 <Link
+                  href="/learn"
+                  className="rounded-lg px-3 py-1.5 text-muted transition-colors hover:bg-panel-2 hover:text-text"
+                >
+                  Learn a book
+                </Link>
+                <Link
                   href="/history"
                   className="rounded-lg px-3 py-1.5 text-muted transition-colors hover:bg-panel-2 hover:text-text"
                 >

@@ -19,6 +19,15 @@ topic → validate → planner ──┼─ web ──┼── PER SOURCE, all 
 Every claim cites a numbered source; the model never writes a URL. Sub-questions
 whose searches fail are reported as gaps rather than filled in from memory.
 
+**Or upload a book and be taught it.** A second graph turns a PDF into a
+course: lessons in the order the ideas have to be learned, each explained as
+if to a five-year-old and then properly, with a diagram, a worked example and
+the passages it came from.
+
+```
+outline → lesson × N (in parallel) → assemble
+```
+
 **Four ways in:** a CLI, an HTTP API with live progress, an MCP server for
 Claude Desktop, and a Next.js front end.
 
@@ -208,6 +217,7 @@ Written as this was built, one step at a time:
 - [8 — Your own documents, and a separate fact-checker](docs/learn/08-rag-and-fact-checking.md)
 - [9 — An MCP server for the research tools](docs/learn/09-mcp-server.md)
 - [10 — API, live UI, and shipping](docs/learn/10-api-ui-and-shipping.md)
+- [11 — Teaching a book](docs/learn/11-study-guides.md)
 
 [Roadmap](docs/ROADMAP.md) — every phase is built; what remains open is listed
 there honestly, including the images that have never been built and the
@@ -224,6 +234,9 @@ revision loop that does not currently fire.
 | `DOSSIER_PASS_THRESHOLD` | `4` | the score every rubric dimension must reach |
 | `LANGSMITH_TRACING` | `false` | set to `true` with a key for traces |
 | `DOSSIER_MIN_RELEVANCE` | `0.5` | document matches below this are discarded (measured, not guessed) |
+| `DOSSIER_MAX_UPLOAD_MB` | `12` | largest book you can upload |
+| `DOSSIER_MAX_PAGES` | `400` | pages per upload — each one costs embedding calls |
+| `DOSSIER_MAX_DOCUMENTS` | `20` | books kept per user |
 | `DOSSIER_MAX_TOKENS` | `120000` | per-run token budget |
 | `DOSSIER_DAILY_TOKEN_LIMIT` | `500000` | per-user, per-day budget |
 | `DOSSIER_DATABASE_URL` | `sqlite:///data/dossier.db` | `postgresql+psycopg://…` in production |

@@ -16,6 +16,7 @@ dependencies = [
     "pyjwt[crypto]>=2.14.0",
     "pypdf>=6.19.0",
     "python-dotenv>=1.2.3",
+    "python-multipart>=0.0.32",
     "sqlalchemy>=2.0.54",
     "tavily-python>=0.8.3",
 ]
@@ -36,6 +37,7 @@ build-backend = "uv_build"
 [dependency-groups]
 dev = [
     "pytest>=9.1.1",
+    "reportlab>=5.0.1",
     "ruff>=0.16.7",
 ]
 
@@ -52,4 +54,4 @@ select = ["E", "F", "I", "B", "UP", "SIM"]
 
 [tool.ruff.lint.flake8-bugbear]
 # FastAPI's whole dependency system is "call this in the default argument".
-extend-immutable-calls = ["fastapi.Depends", "fastapi.Header", "fastapi.Query", "fastapi.Path"]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Header", "fastapi.Query", "fastapi.Path", "fastapi.File", "fastapi.Form"]

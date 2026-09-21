@@ -32,6 +32,11 @@ Known gaps to fix in later phases, found by the evals:
 - [x] **7. Next.js frontend**: live progress over SSE, cited report, history; API key in an httpOnly cookie behind a proxy route
 - [x] **8. Docker + deploy**: two-stage Dockerfile, compose with Postgres, CI workflow
 
+## Beyond the original plan
+
+- [x] **Accounts**: sign in with Clerk; API keys stay for the CLI and MCP server, both resolving to the same user row
+- [x] **Study guides**: upload a PDF and get taught it — a second graph (outline → lessons in parallel → assemble) with ELI5 + precise explanations, Mermaid diagrams, syntax-checked worked examples, and every lesson citing its pages → [lesson](learn/11-study-guides.md)
+
 ## Still open
 
 - **Docker images are unbuilt**: no Docker daemon on the machine they were written on. `docker compose up --build` is the first thing to try.
@@ -41,3 +46,6 @@ Known gaps to fix in later phases, found by the evals:
 - **LaTeX leaks into Markdown output** occasionally (`$r = 0.88$`).
 - **Source quality is unweighted**: a YouTube page and a peer-reviewed paper carry equal weight.
 - **One box only**: SSE channels are in-process. Two workers means Redis pub/sub for progress and a real job queue.
+- **Study guides have no eval set yet.** The research pipeline has 27 topics and a judge; guides have manual inspection. "Is this actually teachable?" deserves the same treatment.
+- **Scanned PDFs are refused** rather than run through OCR.
+- **Deleting a document** removes the row but not its chunks from the vector store.

@@ -101,6 +101,34 @@ def normalise_url(url: str) -> str:
     return url
 
 
+documents = Table(
+    "documents",
+    metadata,
+    Column("id", String(32), primary_key=True),
+    Column("user_id", Integer, nullable=False, index=True),
+    Column("title", Text, nullable=False),
+    Column("filename", Text, nullable=False),
+    Column("pages", Integer, default=0),
+    Column("chunks", Integer, default=0),
+    Column("created_at", DateTime, nullable=False),
+)
+
+guides = Table(
+    "guides",
+    metadata,
+    Column("id", String(32), primary_key=True),
+    Column("user_id", Integer, nullable=False, index=True),
+    Column("document_id", String(32), nullable=False, index=True),
+    Column("title", Text, nullable=False),
+    Column("status", String(16), nullable=False),  # running | done | failed
+    Column("guide", JSON),
+    Column("error", Text),
+    Column("tokens", Integer, default=0),
+    Column("created_at", DateTime, nullable=False),
+    Column("finished_at", DateTime),
+)
+
+
 def engine(url: str | None = None):
     url = normalise_url(url or DATABASE_URL)
     if url.startswith("sqlite:///"):
@@ -240,6 +268,107 @@ def tokens_used_today_globally(db) -> int:
     return int(total)
 
 
+# --- documents and guides ----------------------------------------------------
+
+
+def add_document(db, document_id: str, user_id: int, title: str, filename: str, pages: int, chunks: int) -> None:
+    with db.begin() as connection:
+        connection.execute(
+            documents.insert().values(
+                id=document_id,
+                user_id=user_id,
+                title=title,
+                filename=filename,
+                pages=pages,
+                chunks=chunks,
+                created_at=datetime.now(UTC),
+            )
+        )
+
+
+def list_documents(db, user_id: int) -> list[dict]:
+    with db.connect() as connection:
+        rows = (
+            connection.execute(
+                select(documents).where(documents.c.user_id == user_id).order_by(documents.c.created_at.desc())
+            )
+            .mappings()
+            .all()
+        )
+    return [_clean(row) for row in rows]
+
+
+def get_document(db, document_id: str, user_id: int) -> dict | None:
+    with db.connect() as connection:
+        row = (
+            connection.execute(select(documents).where(documents.c.id == document_id, documents.c.user_id == user_id))
+            .mappings()
+            .first()
+        )
+    return _clean(row) if row else None
+
+
+def document_count_for(db, user_id: int) -> int:
+    with db.connect() as connection:
+        return int(
+            connection.execute(
+                select(func.count()).select_from(documents).where(documents.c.user_id == user_id)
+            ).scalar_one()
+        )
+
+
+def start_guide(db, guide_id: str, user_id: int, document_id: str, title: str) -> None:
+    with db.begin() as connection:
+        connection.execute(
+            guides.insert().values(
+                id=guide_id,
+                user_id=user_id,
+                document_id=document_id,
+                title=title,
+                status="running",
+                created_at=datetime.now(UTC),
+            )
+        )
+
+
+def finish_guide(db, guide_id: str, **values) -> None:
+    values["finished_at"] = datetime.now(UTC)
+    with db.begin() as connection:
+        connection.execute(guides.update().where(guides.c.id == guide_id).values(**values))
+
+
+def get_guide(db, guide_id: str, user_id: int) -> dict | None:
+    with db.connect() as connection:
+        row = (
+            connection.execute(select(guides).where(guides.c.id == guide_id, guides.c.user_id == user_id))
+            .mappings()
+            .first()
+        )
+    return _clean(row) if row else None
+
+
+def list_guides(db, user_id: int, limit: int = 20) -> list[dict]:
+    with db.connect() as connection:
+        rows = (
+            connection.execute(
+                select(
+                    guides.c.id,
+                    guides.c.document_id,
+                    guides.c.title,
+                    guides.c.status,
+                    guides.c.tokens,
+                    guides.c.created_at,
+                )
+                .where(guides.c.user_id == user_id)
+                .order_by(guides.c.created_at.desc())
+                .limit(limit)
+            )
+            .mappings()
+            .all()
+        )
+    return [_clean(row) for row in rows]
+
+
 def start_run(db, run_id: str, user_id: int, topic: str) -> None:
     with db.begin() as connection:
         connection.execute(
@@ -296,7 +425,7 @@ def _clean(row) -> dict:
     for key in ("grounded", "passed_review"):
         if key in record and record[key] is not None:
             record[key] = bool(record[key])
-    for key in ("sub_questions", "critique_scores"):
+    for key in ("sub_questions", "critique_scores", "guide"):
         if isinstance(record.get(key), str):
             record[key] = json.loads(record[key])
     for key in ("created_at", "finished_at"):

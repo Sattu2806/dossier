@@ -3,7 +3,7 @@
 import pytest
 from langchain_core.messages import AIMessage
 
-from dossier import nodes
+from dossier import learn, nodes
 
 
 class FakeModel:
@@ -37,11 +37,17 @@ class FakeModel:
 
 @pytest.fixture
 def fake_model(monkeypatch):
-    """Install a FakeModel where the nodes look chat_model() up."""
+    """Install a FakeModel everywhere chat_model() is looked up.
+
+    Each module imports the name into its own namespace, so patching one does
+    not patch the other — which is exactly how a new module quietly starts
+    making real API calls during tests.
+    """
 
     def install(reply):
         model = FakeModel(reply)
-        monkeypatch.setattr(nodes, "chat_model", lambda *args, **kwargs: model)
+        for module in (nodes, learn):
+            monkeypatch.setattr(module, "chat_model", lambda *args, **kwargs: model)
         return model
 
     return install

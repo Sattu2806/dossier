@@ -87,38 +87,79 @@ def split_text(text: str, *, chunk_chars: int = CHUNK_CHARS, overlap: int = CHUN
     return overlapped
 
 
-def read_document(path: Path) -> str:
+def read_pages(path: Path) -> list[str]:
+    """Text per page, because a study guide has to be able to say where a
+    claim came from, and "page 148" is the only reference a reader can act on."""
     if path.suffix.lower() == ".pdf":
         from pypdf import PdfReader
 
-        return "\n\n".join(page.extract_text() or "" for page in PdfReader(str(path)).pages)
-    return path.read_text(errors="replace")
+        return [page.extract_text() or "" for page in PdfReader(str(path)).pages]
+    return path.read_text(errors="replace").split("\f")  # form feed, if any
 
 
-def ingest(paths: list[Path], *, store: Chroma | None = None) -> dict:
-    """Read, split and embed documents. Returns what was added."""
+def read_document(path: Path) -> str:
+    return "\n\n".join(read_pages(path))
+
+
+def chunk_pages(pages: list[str]) -> list[tuple[str, int]]:
+    """Chunks paired with the page they started on."""
+    chunked: list[tuple[str, int]] = []
+    for number, text in enumerate(pages, start=1):
+        if not text.strip():
+            continue
+        chunked += [(chunk, number) for chunk in split_text(text)]
+    return chunked
+
+
+def ingest(
+    paths: list[Path],
+    *,
+    store: Chroma | None = None,
+    document_id: str | None = None,
+    user_id: int | None = None,
+    title: str | None = None,
+) -> dict:
+    """Read, split and embed documents. Returns what was added.
+
+    `document_id` and `user_id` end up on every chunk so retrieval can be
+    scoped to one book and one person. Without them a study guide for your
+    book would happily quote somebody else's.
+    """
     store = store or vector_store()
     documents: list[Document] = []
     ingested = []
 
     for path in paths:
-        text = read_document(path)
-        if not text.strip():
+        pages = read_pages(path)
+        chunks = chunk_pages(pages)
+        if not chunks:
             logger.warning("no extractable text in %s", path)
             continue
-        chunks = split_text(text)
+
         documents += [
             Document(
                 page_content=chunk,
-                metadata={"title": path.stem, "source": str(path), "chunk": index},
+                metadata={
+                    "title": title or path.stem,
+                    "source": str(path),
+                    "chunk": index,
+                    "page": page,
+                    # Chroma rejects None in metadata, so absent means "shared".
+                    **({"document_id": document_id} if document_id else {}),
+                    **({"user_id": user_id} if user_id is not None else {}),
+                },
             )
-            for index, chunk in enumerate(chunks)
+            for index, (chunk, page) in enumerate(chunks)
         ]
-        ingested.append({"path": str(path), "chunks": len(chunks)})
+        ingested.append({"path": str(path), "chunks": len(chunks), "pages": len(pages)})
 
     if documents:
         store.add_documents(documents)
-    return {"files": ingested, "chunks": sum(entry["chunks"] for entry in ingested)}
+    return {
+        "files": ingested,
+        "chunks": sum(entry["chunks"] for entry in ingested),
+        "pages": sum(entry["pages"] for entry in ingested),
+    }
 
 
 def document_count(store: Chroma | None = None) -> int:
@@ -132,6 +173,54 @@ def document_count(store: Chroma | None = None) -> int:
     except Exception as exc:  # a missing or unreadable store is "no documents"
         logger.warning("document store unavailable: %s: %s", type(exc).__name__, exc)
         return 0
+
+
+def scoped_search(
+    query: str,
+    *,
+    document_id: str,
+    k: int = 6,
+    store: Chroma | None = None,
+    min_relevance: float | None = None,
+) -> list[dict]:
+    """Search inside ONE document. Used by the study-guide pipeline, where
+    every lesson must come from the book in front of you."""
+    threshold = MIN_RELEVANCE if min_relevance is None else min_relevance
+    hits = (store or vector_store()).similarity_search_with_relevance_scores(
+        query, k=k, filter={"document_id": document_id}
+    )
+    return [
+        {
+            "title": hit.metadata.get("title", "document"),
+            "page": hit.metadata.get("page"),
+            "chunk": hit.metadata.get("chunk"),
+            "content": hit.page_content,
+            "score": round(score, 3),
+        }
+        for hit, score in hits
+        if score >= threshold
+    ]
+
+
+def document_overview(document_id: str, *, limit: int = 40, store: Chroma | None = None) -> list[dict]:
+    """The start of the book, in order.
+
+    An outline needs the shape of the whole thing, and similarity search
+    cannot give you that — "what is this book about" matches nothing in
+    particular. So this reads the opening chunks directly, where a preface
+    and a table of contents live.
+    """
+    try:
+        found = (store or vector_store()).get(where={"document_id": document_id}, limit=limit * 3)
+    except Exception as exc:
+        logger.warning("could not read document %s: %s", document_id, exc)
+        return []
+
+    pieces = [
+        {"chunk": metadata.get("chunk", 0), "page": metadata.get("page"), "content": text}
+        for text, metadata in zip(found.get("documents", []), found.get("metadatas", []), strict=False)
+    ]
+    return sorted(pieces, key=lambda piece: piece["chunk"])[:limit]
 
 
 def doc_search(

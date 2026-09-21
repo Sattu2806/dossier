@@ -14,17 +14,20 @@ import asyncio
 import logging
 import os
 import secrets
+import tempfile
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from importlib.metadata import version
+from pathlib import Path
 
-from fastapi import Depends, FastAPI, Header, HTTPException, Request
+from fastapi import Depends, FastAPI, File, Header, HTTPException, Request, UploadFile
 from pydantic import BaseModel, Field
 from sse_starlette.sse import EventSourceResponse
 
-from dossier import auth, db
+from dossier import auth, db, docstore
 from dossier.graph import build_graph
 from dossier.guardrails import BudgetExceeded, InvalidTopic, TokenBudget
+from dossier.learn import build_learn_graph
 
 logger = logging.getLogger(__name__)
 
@@ -80,6 +83,12 @@ def _channel(run_id: str) -> RunChannel:
     return _channels[run_id]
 
 
+# Uploads are bounded in three directions, because each one costs differently:
+# bytes (bandwidth and memory), pages (embedding calls), documents (storage).
+MAX_UPLOAD_BYTES = int(os.getenv("DOSSIER_MAX_UPLOAD_MB", "12")) * 1024 * 1024
+MAX_PAGES = int(os.getenv("DOSSIER_MAX_PAGES", "400"))
+MAX_DOCUMENTS_PER_USER = int(os.getenv("DOSSIER_MAX_DOCUMENTS", "20"))
+
 # Human-readable labels: the UI should not have to know node names.
 NODE_LABELS = {
     "validate": "Checking the topic",
@@ -89,11 +98,19 @@ NODE_LABELS = {
     "fact_checker": "Fact-checking against sources",
     "critic": "Reviewing quality",
     "finalize": "Adding citations",
+    # the study-guide graph
+    "outline": "Reading the book and planning lessons",
+    "lesson": "Writing a lesson",
+    "assemble": "Putting the guide together",
 }
 
 
 class ResearchRequest(BaseModel):
     topic: str = Field(min_length=1, max_length=500)
+
+
+class GuideRequest(BaseModel):
+    document_id: str = Field(min_length=1, max_length=64)
 
 
 @asynccontextmanager
@@ -115,12 +132,13 @@ async def lifespan(app: FastAPI):
     yield
 
 
-def create_app(database=None, graph=None) -> FastAPI:
+def create_app(database=None, graph=None, learn_graph=None) -> FastAPI:
     """Both dependencies are injectable, so tests run against a temporary
     database and a graph of fakes — no keys, no network, no cost."""
     app = FastAPI(title="dossier", version="0.1.0", lifespan=lifespan)
     app.state.db = database or db.engine()
     app.state.graph = graph or build_graph()
+    app.state.learn_graph = learn_graph or build_learn_graph()
 
     def current_user(authorization: str = Header(default="")) -> dict:
         """Accept either credential and return the same user row.
@@ -217,35 +235,103 @@ def create_app(database=None, graph=None) -> FastAPI:
         if not record:
             raise HTTPException(404, "No such run")
 
-        async def events() -> AsyncIterator[dict]:
-            channel = _channels.get(run_id)
-            if channel is None:
-                # Older than the in-memory history: replay the stored result.
-                yield {"event": "done", "data": _json(record)}
-                return
+        return EventSourceResponse(_events(run_id, record, request))
 
-            queue = channel.subscribe()
+    # --- documents ------------------------------------------------------
+
+    @app.post("/api/documents", status_code=201)
+    async def upload(file: UploadFile = File(...), user: dict = Depends(current_user)) -> dict:
+        """Take a PDF (or text) and make it searchable.
+
+        Read into memory deliberately: the size cap is small, and streaming to
+        disk to then read it back buys nothing at this scale.
+        """
+        if db.document_count_for(app.state.db, user["id"]) >= MAX_DOCUMENTS_PER_USER:
+            raise HTTPException(429, f"You can keep {MAX_DOCUMENTS_PER_USER} documents. Delete one first.")
+
+        name = Path(file.filename or "document").name
+        if Path(name).suffix.lower() not in {".pdf", ".txt", ".md"}:
+            raise HTTPException(415, "Upload a PDF, a text file or Markdown.")
+
+        contents = await file.read()
+        if not contents:
+            raise HTTPException(400, "That file is empty.")
+        if len(contents) > MAX_UPLOAD_BYTES:
+            raise HTTPException(
+                413, f"That file is {len(contents) / 1e6:.1f} MB; the limit is {MAX_UPLOAD_BYTES // 1024 // 1024} MB."
+            )
+
+        document_id = secrets.token_hex(8)
+        # A real temporary file, because pypdf wants a path and the file is
+        # gone as soon as the chunks are embedded.
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / name
+            path.write_bytes(contents)
+
             try:
-                # Everything that already happened, in order, before anything new.
-                for message in list(channel.events):
-                    yield message
-                    if message["event"] in {"done", "error"}:
-                        return
-                while True:
-                    if await request.is_disconnected():
-                        return
-                    try:
-                        message = await asyncio.wait_for(queue.get(), timeout=30)
-                    except TimeoutError:
-                        yield {"event": "ping", "data": "{}"}  # stop proxies closing the connection
-                        continue
-                    yield message
-                    if message["event"] in {"done", "error"}:
-                        return
-            finally:
-                channel.unsubscribe(queue)
+                pages = docstore.read_pages(path)
+            except Exception as exc:
+                logger.warning("could not read %s: %s", name, exc)
+                raise HTTPException(
+                    422, "That file could not be read. Is it a scanned image rather than text?"
+                ) from None
 
-        return EventSourceResponse(events())
+            if len(pages) > MAX_PAGES:
+                raise HTTPException(413, f"That document has {len(pages)} pages; the limit is {MAX_PAGES}.")
+            if not any(page.strip() for page in pages):
+                raise HTTPException(
+                    422,
+                    "No text could be extracted. A scanned PDF needs to be run through OCR first.",
+                )
+
+            title = Path(name).stem.replace("_", " ").replace("-", " ").strip() or name
+            result = await asyncio.to_thread(
+                docstore.ingest, [path], document_id=document_id, user_id=user["id"], title=title
+            )
+
+        db.add_document(app.state.db, document_id, user["id"], title, name, result.get("pages", 0), result["chunks"])
+        logger.info("ingested %s (%s pages, %s chunks)", name, result.get("pages"), result["chunks"])
+        return db.get_document(app.state.db, document_id, user["id"])
+
+    @app.get("/api/documents")
+    def documents(user: dict = Depends(current_user)) -> dict:
+        return {"documents": db.list_documents(app.state.db, user["id"])}
+
+    # --- study guides ---------------------------------------------------
+
+    @app.post("/api/guides", status_code=202)
+    async def start_guide(request: GuideRequest, user: dict = Depends(current_user)) -> dict:
+        document = db.get_document(app.state.db, request.document_id, user["id"])
+        if not document:
+            raise HTTPException(404, "No such document")
+
+        used = db.tokens_used_today(app.state.db, user["id"])
+        if used >= user["daily_token_limit"]:
+            raise HTTPException(429, f"Daily token budget spent ({used:,}/{user['daily_token_limit']:,}).")
+
+        guide_id = secrets.token_hex(8)
+        db.start_guide(app.state.db, guide_id, user["id"], document["id"], document["title"])
+        _channel(guide_id)
+        asyncio.create_task(_build_guide(app, guide_id, document, user))
+        return {"guide_id": guide_id, "stream_url": f"/api/guides/{guide_id}/stream"}
+
+    @app.get("/api/guides")
+    def guide_list(user: dict = Depends(current_user)) -> dict:
+        return {"guides": db.list_guides(app.state.db, user["id"])}
+
+    @app.get("/api/guides/{guide_id}")
+    def one_guide(guide_id: str, user: dict = Depends(current_user)) -> dict:
+        record = db.get_guide(app.state.db, guide_id, user["id"])
+        if not record:
+            raise HTTPException(404, "No such guide")
+        return record
+
+    @app.get("/api/guides/{guide_id}/stream")
+    async def guide_stream(guide_id: str, request: Request, user: dict = Depends(current_user)):
+        record = db.get_guide(app.state.db, guide_id, user["id"])
+        if not record:
+            raise HTTPException(404, "No such guide")
+        return EventSourceResponse(_events(guide_id, record, request))
 
     @app.get("/api/runs")
     def history(user: dict = Depends(current_user), limit: int = 20) -> dict:
@@ -259,6 +345,36 @@ def create_app(database=None, graph=None) -> FastAPI:
         return record
 
     return app
+
+
+async def _events(stream_id: str, record: dict, request: Request) -> AsyncIterator[dict]:
+    """Replay what has happened, then follow along. Shared by runs and guides:
+    the streaming problem is identical, and two copies would drift."""
+    channel = _channels.get(stream_id)
+    if channel is None:
+        # Older than the in-memory history: replay the stored result.
+        yield {"event": "done", "data": _json(record)}
+        return
+
+    queue = channel.subscribe()
+    try:
+        for message in list(channel.events):
+            yield message
+            if message["event"] in {"done", "error"}:
+                return
+        while True:
+            if await request.is_disconnected():
+                return
+            try:
+                message = await asyncio.wait_for(queue.get(), timeout=30)
+            except TimeoutError:
+                yield {"event": "ping", "data": "{}"}  # stop proxies closing the connection
+                continue
+            yield message
+            if message["event"] in {"done", "error"}:
+                return
+    finally:
+        channel.unsubscribe(queue)
 
 
 def _json(payload) -> str:
@@ -336,6 +452,49 @@ async def _execute(app: FastAPI, run_id: str, topic: str, user: dict) -> None:
         critique_scores=state.get("critique_scores", {}),
     )
     await _publish(run_id, "done", db.get_run(app.state.db, run_id, user["id"]))
+
+
+async def _build_guide(app: FastAPI, guide_id: str, document: dict, user: dict) -> None:
+    """Run the study-guide graph off the event loop, streaming its progress.
+
+    Same shape as _execute: the graph is synchronous, so it goes to a worker
+    thread and progress crosses back through the loop.
+    """
+    loop = asyncio.get_running_loop()
+    budget = TokenBudget(max_tokens=user["daily_token_limit"] - db.tokens_used_today(app.state.db, user["id"]))
+
+    def emit(event: str, data) -> None:
+        asyncio.run_coroutine_threadsafe(_publish(guide_id, event, data), loop)
+
+    def run_graph() -> dict:
+        final: dict = {}
+        config = {
+            "callbacks": [budget],
+            "run_name": f"guide: {document['title'][:60]}",
+            "tags": ["dossier", "guide"],
+            "metadata": {"guide_id": guide_id, "user_id": user["id"], "document_id": document["id"]},
+        }
+        stream = app.state.learn_graph.stream(
+            {"document_id": document["id"], "title": document["title"]}, stream_mode="debug", config=config
+        )
+        for event in stream:
+            if event["type"] == "task":
+                name = event["payload"]["name"]
+                emit("progress", {"step": event["step"], "node": name, "label": NODE_LABELS.get(name, name)})
+            elif event["type"] == "task_result":
+                final.update(event["payload"]["result"])
+        return final
+
+    try:
+        state = await asyncio.to_thread(run_graph)
+    except Exception as exc:
+        logger.exception("guide %s failed", guide_id)
+        db.finish_guide(app.state.db, guide_id, status="failed", error=str(exc), tokens=budget.total_tokens)
+        await _publish(guide_id, "error", {"error": f"{type(exc).__name__}: {exc}", "kind": "failed"})
+        return
+
+    db.finish_guide(app.state.db, guide_id, status="done", guide=state.get("guide", {}), tokens=budget.total_tokens)
+    await _publish(guide_id, "done", db.get_guide(app.state.db, guide_id, user["id"]))
 
 
 app = None  # built by serve(), so importing this module never touches a database
