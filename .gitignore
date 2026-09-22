@@ -22,3 +22,8 @@ data/
 .pytest_cache/
 .ruff_cache/
 .DS_Store
+
+# intro video: rendered frames, the database copy, the output
+video/.work/
+video/out/
+video/node_modules/

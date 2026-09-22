@@ -1,0 +1,354 @@
+<!doctype html>
+<!--
+  The non-app parts of the intro video. One scene per hash (#hook, #title,
+  #graph, #proof, #outro). Every animation is plain CSS with fill-mode both, so
+  cards.mjs can pause them all and seek to any time — frames are rendered on a
+  virtual clock, never captured in real time.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Dossier — video cards</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=block"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #07080a;
+        --panel: #101319;
+        --panel-2: #161a22;
+        --line: #242a35;
+        --text: #edf1f7;
+        --dim: #b6bfcd;
+        --muted: #7d8899;
+        --accent: #5eead4;
+        --accent-deep: #14b8a6;
+        --violet: #a78bfa;
+        --bad: #fb7185;
+        --serif: "Instrument Serif", Georgia, serif;
+        --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+        --mono: "Geist Mono", ui-monospace, monospace;
+        --out: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        background: var(--ink);
+        color: var(--text);
+        font-family: var(--sans);
+        -webkit-font-smoothing: antialiased;
+      }
+      .scene { position: absolute; inset: 0; display: none; overflow: hidden; }
+      .scene.on { display: block; }
+
+      /* atmosphere, shared by every scene */
+      .glow { position: absolute; border-radius: 50%; filter: blur(110px); pointer-events: none; }
+      .glow.a { width: 760px; height: 760px; left: -180px; top: -320px; background: rgba(94, 234, 212, 0.11); }
+      .glow.b { width: 640px; height: 640px; right: -200px; bottom: -330px; background: rgba(167, 139, 250, 0.09); }
+      .grain {
+        position: absolute; inset: 0; pointer-events: none; opacity: 0.07; mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      }
+      .vignette { position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%); }
+
+      .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); }
+      .display { font-family: var(--serif); font-weight: 400; letter-spacing: -0.02em; line-height: 1; }
+      .accent { color: var(--accent); }
+      .chip {
+        display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px;
+        border: 1px solid var(--line); background: rgba(16, 19, 25, 0.7);
+        font-family: var(--mono); font-size: 12.5px; color: var(--dim); letter-spacing: 0.02em;
+      }
+      .chip i { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: block; }
+
+      /* the animation vocabulary */
+      .rise { animation: rise 1s var(--out) both; }
+      .fade { animation: fade 0.8s ease both; }
+      .pop { animation: pop 0.55s var(--out) both; }
+      .draw { animation: draw 0.5s ease-in-out both; }
+      @keyframes rise { from { opacity: 0; transform: translateY(22px); filter: blur(10px); } to { opacity: 1; transform: none; filter: blur(0); } }
+      @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes pop { from { opacity: 0; transform: scale(0.9) translateY(6px); } to { opacity: 1; transform: none; } }
+      @keyframes draw { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
+      @keyframes breathe { 0%, 100% { opacity: 0.75; transform: scale(1); } 50% { opacity: 1; transform: scale(1.06); } }
+
+      /* --- hook ------------------------------------------------------------ */
+      #hook .lines { position: absolute; left: 0; right: 0; top: 190px; text-align: center; }
+      #hook .l1, #hook .l2 { font-size: 58px; }
+      #hook .l2 { margin-top: 10px; color: var(--dim); }
+      #hook .fakecite {
+        position: absolute; left: 50%; top: 400px; margin-left: -330px; width: 660px;
+        display: flex; align-items: center; gap: 16px; padding: 18px 22px; border-radius: 14px;
+        border: 1px solid var(--line); background: rgba(16, 19, 25, 0.85);
+      }
+      #hook .fakecite .n { font-family: var(--mono); font-size: 13px; color: var(--accent); border: 1px solid var(--line);
+        border-radius: 7px; padding: 3px 8px; background: var(--ink); }
+      #hook .fakecite .ref { font-size: 16px; color: var(--dim); line-height: 1.4; }
+      #hook .fakecite .ref em { font-family: var(--serif); font-size: 19px; color: var(--text); }
+      #hook .strike { position: absolute; left: 14px; right: 14px; top: 50%; height: 2px; background: var(--bad);
+        transform-origin: left; animation: strike 0.45s var(--out) both; animation-delay: 2.7s; box-shadow: 0 0 14px rgba(251,113,133,.6); }
+      @keyframes strike { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+      #hook .stamp { position: absolute; right: -18px; top: -16px; font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.2em;
+        text-transform: uppercase; color: var(--bad); border: 1px solid rgba(251, 113, 133, 0.5); background: rgba(40, 10, 16, 0.95);
+        padding: 6px 10px; border-radius: 8px; transform: rotate(4deg); }
+      #hook .dim-card { animation: dimcard 0.6s ease both; animation-delay: 2.8s; }
+      @keyframes dimcard { from { opacity: 1; } to { opacity: 0.55; } }
+
+      /* --- title ----------------------------------------------------------- */
+      #title .stack { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+      #title .mark {
+        width: 64px; height: 64px; border-radius: 16px; border: 1px solid var(--line); background: var(--panel-2);
+        display: grid; place-items: center; font-family: var(--serif); font-size: 38px; color: var(--accent);
+        box-shadow: 0 0 60px rgba(94, 234, 212, 0.18); margin-bottom: 26px;
+      }
+      #title h1 { font-size: 168px; margin: 18px 0 0; }
+      #title .tag { font-family: var(--serif); font-size: 44px; color: var(--dim); margin-top: 14px; }
+      #title .tag em { color: var(--accent); }
+      #title .chips { display: flex; gap: 12px; margin-top: 40px; }
+
+      /* --- graph ----------------------------------------------------------- */
+      #graph .head { position: absolute; left: 80px; top: 64px; width: 900px; }
+      #graph h2 { font-size: 54px; margin: 14px 0 0; }
+      #graph .sub { margin-top: 14px; font-size: 18px; color: var(--dim); line-height: 1.5; max-width: 760px; }
+      #graph .diagram { position: absolute; left: 0; top: 0; width: 1280px; height: 720px;
+        transform: translate(8px, 6px) scale(0.9); transform-origin: 646px 470px; }
+      #graph svg.edges { position: absolute; inset: 0; overflow: visible; }
+      #graph .edge { fill: none; stroke: #2f3746; stroke-width: 1.6; stroke-dasharray: var(--len); }
+      #graph .edge.loop { stroke: var(--violet); stroke-width: 1.6; opacity: 0.9; }
+      #graph .node {
+        position: absolute; transform-origin: center; width: 136px; height: 60px; margin: -30px 0 0 -68px;
+        border-radius: 12px; border: 1px solid var(--line); background: rgba(16, 19, 25, 0.96);
+        display: flex; flex-direction: column; justify-content: center; padding: 0 14px;
+        box-shadow: 0 12px 30px -14px rgba(0, 0, 0, 0.9);
+      }
+      #graph .node b { font-weight: 500; font-size: 15px; }
+      #graph .node b, #graph .node span { white-space: nowrap; }
+      #graph .node span { margin-top: 3px; font-family: var(--mono); font-size: 10.5px; color: var(--muted); letter-spacing: 0.02em; }
+      #graph .node.r { width: 150px; height: 52px; margin: -26px 0 0 -75px; }
+      #graph .node.q { border-color: rgba(94, 234, 212, 0.35); }
+      #graph .node.out { border-color: rgba(94, 234, 212, 0.55); background: rgba(20, 60, 55, 0.55); box-shadow: 0 0 40px rgba(94, 234, 212, 0.22); }
+      #graph .node.out b { color: var(--accent); }
+      #graph .badge { position: absolute; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+        color: var(--accent); padding: 5px 10px; border-radius: 999px; border: 1px solid rgba(94, 234, 212, 0.35); background: rgba(7, 8, 10, 0.9); }
+      #graph .looplabel { position: absolute; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+        color: var(--violet); white-space: nowrap; transform: translateX(-50%); }
+      #graph .flash { border-color: var(--violet) !important; box-shadow: 0 0 36px rgba(167,139,250,.55) !important;
+        animation: flash 0.9s ease both; }
+      @keyframes flash { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 0; } }
+      #graph .packet { position: absolute; left: 0; top: 0; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%;
+        background: var(--accent); box-shadow: 0 0 12px var(--accent), 0 0 26px rgba(94,234,212,.6);
+        offset-rotate: 0deg; animation: travel 1.6s linear infinite both; }
+      #graph .packet.v { background: var(--violet); box-shadow: 0 0 12px var(--violet), 0 0 26px rgba(167,139,250,.6); }
+      @keyframes travel { from { offset-distance: 0%; opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } to { offset-distance: 100%; opacity: 0; } }
+
+      /* --- proof ----------------------------------------------------------- */
+      #proof .head { position: absolute; left: 80px; top: 72px; }
+      #proof h2 { font-size: 54px; margin: 14px 0 0; }
+      #proof .tiles { position: absolute; left: 80px; right: 80px; top: 270px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+      #proof .tile { border: 1px solid var(--line); border-radius: 16px; background: rgba(16, 19, 25, 0.85); padding: 26px 24px 24px; height: 250px;
+        display: flex; flex-direction: column; box-shadow: 0 20px 50px -24px rgba(0, 0, 0, 0.9); }
+      #proof .num { font-family: var(--serif); font-size: 92px; line-height: 0.9; letter-spacing: -0.03em; }
+      #proof .num small { font-size: 34px; color: var(--muted); letter-spacing: 0; }
+      #proof .what { margin-top: 18px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+      #proof .why { margin-top: 10px; font-size: 15.5px; line-height: 1.45; color: var(--dim); }
+      #proof .foot { position: absolute; left: 80px; bottom: 64px; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+      #proof .foot code { color: var(--dim); background: var(--panel-2); border: 1px solid var(--line); padding: 3px 8px; border-radius: 6px; }
+
+      /* --- outro ----------------------------------------------------------- */
+      #outro .stack { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+      #outro h1 { font-size: 118px; margin: 0; }
+      #outro .tag { font-family: var(--serif); font-size: 34px; color: var(--dim); margin-top: 12px; }
+      #outro .tag em { color: var(--accent); }
+      #outro .stackrow { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 40px; max-width: 980px; }
+      #outro .gh { margin-top: 38px; display: inline-flex; align-items: center; gap: 12px; padding: 13px 22px; border-radius: 14px;
+        border: 1px solid rgba(94, 234, 212, 0.4); background: rgba(20, 60, 55, 0.35); font-family: var(--mono); font-size: 18px; color: var(--text); }
+      #outro .by { margin-top: 18px; font-size: 15px; color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <!-- HOOK: the problem, in one image -->
+    <section class="scene" id="hook">
+      <div class="glow a fade" style="animation-duration: 2s"></div>
+      <div class="lines">
+        <div class="display l1 rise" style="animation-delay: 0.25s">Ask an AI to research something,</div>
+        <div class="display l2 rise" style="animation-delay: 1.05s">and it will happily cite a source…</div>
+      </div>
+      <div class="fakecite pop" style="animation-delay: 1.75s">
+        <div class="dim-card" style="display: flex; align-items: center; gap: 16px">
+          <span class="n">4</span>
+          <span class="ref">Nakamura, K. et al. <em>Solid electrolytes at scale.</em> J. Battery Sci. 14 (2021), 118–131</span>
+        </div>
+        <div class="strike"></div>
+        <div class="stamp pop" style="animation-delay: 3s">does not exist</div>
+      </div>
+      <div class="grain"></div>
+      <div class="vignette"></div>
+    </section>
+
+    <!-- TITLE -->
+    <section class="scene" id="title">
+      <div class="glow a fade" style="animation-duration: 1.6s"></div>
+      <div class="glow b fade" style="animation-duration: 2s; animation-delay: 0.4s"></div>
+      <div class="stack">
+        <div class="mark pop" style="animation-delay: 0.2s">D</div>
+        <div class="eyebrow fade" style="animation-delay: 0.45s">A multi-agent research system</div>
+        <h1 class="display rise" style="animation-delay: 0.6s">Dossier</h1>
+        <div class="tag rise" style="animation-delay: 1.35s">Research you can <em>check</em>.</div>
+        <div class="chips">
+          <span class="chip pop" style="animation-delay: 2.1s"><i></i>Every claim cited</span>
+          <span class="chip pop" style="animation-delay: 2.25s"><i></i>Every draft fact-checked</span>
+          <span class="chip pop" style="animation-delay: 2.4s"><i></i>Built on LangGraph</span>
+        </div>
+      </div>
+      <div class="grain"></div>
+      <div class="vignette"></div>
+    </section>
+
+    <!-- GRAPH: how a report is made -->
+    <section class="scene" id="graph">
+      <div class="glow a fade" style="opacity: 0.8"></div>
+      <div class="head">
+        <div class="eyebrow fade" style="animation-delay: 0.1s">How it works</div>
+        <h2 class="display rise" style="animation-delay: 0.2s">One graph. Every claim <span class="accent">checked</span>.</h2>
+        <div class="sub rise" style="animation-delay: 0.5s">
+          Researchers run in parallel. The draft goes back to the writer until a fact-checker and a critic both pass it.
+        </div>
+      </div>
+
+      <div class="diagram">
+      <svg class="edges" viewBox="0 0 1280 720" width="1280" height="720">
+        <!-- main line -->
+        <path class="edge draw" style="--len: 45; animation-delay: 1.55s" d="M178 470 L212 470" />
+        <!-- fan out -->
+        <path class="edge draw" style="--len: 180; animation-delay: 2.2s" d="M348 470 C370 470 370 335 395 335" />
+        <path class="edge draw" style="--len: 90; animation-delay: 2.2s" d="M348 470 C370 470 370 425 395 425" />
+        <path class="edge draw" style="--len: 90; animation-delay: 2.2s" d="M348 470 C370 470 370 515 395 515" />
+        <path class="edge draw" style="--len: 180; animation-delay: 2.2s" d="M348 470 C370 470 370 605 395 605" />
+        <!-- fan in -->
+        <path class="edge draw" style="--len: 180; animation-delay: 3.25s" d="M545 335 C568 335 568 470 587 470" />
+        <path class="edge draw" style="--len: 90; animation-delay: 3.25s" d="M545 425 C568 425 568 470 587 470" />
+        <path class="edge draw" style="--len: 90; animation-delay: 3.25s" d="M545 515 C568 515 568 470 587 470" />
+        <path class="edge draw" style="--len: 180; animation-delay: 3.25s" d="M545 605 C568 605 568 470 587 470" />
+        <path class="edge draw" style="--len: 50; animation-delay: 3.95s" d="M723 470 L767 470" />
+        <path class="edge draw" style="--len: 50; animation-delay: 4.55s" d="M903 470 L947 470" />
+        <path class="edge draw" style="--len: 50; animation-delay: 7.05s" d="M1083 470 L1127 470" />
+        <!-- the loop back -->
+        <path class="edge loop draw" style="--len: 520; animation-duration: 0.9s; animation-delay: 5.2s" d="M1015 440 C1015 360 655 360 655 440" />
+      </svg>
+
+      <div class="node q pop" style="left: 110px; top: 470px; animation-delay: 1.3s"><b>Your question</b><span>validated first</span></div>
+      <div class="node pop" style="left: 280px; top: 470px; animation-delay: 1.85s"><b>Planner</b><span>sub-questions</span></div>
+      <div class="node r pop" style="left: 470px; top: 335px; animation-delay: 2.55s"><b>Researcher</b><span>web</span></div>
+      <div class="node r pop" style="left: 470px; top: 425px; animation-delay: 2.61s"><b>Researcher</b><span>web</span></div>
+      <div class="node r pop" style="left: 470px; top: 515px; animation-delay: 2.67s"><b>Researcher</b><span>your documents</span></div>
+      <div class="node r pop" style="left: 470px; top: 605px; animation-delay: 2.73s"><b>Researcher</b><span>web</span></div>
+      <div class="badge pop" style="left: 409px; top: 272px; animation-delay: 2.95s">in parallel</div>
+      <div class="node pop" style="left: 655px; top: 470px; animation-delay: 3.65s"><b>Writer</b><span>cites [n] only</span></div>
+      <div class="node pop" style="left: 835px; top: 470px; animation-delay: 4.25s"><b>Fact-checker</b><span>claim by claim</span></div>
+      <div class="node pop" style="left: 1015px; top: 470px; animation-delay: 4.85s"><b>Critic</b><span>scores 1–5</span></div>
+      <div class="looplabel fade" style="left: 835px; top: 356px; animation-delay: 5.75s">rejected? revise · up to 3 drafts</div>
+      <div class="node out pop" style="left: 1188px; top: 470px; width: 122px; margin-left: -61px; animation-delay: 7.35s"><b>Report</b><span>all cited</span></div>
+
+      <!-- the writer lights up when a rejected draft arrives back -->
+      <div class="node flash" style="left: 655px; top: 470px; animation-delay: 6.05s; background: transparent; pointer-events: none"></div>
+
+      <!-- packets: one round trip through the loop, then flow along the line -->
+      <div class="packet v" style="offset-path: path('M1015 440 C1015 360 655 360 655 440'); animation-delay: 5.35s; animation-iteration-count: 1; animation-duration: 0.9s"></div>
+      <div class="packet" style="offset-path: path('M178 470 L1127 470'); animation-delay: 7.7s; animation-duration: 2.2s"></div>
+      <div class="packet" style="offset-path: path('M348 470 C370 470 370 335 395 335'); animation-delay: 7.9s; animation-duration: 0.8s"></div>
+      <div class="packet" style="offset-path: path('M348 470 C370 470 370 605 395 605'); animation-delay: 7.95s; animation-duration: 0.8s"></div>
+
+      </div>
+
+      <div class="grain"></div>
+      <div class="vignette"></div>
+    </section>
+
+    <!-- PROOF -->
+    <section class="scene" id="proof">
+      <div class="glow a fade"></div>
+      <div class="glow b fade" style="animation-delay: 0.3s"></div>
+      <div class="head">
+        <div class="eyebrow fade" style="animation-delay: 0.1s">Measured, not claimed</div>
+        <h2 class="display rise" style="animation-delay: 0.2s">Scored by its own <span class="accent">eval harness</span>.</h2>
+      </div>
+      <div class="tiles">
+        <div class="tile pop" style="animation-delay: 0.7s">
+          <div class="num" data-count="27" data-from="0.9" data-dur="1.1">0</div>
+          <div class="what">topics evaluated</div>
+          <div class="why">Judged by a different model from the one that wrote the reports.</div>
+        </div>
+        <div class="tile pop" style="animation-delay: 0.85s">
+          <div class="num accent">0</div>
+          <div class="what">invented citations</div>
+          <div class="why">Across every report. Citation numbers are assigned by code, not the model.</div>
+        </div>
+        <div class="tile pop" style="animation-delay: 1s">
+          <div class="num"><span data-count="4.85" data-decimals="2" data-from="1.2" data-dur="1.2">0.00</span><small>/5</small></div>
+          <div class="what">groundedness</div>
+          <div class="why">How well each claim is supported by its evidence, per the judge.</div>
+        </div>
+        <div class="tile pop" style="animation-delay: 1.15s">
+          <div class="num" data-count="245" data-from="1.35" data-dur="1.2">0</div>
+          <div class="what">tests</div>
+          <div class="why">And not one of them needs an API key to run.</div>
+        </div>
+      </div>
+      <div class="foot fade" style="animation-delay: 2.2s">Reproduce it: <code>uv run dossier eval</code></div>
+      <div class="grain"></div>
+      <div class="vignette"></div>
+    </section>
+
+    <!-- OUTRO -->
+    <section class="scene" id="outro">
+      <div class="glow a fade" style="animation-duration: 1.4s"></div>
+      <div class="glow b fade" style="animation-duration: 1.8s"></div>
+      <div class="stack">
+        <h1 class="display rise" style="animation-delay: 0.15s">Dossier</h1>
+        <div class="tag rise" style="animation-delay: 0.5s">Research you can <em>check</em>. Books you can <em>learn</em>.</div>
+        <div class="stackrow">
+          <span class="chip pop" style="animation-delay: 1s">LangGraph</span>
+          <span class="chip pop" style="animation-delay: 1.07s">Gemini</span>
+          <span class="chip pop" style="animation-delay: 1.14s">Tavily</span>
+          <span class="chip pop" style="animation-delay: 1.21s">Chroma</span>
+          <span class="chip pop" style="animation-delay: 1.28s">FastAPI · SSE</span>
+          <span class="chip pop" style="animation-delay: 1.35s">Postgres</span>
+          <span class="chip pop" style="animation-delay: 1.42s">MCP server</span>
+          <span class="chip pop" style="animation-delay: 1.49s">Next.js</span>
+          <span class="chip pop" style="animation-delay: 1.56s">Clerk</span>
+        </div>
+        <div class="gh pop" style="animation-delay: 1.9s">
+          <svg width="20" height="20" viewBox="0 0 16 16" fill="#edf1f7"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          github.com/Sattu2806/dossier
+        </div>
+        <div class="by fade" style="animation-delay: 2.3s">Built by Satender Maurya</div>
+      </div>
+      <div class="grain"></div>
+      <div class="vignette"></div>
+    </section>
+
+    <script>
+      const scene = document.getElementById(location.hash.slice(1) || "title");
+      scene.classList.add("on");
+
+      // Count-ups are the one thing CSS cannot seek, so they read the same
+      // virtual clock the renderer drives.
+      const ease = (t) => 1 - Math.pow(1 - t, 3);
+      window.__tick = (seconds) => {
+        for (const el of scene.querySelectorAll("[data-count]")) {
+          const from = Number(el.dataset.from), dur = Number(el.dataset.dur), to = Number(el.dataset.count);
+          const t = Math.max(0, Math.min(1, (seconds - from) / dur));
+          el.textContent = (to * ease(t)).toFixed(Number(el.dataset.decimals || 0));
+        }
+      };
+      window.__tick(0);
+    </script>
+  </body>
+</html>

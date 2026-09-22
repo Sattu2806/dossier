@@ -1,0 +1,14 @@
+{
+  "name": "dossier-video",
+  "private": true,
+  "type": "module",
+  "description": "Records the intro video: real app footage plus title cards, assembled with ffmpeg.",
+  "scripts": {
+    "cards": "node cards.mjs",
+    "app": "node record.mjs",
+    "build": "uv run --no-project --with imageio-ffmpeg python compose.py"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}
